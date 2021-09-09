@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "تحميل البرنامج التعليمي سنابل"
-date:   2021-09-09
+date:   
 excerpt: ""
 tag:
 
