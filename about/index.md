@@ -7,7 +7,7 @@ comments: false
 ---
   <div dir="auto">  
 <a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.
-</div>
+
 
 <p dir="auto" class="u1"><bdi>S</bdi>: <span class="msg">How do you write "What's your name?" in Arabic.</span></p>
 
@@ -38,3 +38,5 @@ See a [live version of Moon](http://taylantatli.github.io/Moon) hosted on GitHub
 To learn how to install and use this theme check out the [Setup Guide](http://taylantatli.me/Moon/moon-theme/) for more information.
       
 [Install Moon](https://github.com/TaylanTatli/Moon){: .btn}
+
+	</div>
