@@ -26,7 +26,4 @@ comments: false
 {% endcapture %}
 {% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
 
-<center markdown="1">      
-[Install Sanabil](/download-sanabil/){: .btn}
-
-	</center>
+<center markdown="1">[Install Sanabil](/download-sanabil/){: .btn}</center>
