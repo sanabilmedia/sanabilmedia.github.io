@@ -23,22 +23,22 @@ comments: false
 <br><br>
 العنوان: هذه ميمي - المحتوى: هذا - هذه
 </h3>
-<table dir="rtl" style="width: 100%; text-align: center;">
+<table dir="rtl" style="width: 100%; text-align: center; font-size: large;">
 
   <tbody>
 <tr>
     <td><div style="background-color: #d5207a;">
-<span><h1>
+<span>
 	المستوى الأول
-		</h1></span></div>
+		</span></div>
 </td>
 
   </tr>
 <tr>
     <td><div style="background-color: #1794ce; ">
-<span><h1>
+<span>
 	المادة: اللغة العربية
-		</h1></span></div>
+		</span></div>
 </td>
 
   </tr>
@@ -54,6 +54,6 @@ comments: false
 </tr>
 </tbody></table>
 <br>
-<iframe width="640" height="360" src="https://www.youtube.com/embed/s1cfMnh0f00?rel=0&enablejsapi=1" allowfullscreen frameborder="0" ></iframe>
+<iframe width="100%" height="100%" src="https://www.youtube.com/embed/s1cfMnh0f00?rel=0&enablejsapi=1&modestbranding=1" allowfullscreen frameborder="0" ></iframe>
 
 </center>
