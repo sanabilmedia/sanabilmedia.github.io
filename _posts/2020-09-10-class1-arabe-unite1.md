@@ -27,25 +27,25 @@ comments: false
 
   <tbody>
 <tr>
-    <td><div style="background-color: #d5207a; border: 0px solid black; text-align: center;">
-<span style="color: black; font-family: inherit; font-size: x-large;">المستوى الأول</span></div>
+    <td><div style="background-color: #d5207a;">
+<span style=" font-size: x-large;">المستوى الأول</span></div>
 </td>
 
   </tr>
 <tr>
-    <td><div style="background-color: #1794ce; border: 0px solid black; text-align: center;">
-<span style="color: black; font-family: inherit; font-size: large;">المادة: اللغة العربية</span></div>
+    <td><div style="background-color: #1794ce; ">
+<span style=" font-size: large;">المادة: اللغة العربية</span></div>
 </td>
 
   </tr>
 <tr>
-    <td><div style="background-color: #97bb2a; border: 0px solid black; text-align: center;">
-<span style="color: black; font-family: inherit; font-size: large;">الوحدة الأولى</span></div>
+    <td><div style="background-color: #97bb2a; ">
+<span style=" font-size: large;">الوحدة الأولى</span></div>
 </td>
 </tr>
 <tr>
-    <td><div style="background-color: #f4c500; border: 0px solid black; text-align: center;">
-<span style="color: black; font-family: inherit; font-size: large;">العنوان: هذه ميمي - المحتوى: هذا - هذه</span></div>
+    <td><div style="background-color: #f4c500; ">
+<span style=" font-size: large;">العنوان: هذه ميمي - المحتوى: هذا - هذه</span></div>
 </td>
 </tr>
 </tbody></table>
