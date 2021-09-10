@@ -12,20 +12,25 @@ comments: false
 ---
 
 <p style="text-align: center;">
-<h1>Heading1<h1>
-
-<h2>Heading1<h2>
-
-<h3>Heading1
+<h1>
+Heading1
+</h1>
+<h2>
+Heading2
+</h2>
+<h3>
+Heading3
 <br>
-Heading1<h3>
+<br>
+Heading3
+</h3>
 </p>
 <div markdown="0"><a href="#" class="btn">Primary Button</a></div>
 <div markdown="0">
 <div class="hytPlayerWrapOuter" ><div class="hytPlayerWrap">
 <iframe width="560" height="315" src="//www.youtube.com/embed/SU3kYxJmWuQ?rel=0&enablejsapi=1" allowfullscreen frameborder="0"> </iframe>
 	</div></div> 
-<br>xx
+<br>xxx
 <div class="hytPlayerWrapOuter"><div class="hytPlayerWrap"> <iframe width="640" height="360" src="https://www.youtube.com/embed/s1cfMnh0f00?rel=0&enablejsapi=1" frameborder="0" ></iframe></div></div> 
-yy
+yyy
 </div>
