@@ -5,9 +5,9 @@ tags: [about, sanabil]
 date: 2020-03-15
 comments: false
 ---
-  <p dir="auto">  
+  <div dir="auto">  
 <a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.
-</p>
+</div>
 
 <p dir="auto" class="u1"><bdi>S</bdi>: <span class="msg">How do you write "What's your name?" in Arabic.</span></p>
 
