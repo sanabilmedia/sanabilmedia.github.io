@@ -11,7 +11,7 @@ tag:
 comments: false
 ---
 
-<p style="text-align: center;" markdown="1">
+<p style="text-align: center;" markdown="0">
 # Heading1
 
 ## Heading2
