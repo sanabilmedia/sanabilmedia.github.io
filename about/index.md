@@ -5,11 +5,6 @@ tags: [about, sanabil]
 date: 2020-03-15
 comments: false
 ---
-  <div dir="auto">  
-<a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.
-
-
-<p dir="auto" class="u1"><bdi>S</bdi>: <span class="msg">How do you write "What's your name?" in Arabic.</span></p>
 
 الهدف الرئيسي من هذا البرنامج هو تكوين مهارة المتعلم عن طريق تدريبه المستمر على وضعيات جديدة يمارس حلها وبالتالي يصل إلى إتقان التعلم.
 لذلك تم مراعاة الأمور التالية في هذا البرنامج التعليمي :
@@ -31,12 +26,7 @@ comments: false
 {% endcapture %}
 {% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
 
-See a [live version of Moon](http://taylantatli.github.io/Moon) hosted on GitHub.
-
-## Getting Started
-
-To learn how to install and use this theme check out the [Setup Guide](http://taylantatli.me/Moon/moon-theme/) for more information.
       
-[Install Moon](https://github.com/TaylanTatli/Moon){: .btn}
+[Install Sanabil](/download-sanabil/){: .btn}
 
-	</div>
+	
