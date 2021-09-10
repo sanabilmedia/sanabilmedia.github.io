@@ -3,12 +3,7 @@ layout: post
 title:  "تحميل البرنامج التعليمي سنابل"
 date:   2021-06-06
 excerpt: "التعليم الذاتي تجربة إبداعية"
-niveau1: true
-niveau2: true
-niveau3: true
-niveau4: true
-niveau5: true
-niveau6: true
+post-list: true
 tag:
 comments: true
 ---
