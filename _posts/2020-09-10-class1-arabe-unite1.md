@@ -12,22 +12,12 @@ comments: false
 ---
 
 <center>
-<h1>
-المستوى الأول
-</h1>
-<h2>
-مادة اللغة العربية
-</h2>
-<h3>
-الوحدة الأول
-<br><br>
-العنوان: هذه ميمي - المحتوى: هذا - هذه
-</h3>
+
 <table dir="rtl" style="width: 100%; text-align: center; font-size: large;">
 
   <tbody>
 <tr>
-    <td><div style="background-color: #d5207a;">
+    <td><div style="background-color: #ec79b3;">
 <span>
 	المستوى الأول
 		</span></div>
@@ -35,7 +25,7 @@ comments: false
 
   </tr>
 <tr>
-    <td><div style="background-color: #1794ce; ">
+    <td><div style="background-color: #75c9f0; ">
 <span>
 	المادة: اللغة العربية
 		</span></div>
@@ -43,13 +33,16 @@ comments: false
 
   </tr>
 <tr>
-    <td><div style="background-color: #97bb2a; ">
-<span>الوحدة الأولى</span></div>
+    <td><div style="background-color: #c2de6e; ">
+<span>
+	الوحدة الأولى
+		</span></div>
 </td>
 </tr>
 <tr>
-    <td><div style="background-color: #f4c500; ">
-العنوان: هذه ميمي - المحتوى: هذا - هذه</div>
+    <td><div style="background-color: #ffe066; ">
+العنوان: هذه ميمي - المحتوى: هذا - هذه
+		</div>
 </td>
 </tr>
 </tbody></table>
