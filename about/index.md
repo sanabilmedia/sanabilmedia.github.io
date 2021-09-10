@@ -26,6 +26,6 @@ comments: false
 {% endcapture %}
 {% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
 
-<center markdown="0"><a href="#" class="btn btn-success">المستوى 1</a></center>
+<center markdown="0"><a href="/download-sanabil/" class="btn btn-success">Download Sanabil/</a></center>
 
 yy
