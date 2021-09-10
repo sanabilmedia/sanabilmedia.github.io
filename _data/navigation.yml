@@ -1,14 +1,5 @@
 # Site navigation links
 
-
-- title: Home
-  url: /
-
 - title: Contact
   url: /contact
 
-- title: Projects
-  url: /projects
-
-- title: About
-  url: /about
