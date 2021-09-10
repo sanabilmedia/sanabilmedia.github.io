@@ -23,29 +23,29 @@ comments: false
 <br><br>
 العنوان: هذه ميمي - المحتوى: هذا - هذه
 </h3>
-<table dir="rtl" style="text-align: right; width: 100%;">
+<table dir="rtl" style="width: 100%;">
 
   <tbody>
 <tr>
     <td><div style="background-color: #d5207a;">
-<span style=" font-size: x-large;">المستوى الأول</span></div>
+<h1>المستوى الأول</h1></div>
 </td>
 
   </tr>
 <tr>
     <td><div style="background-color: #1794ce; ">
-<span style=" font-size: large;">المادة: اللغة العربية</span></div>
+<h2>المادة: اللغة العربية</h2></div>
 </td>
 
   </tr>
 <tr>
     <td><div style="background-color: #97bb2a; ">
-<span style=" font-size: large;">الوحدة الأولى</span></div>
+<h3>الوحدة الأولى</h3></div>
 </td>
 </tr>
 <tr>
     <td><div style="background-color: #f4c500; ">
-<span style=" font-size: large;">العنوان: هذه ميمي - المحتوى: هذا - هذه</span></div>
+العنوان: هذه ميمي - المحتوى: هذا - هذه</div>
 </td>
 </tr>
 </tbody></table>
