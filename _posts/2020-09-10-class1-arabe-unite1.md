@@ -28,19 +28,19 @@ comments: false
   <tbody>
 <tr>
     <td><div style="background-color: #d5207a;">
-<h1>المستوى الأول</h1></div>
+<span>المستوى الأول</span></div>
 </td>
 
   </tr>
 <tr>
     <td><div style="background-color: #1794ce; ">
-<h2>المادة: اللغة العربية</h2></div>
+<span>المادة: اللغة العربية</span></div>
 </td>
 
   </tr>
 <tr>
     <td><div style="background-color: #97bb2a; ">
-<h3>الوحدة الأولى</h3></div>
+<span>الوحدة الأولى</span></div>
 </td>
 </tr>
 <tr>
