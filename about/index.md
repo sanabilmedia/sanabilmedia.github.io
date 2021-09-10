@@ -6,19 +6,7 @@ date: 2020-03-15
 comments: false
 ---
     
-<center><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</center>
-
-## Features
-* Minimal, you can focus on your content
-* Responsive
-* Disqus integration
-* Syntax highlighting
-* Optional post image
-* Social icons
-* Page for sharing projects
-* Optional background image
-* Simple navigation menu
-* MathJax support
+<left><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</left>
 
 الهدف الرئيسي من هذا البرنامج هو تكوين مهارة المتعلم عن طريق تدريبه المستمر على وضعيات جديدة يمارس حلها وبالتالي يصل إلى إتقان التعلم.
 لذلك تم مراعاة الأمور التالية في هذا البرنامج التعليمي :
@@ -29,6 +17,16 @@ comments: false
 * توافق المعلومات التي تقدم مع المهارات المتعلمة.
 * يخلق البرنامج تفاعلاً نشطاً بين المتعلم والبرنامج ويقدم التعزيز من خلاله.
 * البرنامج مرن ومتشعب المسارات بحيث يسمح للمتعلم بالانتقال من نقطة إلى أخرى بسهولة.
+
+<ul> 
+	<li>
+		xxxxxxxxxxxxxxxxxxxxxx
+	</li> 
+	<li>
+		yyyyyyyyyyyyyyyyyyyyyyyyy
+	</li> 	
+	 
+</ul>
 
 ## Preview
 
