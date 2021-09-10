@@ -6,7 +6,7 @@ date: 2020-03-15
 comments: false
 ---
     
-<right><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</right>
+<a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.
 
 <p dir="auto" class="u1"><bdi>S</bdi>: <span class="msg">How do you write "What's your name?" in Arabic?</span></p>
 
@@ -20,15 +20,7 @@ comments: false
 * يخلق البرنامج تفاعلاً نشطاً بين المتعلم والبرنامج ويقدم التعزيز من خلاله.
 * البرنامج مرن ومتشعب المسارات بحيث يسمح للمتعلم بالانتقال من نقطة إلى أخرى بسهولة.
 
-<ul> 
-	<li>
-		xxxxxxxxxxxxxxxxxxxxxx
-	</li> 
-	<li>
-		yyyyyyyyyyyyyyyyyyyyyyyyy
-	</li> 	
-	 
-</ul>
+
 
 ## Preview
 
