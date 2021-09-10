@@ -23,7 +23,7 @@ comments: false
 <br><br>
 العنوان: هذه ميمي - المحتوى: هذا - هذه
 </h3>
-<table dir="rtl" style="width: 100%;">
+<table dir="rtl" style="width: 100%; text-align: center;">
 
   <tbody>
 <tr>
