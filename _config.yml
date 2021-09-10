@@ -2,7 +2,7 @@
 title:              Sanabil Media
 bio:                'للتعلم الذاتي من أجل ضمان الاستمرارية البيداغوجية'
 description:        "سنابل هو موقع للتعلم الذاتي هدفه رفع مستوى التلاميذ على اختلاف أماكنهم وظروفهم"
-reading_time:       true
+reading_time:       false
 words_per_minute:   200
 logo:               'assets/img/logo.png'
 background:         'assets/img/placeholder-big.jpg'
