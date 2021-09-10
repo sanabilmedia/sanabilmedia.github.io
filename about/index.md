@@ -6,7 +6,7 @@ date: 2020-03-15
 comments: false
 ---
     
-<left><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</left>
+<right><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</right>
 
 الهدف الرئيسي من هذا البرنامج هو تكوين مهارة المتعلم عن طريق تدريبه المستمر على وضعيات جديدة يمارس حلها وبالتالي يصل إلى إتقان التعلم.
 لذلك تم مراعاة الأمور التالية في هذا البرنامج التعليمي :
