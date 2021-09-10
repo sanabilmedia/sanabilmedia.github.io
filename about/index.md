@@ -5,10 +5,11 @@ tags: [about, sanabil]
 date: 2020-03-15
 comments: false
 ---
-    
+  <p dir="auto">  
 <a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.
+</p>
 
-<p dir="auto" class="u1"><bdi>S</bdi>: <span class="msg">How do you write "What's your name?" in Arabic?</span></p>
+<p dir="auto" class="u1"><bdi>S</bdi>: <span class="msg">How do you write "What's your name?" in Arabic.</span></p>
 
 الهدف الرئيسي من هذا البرنامج هو تكوين مهارة المتعلم عن طريق تدريبه المستمر على وضعيات جديدة يمارس حلها وبالتالي يصل إلى إتقان التعلم.
 لذلك تم مراعاة الأمور التالية في هذا البرنامج التعليمي :
