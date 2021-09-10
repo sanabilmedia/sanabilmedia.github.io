@@ -47,6 +47,6 @@ comments: false
 </tr>
 </tbody></table>
 <br>
-<iframe width="100%" height="350px" src="https://www.youtube.com/embed/s1cfMnh0f00?rel=0&enablejsapi=1&modestbranding=1" allowfullscreen frameborder="0" ></iframe>
+<iframe width="700px" height="350px" src="https://www.youtube.com/embed/s1cfMnh0f00?rel=0&enablejsapi=1&modestbranding=1" allowfullscreen frameborder="0" ></iframe>
 
 </center>
