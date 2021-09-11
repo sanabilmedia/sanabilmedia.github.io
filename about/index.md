@@ -16,14 +16,12 @@ comments: false
 * يخلق البرنامج تفاعلاً نشطاً بين المتعلم والبرنامج ويقدم التعزيز من خلاله.
 * البرنامج مرن ومتشعب المسارات بحيث يسمح للمتعلم بالانتقال من نقطة إلى أخرى بسهولة.
 
-
-
-## Preview
-
 {% capture images %}
-    https://cloud.githubusercontent.com/assets/754514/14509720/61c61058-01d6-11e6-93ab-0918515ecd56.png
-    https://cloud.githubusercontent.com/assets/754514/14509716/61ac6c8e-01d6-11e6-879f-8308883de790.png
+    /assets/img/sanabilmedia-eleves-01.jpg
+    /assets/img/sanabilmedia-eleves-02.jpg
+    /assets/img/sanabilmedia-eleves-03.jpg
+    /assets/img/sanabilmedia-eleves-04.jpg
 {% endcapture %}
-{% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
+{% include gallery images=images caption="Activités de la vie scolaire & Formation continue - Ecole Alafak 2018/2019" cols=2 %}
 
 <center markdown="0"><a href="/download-sanabil/" class="btn">تحميل برنامج سنابل</a></center>
