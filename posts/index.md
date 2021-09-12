@@ -1,6 +1,6 @@
 ---
 layout: post-list
-title: All Posts
-excerpt: "A List of Posts"
+title: جميع المحتويات
+excerpt: "جميع المضامين والمحتويات الدراسية"
 comments: false
 ---
