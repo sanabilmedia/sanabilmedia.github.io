@@ -8,9 +8,9 @@ tag:
  - تحميل برنامج سنابل
 comments: true
 ---
-
-    
 <center>
+	<img src="/assets/img/tableau-de-lecture_syllabes_sanabilmedia.jpg" alt="Tableau de lecture syllabique" >
+<br>	
 	لتحميل البرنامج التعليمي سنابل، وتنصيبه على الحاسوب اختر المستوى الذي تريد
 <br><br>
 <div markdown="0"><a href="https://drive.google.com/u/0/uc?id=1CQ30aLz3QeiJO9qY0PXWv58rE0iqEeqM&export=download" class="btn btn-primary">المستوى 1</a></div>
