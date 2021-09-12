@@ -13,7 +13,7 @@ comments: true
 <br>	
 	لتحميل البرنامج التعليمي سنابل، وتنصيبه على الحاسوب اختر المستوى الذي تريد
 <br><br>
-<div markdown="0"><a href="https://drive.google.com/u/0/uc?id=1CQ30aLz3QeiJO9qY0PXWv58rE0iqEeqM&export=download" class="btn btn-primary">المستوى 1</a></div>
+<div markdown="0"><a href="https://drive.google.com/u/0/uc?id=1CQ30aLz3QeiJO9qY0PXWv58rE0iqEeqM&export=download" class="btn btn-primary">تحميل البرنامج التعليمي سنابل - المستوى 1</a></div>
 <div markdown="0"><a href="https://drive.google.com/u/0/uc?id=1ZNG8RjQc_SKMLTiBEeSmG2L1RGalHuCO&export=download" class="btn btn-danger">المستوى 2</a></div>
 <div markdown="0"><a href="https://drive.google.com/u/0/uc?id=1cU5U-Vjr3YsaA3Oxp59bItnT31Y7tu31&export=download" class="btn btn-warning">المستوى 3</a></div>
 <div markdown="0"><a href="https://drive.google.com/u/0/uc?id=17X7WOhzYvsQQrfIbvM8CNz76Vxxxu6de&export=download" class="btn btn-info">المستوى 4</a></div>
