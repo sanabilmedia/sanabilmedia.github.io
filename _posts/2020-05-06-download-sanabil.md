@@ -9,7 +9,7 @@ tag:
 comments: true
 ---
 <center>
-	<img src="/assets/img/tableau-de-lecture_syllabes_sanabilmedia.jpg" alt="Tableau de lecture syllabique" >
+	<img src="/assets/img/download-sanabil-transparent.png" alt="Tableau de lecture syllabique" >
 <br>	
 	لتحميل البرنامج التعليمي سنابل، وتنصيبه على الحاسوب اختر المستوى الذي تريد
 <br><br>
