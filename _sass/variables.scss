@@ -1,5 +1,5 @@
 //colors
-$bodycolor           : #000;
+$bodycolor           : #fff;
 $black           	 : #000;
 $white               : #fff;
 $color_gray          : #e8e8e8;
@@ -21,10 +21,13 @@ $color_pink_swan     : #bbb;
 $comp-color 	     : complement(#222); 
 
 //button colors
-$success			 : #5cb85c;
-$warning			 : #dd8338;
-$danger				 : #C64537;
-$info		         : #308cbc;
+$primary			 : #428bca;	
+$success			 : #5cb85c; 
+$warning			 : #f0ad4e; 
+$danger				 : #d9534f; 
+$info		         : #5bc0de; 
+$surprise			 : #c248e5;
+$default			 : #ffffff;
 
 //fonts
 $font1               : Fira Sans,sans-serif;
