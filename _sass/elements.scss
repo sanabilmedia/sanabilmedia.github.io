@@ -70,6 +70,42 @@
         color: $info;
       }
     }
+	&.btn-primary {
+      background-color: $primary;
+      color: $white;
+      border-color: $primary;
+      &:visited {
+        color: $white;
+      }
+      &:hover {
+        background-color: $white;
+        color: $primary;
+      }
+    }
+	&.btn-surprise {
+      background-color: $surprise;
+      color: $white;
+      border-color: $surprise;
+      &:visited {
+        color: $white;
+      }
+      &:hover {
+        background-color: $white;
+        color: $surprise;
+      }
+    }
+	&.btn-default {
+      background-color: $default;
+      color: $white;
+      border-color: $default;
+      &:visited {
+        color: $white;
+      }
+      &:hover {
+        background-color: $white;
+        color: $default;
+      }
+    }
 }
 .title .btn {
     margin: 10px;
