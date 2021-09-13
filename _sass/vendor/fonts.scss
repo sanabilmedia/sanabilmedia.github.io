@@ -1,3 +1,20 @@
+// Scheherazade
+@font-face{
+    font-family: 'Scheherazade';
+    src: local("Scheherazade Regular"),
+         url("../fonts/Scheherazade/ttf/Scheherazade-Regular.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Scheherazade';
+    src: local("Scheherazade Bold"),
+         url("../fonts/Scheherazade/ttf/Scheherazade-Bold.ttf") format("truetype");
+    font-weight: 300;
+    font-style: bold;
+}
+
 // Fira Sans
 @font-face{
     font-family: 'Fira Sans';
