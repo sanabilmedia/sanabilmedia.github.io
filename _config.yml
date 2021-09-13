@@ -30,11 +30,11 @@ sass:
 
 # Social
 # if you don't have any of social below, comment the line.
-#google:
+google:
   #plus:            #username
-  #analytics:
+  analytics:        UA-161587676-1
   #verify:
-  #ad-client:
+  ad-client:      ca-pub-7050091068265373
   #ad-slot:
 #bing-verify:
 #email:
