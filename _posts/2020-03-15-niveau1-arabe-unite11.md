@@ -11,7 +11,7 @@ tag:
 comments: false
 ---
 <center>
-	<img style="display: none;" src="/assets/img/thumbnails/1-11-SanabilMedia.com.jpg" alt="" width="1" height="1">
+	<img style="display: none;" src="/assets/img/fb/1-11-SanabilMedia.com.jpg" alt="" width="1" height="1">
 <table dir="rtl" style="width: 100%; text-align: center; font-size: large;"><tbody>
 <tr><td><div style="background-color: #ec79b3;"><span>
 المستوى الأول
