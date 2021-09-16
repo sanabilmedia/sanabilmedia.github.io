@@ -10,7 +10,8 @@ tag:
 
 comments: false
 ---
-<center>
+<center>   
+   <img style="display: none;" src="/assets/img/thumbnails/2-6-SanabilMedia.com.jpg" alt="" width="1" height="1">
 <table dir="rtl" style="width: 100%; text-align: center; font-size: large;"><tbody>
 <tr><td><div style="background-color: #ec79b3;"><span>
 المستوى الثاني
