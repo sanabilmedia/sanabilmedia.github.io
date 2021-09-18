@@ -19,11 +19,10 @@ body {
 	background-color: $bodycolor;
 	background-position: center center;
 	background-attachment: fixed;
-	opacity: 0.95;
+	opacity: 0.96;
 	@media #{$small} {
 	    background-image: none !important;
 		background: $white;
-		opacity: 0.95;
 	}
 }
 * {
