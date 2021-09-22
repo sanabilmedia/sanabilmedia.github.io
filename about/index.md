@@ -22,6 +22,6 @@ comments: false
     /assets/img/sanabilmedia-eleves-03.jpg
     /assets/img/sanabilmedia-eleves-04.jpg
 {% endcapture %}
-{% include gallery images=images caption=" <div dir="ltr">Activités de la vie scolaire & Formation continue - Ecole Alafak </div> " cols=2 %}
+{% include gallery images=images caption="Activités de la vie scolaire & Formation continue - Ecole Alafak" cols=2 %}
 
-<center markdown="0"><a href="/download-sanabil/" class="btn">تحميل برنامج سنابل</a></center>
+<center markdown="0"><a href="/download-sanabil/" class="btn">.تحميل برنامج سنابل</a></center>
