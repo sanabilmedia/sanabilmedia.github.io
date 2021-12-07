@@ -1,0 +1,32 @@
+---
+layout: post
+title:  "On Ecrit Sur Les Murs"
+date:   2020-05-10
+excerpt: ""
+niveau4: true
+tag:
+- المستوى الرابع 
+- La langue française
+
+comments: false
+
+---
+
+<center>
+		   <img style="display: none;" src="/assets/img/thumbnails/chanson7-SanabilMedia.com.jpg" alt="" width="1" height="1">
+<iframe width="700px" height="350px" src="https://www.youtube.com/embed/VV5oVYVGfNc?rel=0&controls=1&showinfo=0&modestbranding=1&enablejsapi=1" allowfullscreen frameborder="0" ></iframe>
+
+<br>
+<p><span style="color: #339966;"><strong>On Ecrit Sur Les Murs</strong></span></p>
+<p>On écrit sur les murs le nom de ceux qu'on aime<br>
+Des messages pour les jours à venir<br>
+On écrit sur les murs à l'encre de nos veines<br>
+On dessine tout ce que l'on voudrait dire<br>
+<br>
+On écrit sur les murs la force de nos rêves<br>
+Nos espoirs en forme de graffiti<br>
+On écrit sur les murs pour que l'amour se lève<br>
+Un beau jour sur le monde endormi</p>
+  	
+</center>
+
