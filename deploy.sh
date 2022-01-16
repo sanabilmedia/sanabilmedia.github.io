@@ -1,7 +1,5 @@
 #!bin/bash 
 
-vared -p "Enter commit message: " -c message
-
 printf "\\e[33m\nPushing to sanabilmedia.github.io repository...\e[39m\n\n"
 cd ../sanabilmedia.github.io
 git add .
