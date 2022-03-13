@@ -1,2 +1,6 @@
 _site/
 .directory
+.sass-cache
+.jekyll-metadata
+node_modules
+Gemfile.lock
