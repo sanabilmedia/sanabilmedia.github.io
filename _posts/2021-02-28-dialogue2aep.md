@@ -27,7 +27,7 @@ comments: false
   <source src="../assets/mp3/2/Piste1_Semaine1_page2.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD1: Semaine2 : page4**
+**UD1: Semaine2 - page4**
 
 - La maîtresse Mina : Bonjour madame, bonjour monsieur. Je suis la maîtresse Mina.
 
@@ -40,7 +40,7 @@ comments: false
   <source src="../assets/mp3/2/Piste2_semaine2_page4.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD1: Semaine3 ** : page6
+**UD1: Semaine3 - page6**
 
 - Kenza : Bonjour. Je m’appelle Kenza. Et toi ?
 - Amine : Moi, je m’appelle Amine. Je peux jouer avec toi ?
@@ -51,7 +51,7 @@ comments: false
   <source src="../assets/mp3/2/Piste3_semaine3_page6.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD1: Semaine4 **: page8
+**UD1: Semaine4 - page8**
 
 - Amine : Qu’est-ce que tu as dans ton cartable, Kenza ?
 - Kenza : J’ai toutes mes affaires scolaires : mon livre, mon cahier et ma trousse.
@@ -62,7 +62,7 @@ comments: false
   <source src="../assets/mp3/2/Piste4_semaine4_page8.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD1: Semaine5 **: page10
+**UD1: Semaine5 - page10**
 
 - La maîtresse Mina : Les enfants, venez faire le tour de l’école !
 - Kenza : Oui, maîtresse.
@@ -76,13 +76,13 @@ comments: false
   <source src="../assets/mp3/2/Piste5_semaine5_page10.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD1: Poesie **: page13
+**UD1: Poesie - page13**
 
 <audio controls>
   <source src="../assets/mp3/2/Piste6_Comptine_Poesie_page13.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD2: Semaine7 **: page16
+**UD2: Semaine7 - page16**
 
 - Kenza : Regarde ? Amine, c’est ma famille !
 - Amine : C’est qui, à côté de ta maman ?
@@ -94,7 +94,7 @@ comments: false
   <source src="../assets/mp3/2/Piste7_semaine7_page16.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD2: Semaine8 **: page18
+**UD2: Semaine8 - page18**
 
 - Amine : sur la photo, c’est ton oncle. ?
 
@@ -108,7 +108,7 @@ comments: false
   <source src="../assets/mp3/2/Piste8_semaine8_page18.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD2: Semaine9 **: page20
+**UD2: Semaine9 - page20**
 
 - Amine : Regarde Kenza, sur cette photo c’est ma cousine et mon cousin.
 
@@ -122,7 +122,7 @@ comments: false
   <source src="../assets/mp3/2/Piste9_semaine9_page20.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD2: Semaine10 **: page22
+**UD2: Semaine10 - page22**
 
 - Kenza : regarde Amine, c’est l’arbre généalogique de ma famille.
 
@@ -135,13 +135,13 @@ comments: false
   <source src="../assets/mp3/2/Piste10_semaine10_page22.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD2: Poesie **: page25
+**UD2: Poesie - page25**
 
 <audio controls>
   <source src="../assets/mp3/2/Piste11_Comptine_Poesie_page25.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD3: Semaine12 **: page28
+**UD3: Semaine12 - page28**
 
 - Kenza : moi, je voudrais manger des bonbons, au moins 10 !
 
@@ -154,7 +154,7 @@ comments: false
   <source src="../assets/mp3/2/Piste12_semaine12_page28.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD3: Semaine13 **: page30
+**UD3: Semaine13 - page30**
 
 - Sara : les amis, qu’est-ce que je dois faire pour être en bonne santé.
 
@@ -167,7 +167,7 @@ comments: false
   <source src="../assets/mp3/2/Piste13_semaine13_page30.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD3: Semaine14 **: page32
+**UD3: Semaine14 - page32**
 
 - la maîtresse : Kenza, tu es allée chez le dentiste. Raconte-nous.
 - Kenza : le dentiste m’a soigné une carie. Il a dit que je mange trop de bonbons et de gâteaux.
@@ -178,7 +178,7 @@ comments: false
   <source src="../assets/mp3/2/Piste14_semaine14_page32.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD3: Semaine15 **: page34
+**UD3: Semaine15 - page34**
 
 - Kenza : maîtresse, maîtresse, Amine pleure !
 - Sara : il est tombé car il courait dans les escaliers.
@@ -190,13 +190,13 @@ comments: false
   <source src="../assets/mp3/2/Piste15_semaine15_page34.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD3: Poesie **: page37
+**UD3: Poesie - page37**
 
 <audio controls>
   <source src="../assets/mp3/2/Piste16_Comptine_Poesie_page37.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD4: Semaine18 **: page42
+**UD4: Semaine18 - page42**
 
 - Kenza: J’ai passé la journée avec mes grands-parents. Ils habitent dans un beau village.
 - Amine: Qu’est-ce que tu as fait là-bas ?
@@ -210,7 +210,7 @@ comments: false
   <source src="../assets/mp3/2/Piste17_semaine18_page42.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD4: Semaine19 **: page44
+**UD4: Semaine19 - page44**
 
 - Kenza: Dans la ferme, il y a une bergerie, avec des chèvres noires et des moutons.
 - Amine : Il y a aussi un cheval et des vaches ?
@@ -223,7 +223,7 @@ comments: false
   <source src="../assets/mp3/2/Piste18_semaine19_page44.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD4: Semaine20 **: page46
+**UD4: Semaine20 - page46**
 
 - Kenza : Amine, dis nous où tu habites.
 - Amine: J’habite dans un immeuble, près d’un jardin plein de fleurs. De ma fenêtre, je vois une belle mosquée.
@@ -236,7 +236,7 @@ comments: false
   <source src="../assets/mp3/2/Piste19_semaine20_page46.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD4: Semaine21 **: page48
+**UD4: Semaine21 - page48**
 
 - Sara: J’habite dans un très beau quartier avec de jolies villas.
 - Amine : Est-ce qu’il y a des magasins ?
@@ -249,13 +249,13 @@ comments: false
   <source src="../assets/mp3/2/Piste20_semaine21_page48.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD4: Poesie **: page51
+**UD4: Poesie - page51**
 
 <audio controls>
   <source src="../assets/mp3/2/Piste21_Comptine_Poesie_page51.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD5: Semaine23 **: page54
+**UD5: Semaine23 - page54**
 
 - Sara: J’habite dans un très beau quartier avec de jolies villas.
 - Amine : Est-ce qu’il y a des magasins ?
@@ -268,7 +268,7 @@ comments: false
   <source src="../assets/mp3/2/Piste22_semaine23_page54.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD5: Semaine24 **: page56
+**UD5: Semaine24 - page56**
 
 - Kenza: C’est un animal grand et joli. Il a des très grandes cornes sur la tête, comme des branches.
 - Amine : C’est le cerf! À mon tour. C’est un oiseau blanc qui a de longues pattes, et un long bec.
@@ -279,7 +279,7 @@ comments: false
   <source src="../assets/mp3/2/Piste23_semaine24_page56.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD5: Semaine25 **: page58
+**UD5: Semaine25 - page58**
 
 - Kenza: Quel est le nom de cet animal qui est debout sur ses pattes arrière ?
 - Karim: C’est un kangourou. Pour se déplacer, il ne marche pas, il saute.
@@ -293,7 +293,7 @@ comments: false
   <source src="../assets/mp3/2/Piste24_semaine25_page58.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD5: Semaine26 **: page60
+**UD5: Semaine26 - page60**
 
 - Lina : Amine, viens voir, nous avons une poule rouge et un grand coq dans notre jardin.
 - Amine : Ah oui, je les vois ! Vous avez aussi des canards ?
@@ -305,7 +305,7 @@ comments: false
   <source src="../assets/mp3/2/Piste25_semaine26_page60.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD5: Poesie **: page63
+**UD5: Poesie - page63**
 
 
 
@@ -313,7 +313,7 @@ comments: false
   <source src="../assets/mp3/2/Piste26_Comptine_Poesie_page63.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD6: Semaine28 **: page66
+**UD6: Semaine28 - page66**
 
 - Papa: Comment s’est passé ton anniversaire Kenza?
 - Kenza : Très bien papa, on s’est bien amusé. Zidane s’est déguisé en Zorro !
@@ -326,7 +326,7 @@ comments: false
   <source src="../assets/mp3/2/Piste27_semaine28_page66.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD6: Semaine29 **: page68
+**UD6: Semaine29 - page68**
 
 - La maîtresse: Lina tu étais hier avec tes parents au moussem du printemps. Raconte la fête à tes camarades.
 - Lina : J’ai vu une très belle fantasia. Les cavaliers étaient très beaux.
@@ -339,7 +339,7 @@ comments: false
   <source src="../assets/mp3/2/Piste28_semaine29_page68.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD6: Semaine30 **: page70
+**UD6: Semaine30 - page70**
 
 - Kenza : Aujourd’hui nous avons fêté l’Aïd à l’école. Notre professeur nous a pris en photo. Regarde, maman !
 - La maman : Ta copine Jamila est très jolie avec sa jupe jaune. Qu’avez-vous fait pendant la fête ?
@@ -351,7 +351,7 @@ comments: false
   <source src="../assets/mp3/2/Piste29_semaine30_page70.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD6: Semaine31 **: page72
+**UD6: Semaine31 - page72**
 
 - La maman : Bravo, Lina, le spectacle était magnifique!
 - Lina : J’ai appris mon texte pendant dix jours pour jouer le lynx dans la pièce de théâtre.
@@ -363,9 +363,11 @@ comments: false
   <source src="../assets/mp3/2/Piste30_semaine31_page72.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD6: Poesie **: page75
+**UD6: Poesie - page75**
 
 <audio controls>
   <source src="../assets/mp3/2/Piste31_Comptine_Poesie_page75.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
+<center><p markdown="0"><a href="https://drive.google.com/u/0/uc?id=16EEtmq5UkrCpowsa-zB-1ok5yYFJM_Gc=download" class="btn">Télécharger les dialogues en PDF</a></p></center>
+
