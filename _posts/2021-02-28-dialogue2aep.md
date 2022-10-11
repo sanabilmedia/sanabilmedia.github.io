@@ -27,7 +27,7 @@ comments: false
   <source src="../assets/mp3/2/Piste1_Semaine1_page2.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD1: Semaine2 **: page4
+**UD1: Semaine2 : page4**
 
 - La maîtresse Mina : Bonjour madame, bonjour monsieur. Je suis la maîtresse Mina.
 
@@ -40,7 +40,7 @@ comments: false
   <source src="../assets/mp3/2/Piste2_semaine2_page4.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio> <hr>
-**UD1: Semaine3 **: page6
+**UD1: Semaine3 ** : page6
 
 - Kenza : Bonjour. Je m’appelle Kenza. Et toi ?
 - Amine : Moi, je m’appelle Amine. Je peux jouer avec toi ?
