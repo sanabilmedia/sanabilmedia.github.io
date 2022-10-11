@@ -14,7 +14,7 @@ comments: false
 
 
 
-**UD1: Semaine1 **: page2
+**UD1: Semaine1 - page2**
 
 - Maman : Bonjour Amine.
 - Amine : Bonjour maman, bonjour papa !
