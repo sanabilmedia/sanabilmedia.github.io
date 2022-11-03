@@ -19,7 +19,6 @@ body {
 	background-color: $bodycolor;
 	background-position: center center;
 	background-attachment: fixed;
-	opacity: 1;
 	@media #{$small} {
 	    background-image: none !important;
 		background: $white;
