@@ -22,9 +22,7 @@ comments: false
 
 <br>
 	   	<img src="/assets/img/table-de-multiplication-sanabilmedia.jpg" alt="Table de multiplication" >
-<br>	
-
-
+<br>	<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeJPNYz8NItc6AE2Hx8iOccXbryl2-3QLI_gJ-RYOjFvqOACQ/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
 </center>
 
