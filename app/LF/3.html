@@ -409,29 +409,31 @@
             }
 
            // Update the timer
-            function updateTimer() {
-                const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-                document.getElementById('timer').textContent = `00:${elapsedTime.toString().padStart(2, '0')}`;
+function updateTimer() {
+    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    const minutes = Math.floor(elapsedTime / 60);
+    const seconds = elapsedTime % 60;
+    document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
-                // Stop recording after 66 seconds
-                if (elapsedTime >= 66) {
-                    clearInterval(timerInterval);
-                    mediaRecorder.stop();
+    // Stop recording after 66 seconds
+    if (elapsedTime >= 66) {
+        clearInterval(timerInterval);
+        mediaRecorder.stop();
 
-                    // Play the notification sound
-                    const notificationSound = document.getElementById('notificationSound');
-                    // Safari mobile fix : https://stackoverflow.com/questions/45693864/audio-play-is-not-allowed-in-safari-ios-11
-                    notificationSound.currentTime = 0;
-                    notificationSound.play().then(() => { // Play sound first
-                       setTimeout(() => {
-                            alert("انتهت الدقيقة! تم إيقاف التسجيل."); // Then show alert
-                       }, 100); // Small delay to ensure sound plays
-                    }).catch(error => {
-                        console.error("Autoplay was prevented:", error);
-                        alert("انتهت الدقيقة! تم إيقاف التسجيل. (Notification sound might be blocked by your browser.)"); // Show alert even if sound fails
-                    });
-                }
-            }
+        // Play the notification sound
+        const notificationSound = document.getElementById('notificationSound');
+        // Safari mobile fix : https://stackoverflow.com/questions/45693864/audio-play-is-not-allowed-in-safari-ios-11
+        notificationSound.currentTime = 0;
+        notificationSound.play().then(() => { // Play sound first
+            setTimeout(() => {
+                alert("انتهت الدقيقة! تم إيقاف التسجيل."); // Then show alert
+            }, 100); // Small delay to ensure sound plays
+        }).catch(error => {
+            console.error("Autoplay was prevented:", error);
+            alert("انتهت الدقيقة! تم إيقاف التسجيل. (Notification sound might be blocked by your browser.)"); // Show alert even if sound fails
+        });
+    }
+}
 
             // Draw sound wave visualization
             function drawSoundWave() {
