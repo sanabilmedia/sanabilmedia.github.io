@@ -413,8 +413,8 @@
                 const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
                 document.getElementById('timer').textContent = `00:${elapsedTime.toString().padStart(2, '0')}`;
 
-                // Stop recording after 60 seconds
-                if (elapsedTime >= 60) {
+                // Stop recording after 66 seconds
+                if (elapsedTime >= 66) {
                     clearInterval(timerInterval);
                     mediaRecorder.stop();
 
