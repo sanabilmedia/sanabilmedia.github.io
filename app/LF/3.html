@@ -4,55 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل الطلاقة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Cairo', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Use min-height for better responsiveness */
             flex-direction: column;
-            background-color: #f0f0f0;
+            background-color: #121212; /* Deeper dark background */
+            color: #e0e0e0; /* Softer text color */
+            margin: 0; /* Reset margin for full height */
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Include padding in width/height */
         }
-        select, button {
-            padding: 10px 20px;
+
+        h1 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+            margin-bottom: 20px;
+        }
+
+        /* Select Element Styling */
+        select {
+            padding: 12px 24px;
             font-size: 16px;
             margin: 10px;
             cursor: pointer;
+            background-color: #212121;
+            color: #eee;
+            border: none;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+            transition: all 0.2s ease-in-out; /* Smooth transition */
+            outline: none; /* Remove outline */
         }
+
+        select:hover {
+            background-color: #333;
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        select:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 14px 28px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            outline: none;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); /* Shadow on text */
+        }
+
+        button:active {
+            transform: translateY(1px); /* Push down slightly on click */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+
+        #recordButton {
+            background-color: #555;
+            color: #fff;
+        }
+
+        #recordButton.recording {
+            background-color: #e74c3c; /* Red when recording */
+            color: #fff;
+        }
+
+        #recordButton.ready {
+            background-color: #2ecc71; /* Green when ready */
+            color: #fff;
+        }
+
+        /* Status and Timer */
         #status {
             margin-top: 20px;
             font-size: 18px;
+            color: #9e9e9e;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
+
         #timer {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-            margin: 10px;
+            margin: 15px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
+
+        /* Waveform */
         #waveform {
-            width: 300px;
-            height: 100px;
-            border: 1px solid #ccc;
-            margin: 20px;
+            width: 350px;
+            height: 120px;
+            border: none;
+            border-radius: 10px;
+            margin: 25px;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(to bottom, #2c3e50, #34495e); /* Gradient background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
+
         #waveform canvas {
             width: 100%;
             height: 100%;
         }
+
+        /* User Photo */
         #userPhoto {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            margin-top: 10px;
-            border: 2px solid #007bff;
+            margin-top: 15px;
+            border: 3px solid #3498db;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
         }
+
+        /* Audio Playback */
+        audio {
+            margin-top: 25px;
+            width: 100%;
+            max-width: 400px; /* Limit audio player width */
+        }
+
+        /* Password Overlay Styles */
+        #passwordOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        #passwordForm {
+            background-color: #212121;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        #passwordInput {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #eee;
+            margin-bottom: 10px;
+        }
+
+        #passwordSubmit {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            select, button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+
+            #waveform {
+                width: 90%;
+                max-width: 300px;
+            }
+        }
+
     </style>
 </head>
 <body>
+
+    <div id="passwordOverlay">
+        <div id="passwordForm">
+            <h2>ادخل كلمة المرور</h2>
+            <input type="password" id="passwordInput" placeholder="كلمة المرور">
+            <button id="passwordSubmit">دخول</button>
+            <div id="passwordStatus" style="color: red; margin-top: 10px; display: none;">كلمة مرور خاطئة</div>
+        </div>
+    </div>
+
     <h1>تسجيل الطلاقة - الفوج 3</h1>
-    <img id="userPhoto" src="" alt="صورة المستخدم" style="display: none;"> <!-- Initially hidden -->
+    <img id="userPhoto" src="" alt="صورة المستخدم" style="display: none;">
     <select id="userList">
         <option value="" disabled selected>اختر اسمك</option>
     </select>
@@ -60,218 +221,271 @@
     <div id="timer">00:00</div>
     <div id="waveform"><canvas id="waveformCanvas"></canvas></div>
     <div id="status">اختر اسمك واضغط على "بدء التسجيل"</div>
-    <audio id="audioPlayback" controls style="margin-top: 20px;"></audio>
+    <audio id="audioPlayback" controls></audio>
+
+    <!-- Audio element for the notification sound -->
+    <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
 
     <script>
-        const users = [
-            { name: "1_G3_حجوبي أحلام", photo: "G3_1.jpg" },
-            { name: "2_G3_ادليزة خديجة", photo: "G3_2.jpg" },
-            { name: "3_G3_بوربيع ليلى", photo: "G3_3.jpg" },
-            { name: "4_G3_مزيل يوسف", photo: "G3_4.jpg" },
-            { name: "5_G3_المحب الياس", photo: "G3_5.jpg" },
-            { name: "6_G3_بيسى مريم", photo: "G3_6.jpg" },
-            { name: "7_G3_بوفضيل عصام", photo: "G3_7.jpg" },
-            { name: "8_G3_شعرة ايوب", photo: "G3_8.jpg" },
-            { name: "9_G3_حبر سعد الدين", photo: "G3_9.jpg" },
-            { name: "10_G3_وعلي جنان", photo: "G3_10.jpg" },
-            { name: "11_G3_البسوط ملاك", photo: "G3_11.jpg" },
-            { name: "12_G3_الدرويش جنات", photo: "G3_12.jpg" },
-            { name: "13_G3_ارحالي يوسف", photo: "G3_13.jpg" },
-            { name: "14_G3_دهيم هبة", photo: "G3_14.jpg" },
-            { name: "15_G3_بوكار أميرة", photo: "G3_15.jpg" },
-            { name: "16_G3_امزيل فاطمة", photo: "G3_16.jpg" },
-            { name: "17_G3_المدجول الهام", photo: "G3_17.jpg" },
-            { name: "18_G3_بورحيم إكرام", photo: "G3_18.jpg" },
-            { name: "19_G3_مرزوكي إحسان", photo: "G3_19.jpg" },
-            { name: "20_G3_العلوي صفاء", photo: "G3_20.jpg" },
-            { name: "21_G3_لزرك ابراهيم", photo: "G3_21.jpg" },
-            { name: "22_G3_عليويش مصعب", photo: "G3_22.jpg" },
-            { name: "23_G3_دحان آية", photo: "G3_23.jpg" },
-            { name: "24_G3_اليزيدي إيمان", photo: "G3_24.jpg" },
-            { name: "25_G3_بورشوق ادم", photo: "G3_25.jpg" },
-            { name: "26_G3_بضار محمد", photo: "G3_26.jpg" },
-            { name: "27_G3_زماني معاد", photo: "G3_27.jpg" },
-            { name: "28_G3_بوكرو محمد", photo: "G3_28.jpg" },
-            { name: "29_G3_العمل لمياء", photo: "G3_29.jpg" },
-            { name: "30_G3_الغزالي عمران", photo: "G3_30.jpg" },
-            { name: "31_G3_تكني حفصة", photo: "G3_31.jpg" },
-            { name: "32_G3_الطاهري فرحان", photo: "G3_32.jpg" },
-            { name: "33_G3_زويقير عبد الرحمان", photo: "G3_33.jpg" },
-            { name: "34_G3_بن مالك بسمة", photo: "G3_34.jpg" }
-        ];
+        const password = "1978"; // **IMPORTANT: Change this!**
+        let passwordEntered = false;
 
-        let mediaRecorder;
-        let audioChunks = [];
-        let selectedUser = "";
-        let timerInterval;
-        let audioContext, analyser, dataArray, bufferLength;
-        let isRecording = false;
-        let startTime;
+        const passwordOverlay = document.getElementById('passwordOverlay');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordSubmit = document.getElementById('passwordSubmit');
+        const passwordStatus = document.getElementById('passwordStatus');
 
-        // Populate the dropdown list with users
-        const userList = document.getElementById('userList');
-        users.forEach((user, index) => {
-            const option = document.createElement('option');
-            option.value = user.name;
-            option.textContent = user.name;
-            option.dataset.photo = user.photo; // Store the photo filename in the option
-            userList.appendChild(option);
-        });
-
-        // Enable the "Start Recording" button and show the user's photo when a user is selected
-        userList.addEventListener('change', (event) => {
-            selectedUser = event.target.value;
-            const selectedOption = event.target.options[event.target.selectedIndex];
-            const userPhoto = selectedOption.dataset.photo;
-
-            // Display the user's photo
-            const userPhotoElement = document.getElementById('userPhoto');
-            userPhotoElement.src = userPhoto;
-            userPhotoElement.style.display = "block"; // Show the photo
-
-            document.getElementById('recordButton').disabled = false;
-        });
-
-        // Start or stop recording when the button is clicked
-        const recordButton = document.getElementById('recordButton');
-        recordButton.addEventListener('click', async () => {
-            if (recordButton.textContent === "بدء التسجيل") {
-                await startRecording();
+        passwordSubmit.addEventListener('click', () => {
+            if (passwordInput.value === password) {
+                passwordOverlay.style.display = 'none';
+                passwordEntered = true;
+                initializeApp(); // Call the rest of your script after successful password entry
             } else {
-                stopRecording();
+                passwordStatus.style.display = 'block'; // Show error message
             }
         });
 
-        // Start recording
-        async function startRecording() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                mediaRecorder = new MediaRecorder(stream);
+        function initializeApp() {
+            // Your existing JavaScript code here...
 
-                // Set up audio context and analyser for sound wave visualization
-                audioContext = new AudioContext();
-                analyser = audioContext.createAnalyser();
-                const source = audioContext.createMediaStreamSource(stream);
-                source.connect(analyser);
-                analyser.fftSize = 2048; // Increase FFT size for smoother waveform
-                bufferLength = analyser.frequencyBinCount;
-                dataArray = new Uint8Array(bufferLength);
+            const users = [
+                { name: "1_G3_حجوبي أحلام", photo: "G3_1.jpg" },
+                { name: "2_G3_ادليزة خديجة", photo: "G3_2.jpg" },
+                { name: "3_G3_بوربيع ليلى", photo: "G3_3.jpg" },
+                { name: "4_G3_مزيل يوسف", photo: "G3_4.jpg" },
+                { name: "5_G3_المحب الياس", photo: "G3_5.jpg" },
+                { name: "6_G3_بيسى مريم", photo: "G3_6.jpg" },
+                { name: "7_G3_بوفضيل عصام", photo: "G3_7.jpg" },
+                { name: "8_G3_شعرة ايوب", photo: "G3_8.jpg" },
+                { name: "9_G3_حبر سعد الدين", photo: "G3_9.jpg" },
+                { name: "10_G3_وعلي جنان", photo: "G3_10.jpg" },
+                { name: "11_G3_البسوط ملاك", photo: "G3_11.jpg" },
+                { name: "12_G3_الدرويش جنات", photo: "G3_12.jpg" },
+                { name: "13_G3_ارحالي يوسف", photo: "G3_13.jpg" },
+                { name: "14_G3_دهيم هبة", photo: "G3_14.jpg" },
+                { name: "15_G3_بوكار أميرة", photo: "G3_15.jpg" },
+                { name: "16_G3_امزيل فاطمة", photo: "G3_16.jpg" },
+                { name: "17_G3_المدجول الهام", photo: "G3_17.jpg" },
+                { name: "18_G3_بورحيم إكرام", photo: "G3_18.jpg" },
+                { name: "19_G3_مرزوكي إحسان", photo: "G3_19.jpg" },
+                { name: "20_G3_العلوي صفاء", photo: "G3_20.jpg" },
+                { name: "21_G3_لزرك ابراهيم", photo: "G3_21.jpg" },
+                { name: "22_G3_عليويش مصعب", photo: "G3_22.jpg" },
+                { name: "23_G3_دحان آية", photo: "G3_23.jpg" },
+                { name: "24_G3_اليزيدي إيمان", photo: "G3_24.jpg" },
+                { name: "25_G3_بورشوق ادم", photo: "G3_25.jpg" },
+                { name: "26_G3_بضار محمد", photo: "G3_26.jpg" },
+                { name: "27_G3_زماني معاد", photo: "G3_27.jpg" },
+                { name: "28_G3_بوكرو محمد", photo: "G3_28.jpg" },
+                { name: "29_G3_العمل لمياء", photo: "G3_29.jpg" },
+                { name: "30_G3_الغزالي عمران", photo: "G3_30.jpg" },
+                { name: "31_G3_تكني حفصة", photo: "G3_31.jpg" },
+                { name: "32_G3_الطاهري فرحان", photo: "G3_32.jpg" },
+                { name: "33_G3_زويقير عبد الرحمان", photo: "G3_33.jpg" },
+                { name: "34_G3_بن مالك بسمة", photo: "G3_34.jpg" }
+            ];
 
-                mediaRecorder.ondataavailable = (event) => {
-                    audioChunks.push(event.data);
-                };
+            let mediaRecorder;
+            let audioChunks = [];
+            let selectedUser = "";
+            let timerInterval;
+            let audioContext, analyser, dataArray, bufferLength;
+            let isRecording = false;
+            let startTime;
 
-                mediaRecorder.onstop = () => {
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                    const audioUrl = URL.createObjectURL(audioBlob);
+            // Populate the dropdown list with users
+            const userList = document.getElementById('userList');
+            users.forEach((user, index) => {
+                const option = document.createElement('option');
+                option.value = user.name;
+                option.textContent = user.name;
+                option.dataset.photo = user.photo; // Store the photo filename in the option
+                userList.appendChild(option);
+            });
 
-                    // Set the audio playback source
-                    const audio = document.getElementById('audioPlayback');
-                    audio.src = audioUrl;
+            // Enable the "Start Recording" button and show the user's photo when a user is selected
+            userList.addEventListener('change', (event) => {
+                selectedUser = event.target.value;
+                const selectedOption = event.target.options[event.target.selectedIndex];
+                const userPhoto = selectedOption.dataset.photo;
 
-                    // Save the recording with the user's name
-                    const link = document.createElement('a');
-                    link.href = audioUrl;
-                    link.download = `${selectedUser}.wav`;
-                    link.click();
+                // Display the user's photo
+                const userPhotoElement = document.getElementById('userPhoto');
+                userPhotoElement.src = userPhoto;
+                userPhotoElement.style.display = "block"; // Show the photo
 
-                    // Reset for the next recording
-                    audioChunks = [];
-                    document.getElementById('status').textContent = `تم إيقاف التسجيل. تم حفظ الملف باسم ${selectedUser}.wav`;
-                    recordButton.textContent = "بدء التسجيل";
-                    recordButton.disabled = true;
-                    userList.value = "";
-                    clearInterval(timerInterval);
-                    document.getElementById('timer').textContent = "00:00";
-                    isRecording = false;
-                    stopSoundWave();
-                };
+                document.getElementById('recordButton').disabled = false;
+                document.getElementById('recordButton').classList.add('ready'); //set green color
+                document.getElementById('recordButton').classList.remove('recording');
+            });
 
-                // Start recording
-                mediaRecorder.start();
-                document.getElementById('status').textContent = "جارٍ التسجيل...";
-                recordButton.textContent = "إيقاف التسجيل";
-                isRecording = true;
+            // Start or stop recording when the button is clicked
+            const recordButton = document.getElementById('recordButton');
+            recordButton.addEventListener('click', async () => {
+                if (recordButton.textContent === "بدء التسجيل") {
+                    await startRecording();
+                } else {
+                    stopRecording();
+                }
+            });
 
-                // Start the timer
-                startTime = Date.now();
-                timerInterval = setInterval(updateTimer, 1000);
+            // Start recording
+            async function startRecording() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
 
-                // Start sound wave visualization
-                drawSoundWave();
-            } catch (error) {
-                console.error("Error starting recording:", error);
-                document.getElementById('status').textContent = "خطأ: تعذر الوصول إلى الميكروفون. يرجى التحقق من الأذونات.";
+                    // Set up audio context and analyser for sound wave visualization
+                    audioContext = new AudioContext();
+                    analyser = audioContext.createAnalyser();
+                    const source = audioContext.createMediaStreamSource(stream);
+                    source.connect(analyser);
+                    analyser.fftSize = 2048; // Increase FFT size for smoother waveform
+                    bufferLength = analyser.frequencyBinCount;
+                    dataArray = new Uint8Array(bufferLength);
+
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+
+                        // Set the audio playback source
+                        const audio = document.getElementById('audioPlayback');
+                        audio.src = audioUrl;
+
+                        // Save the recording with the user's name
+                        const link = document.createElement('a');
+                        link.href = audioUrl;
+                        link.download = `${selectedUser}.wav`;
+                        link.click();
+
+                        // Reset for the next recording
+                        audioChunks = [];
+                        document.getElementById('status').textContent = `تم إيقاف التسجيل. تم حفظ الملف باسم ${selectedUser}.wav`;
+                        recordButton.textContent = "بدء التسجيل";
+                        recordButton.disabled = true;
+                        document.getElementById('userList').disabled = false; // Enable the user list after recording
+                        userList.value = "";
+                        clearInterval(timerInterval);
+                        document.getElementById('timer').textContent = "00:00";
+                        isRecording = false;
+                        stopSoundWave();
+
+                        document.getElementById('recordButton').classList.remove('recording'); //set grey color after recording
+                        document.getElementById('recordButton').classList.remove('ready');
+
+                    };
+
+                    // Start recording
+                    mediaRecorder.start();
+                    document.getElementById('status').textContent = "جارٍ التسجيل...";
+                    recordButton.textContent = "إيقاف التسجيل";
+                    document.getElementById('recordButton').classList.remove('ready');
+                    document.getElementById('recordButton').classList.add('recording'); //set red color
+                    isRecording = true;
+                    document.getElementById('userList').disabled = true; // Disable the user list during recording
+
+
+                    // Start the timer
+                    startTime = Date.now();
+                    timerInterval = setInterval(updateTimer, 1000);
+
+                    // Start sound wave visualization
+                    drawSoundWave();
+                } catch (error) {
+                    console.error("Error starting recording:", error);
+                    document.getElementById('status').textContent = "خطأ: تعذر الوصول إلى الميكروفون. يرجى التحقق من الأذونات.";
+                }
             }
-        }
 
-        // Stop recording
-        function stopRecording() {
-            mediaRecorder.stop();
-            clearInterval(timerInterval);
-            document.getElementById('timer').textContent = "00:00";
-        }
-
-        // Update the timer
-        function updateTimer() {
-            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-            document.getElementById('timer').textContent = `00:${elapsedTime.toString().padStart(2, '0')}`;
-
-            // Stop recording after 60 seconds
-            if (elapsedTime >= 60) {
-                clearInterval(timerInterval);
+            // Stop recording
+            function stopRecording() {
                 mediaRecorder.stop();
-                alert("انتهت الدقيقة! تم إيقاف التسجيل."); // Pop-up notification
+                clearInterval(timerInterval);
+                document.getElementById('timer').textContent = "00:00";
             }
-        }
 
-        // Draw sound wave visualization
-        function drawSoundWave() {
-            const canvas = document.getElementById('waveformCanvas');
-            const ctx = canvas.getContext('2d');
-            const width = canvas.width;
-            const height = canvas.height;
+           // Update the timer
+            function updateTimer() {
+                const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+                document.getElementById('timer').textContent = `00:${elapsedTime.toString().padStart(2, '0')}`;
 
-            function draw() {
-                if (!isRecording) return; // Stop drawing if recording is stopped
+                // Stop recording after 60 seconds
+                if (elapsedTime >= 60) {
+                    clearInterval(timerInterval);
+                    mediaRecorder.stop();
 
-                requestAnimationFrame(draw);
-                analyser.getByteTimeDomainData(dataArray);
+                    // Play the notification sound
+                    const notificationSound = document.getElementById('notificationSound');
+                    // Safari mobile fix : https://stackoverflow.com/questions/45693864/audio-play-is-not-allowed-in-safari-ios-11
+                    notificationSound.currentTime = 0;
+                    notificationSound.play().then(() => { // Play sound first
+                       setTimeout(() => {
+                            alert("انتهت الدقيقة! تم إيقاف التسجيل."); // Then show alert
+                       }, 100); // Small delay to ensure sound plays
+                    }).catch(error => {
+                        console.error("Autoplay was prevented:", error);
+                        alert("انتهت الدقيقة! تم إيقاف التسجيل. (Notification sound might be blocked by your browser.)"); // Show alert even if sound fails
+                    });
+                }
+            }
 
-                ctx.fillStyle = '#f0f0f0';
-                ctx.fillRect(0, 0, width, height);
+            // Draw sound wave visualization
+            function drawSoundWave() {
+                const canvas = document.getElementById('waveformCanvas');
+                const ctx = canvas.getContext('2d');
+                const width = canvas.width;
+                const height = canvas.height;
 
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = '#007bff';
-                ctx.beginPath();
+                function draw() {
+                    if (!isRecording) return; // Stop drawing if recording is stopped
 
-                const sliceWidth = width / bufferLength;
-                let x = 0;
+                    requestAnimationFrame(draw);
+                    analyser.getByteTimeDomainData(dataArray);
 
-                for (let i = 0; i < bufferLength; i++) {
-                    const v = dataArray[i] / 128.0;
-                    const y = (v * height) / 2;
+                    ctx.fillStyle = 'rgba(52, 73, 94, 0.8)'; // Slightly transparent background
+                    ctx.fillRect(0, 0, width, height);
 
-                    if (i === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        ctx.lineTo(x, y);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#81D4FA'; // Light Blue Color
+                    ctx.beginPath();
+
+                    const sliceWidth = width / bufferLength;
+                    let x = 0;
+
+                    for (let i = 0; i < bufferLength; i++) {
+                        const v = dataArray[i] / 128.0;
+                        const y = (v * height) / 2;
+
+                        if (i === 0) {
+                            ctx.moveTo(x, y);
+                        } else {
+                            ctx.lineTo(x, y);
+                        }
+
+                        x += sliceWidth;
                     }
 
-                    x += sliceWidth;
+                    ctx.lineTo(width, height / 2);
+                    ctx.stroke();
                 }
-
-                ctx.lineTo(width, height / 2);
-                ctx.stroke();
+                draw();
             }
-            draw();
+
+            // Stop sound wave visualization
+            function stopSoundWave() {
+                const canvas = document.getElementById('waveformCanvas');
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
         }
 
-        // Stop sound wave visualization
-        function stopSoundWave() {
-            const canvas = document.getElementById('waveformCanvas');
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //Prevent running code before the password
+        if(!passwordEntered){
+            passwordOverlay.style.display = 'flex';
         }
     </script>
 </body>
