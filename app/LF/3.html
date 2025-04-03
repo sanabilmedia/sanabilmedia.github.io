@@ -110,6 +110,7 @@
         #waveform canvas {
             width: 100%;
             height: 100%;
+            display: block; /* Ensure no extra space around the canvas */
         }
         /* User Photo */
         #userPhoto {
@@ -383,31 +384,38 @@ function updateTimer() {
             function drawSoundWave() {
                 const canvas = document.getElementById('waveformCanvas');
                 const ctx = canvas.getContext('2d');
+
+                // Set canvas dimensions to match the parent container
+                const waveformContainer = document.getElementById('waveform');
+                canvas.width = waveformContainer.clientWidth;
+                canvas.height = waveformContainer.clientHeight;
+
                 const width = canvas.width;
                 const height = canvas.height;
+                const numBars = 50; // Number of bars in the equalizer
+                const barWidth = width / numBars;
+                const barHeight = height / 2;
+
                 function draw() {
                     if (!isRecording) return; // Stop drawing if recording is stopped
                     requestAnimationFrame(draw);
-                    analyser.getByteTimeDomainData(dataArray);
-                    ctx.fillStyle = 'rgba(52, 73, 94, 0.8)'; // Slightly transparent background
-                    ctx.fillRect(0, 0, width, height);
-                    ctx.lineWidth = 2;
-                    ctx.strokeStyle = '#81D4FA'; // Light Blue Color
-                    ctx.beginPath();
-                    const sliceWidth = width / bufferLength;
-                    let x = 0;
-                    for (let i = 0; i < bufferLength; i++) {
-                        const v = dataArray[i] / 128.0;
-                        const y = (v * height) / 2;
-                        if (i === 0) {
-                            ctx.moveTo(x, y);
-                        } else {
-                            ctx.lineTo(x, y);
-                        }
-                        x += sliceWidth;
+
+                    analyser.getByteFrequencyData(dataArray);
+
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                    ctx.fillRect(0, 0, width, height); // Clear the canvas
+
+                    for (let i = 0; i < numBars; i++) {
+                        const amplitude = dataArray[i * 2] / 256; // Normalize amplitude
+                        const barHeightAdjusted = amplitude * barHeight;
+
+                        // Calculate color based on frequency bin
+                        const hue = (i / numBars) * 360; // Convert bar index to a color hue
+                        const color = `hsl(${hue}, 100%, 50%)`;
+
+                        ctx.fillStyle = color;
+                        ctx.fillRect(i * barWidth, height - barHeightAdjusted, barWidth, barHeightAdjusted);
                     }
-                    ctx.lineTo(width, height / 2);
-                    ctx.stroke();
                 }
                 draw();
             }
