@@ -365,28 +365,107 @@
 
     <script>
         const QUIZ_QUESTIONS = [
-            // ... (your questions remain unchanged) ...
-            { question: "ⵣ", options: ["ز", "ل", "ن", "ي"], correctAnswer: "ز" },
-            { question: "ⴳⵯ", options: ["ص", "ش", "غـ", "ݣْوْ"], correctAnswer: "ݣْوْ" },
-            { question: "ⵍ", options: ["ر", "مـ", "ل", "س"], correctAnswer: "ل" },
-            { question: "ⵏ", options: ["ي", "ن", "و", "ش"], correctAnswer: "ن" },
-            { question: "ⵢ", options: ["س", "غـ", "ص", "ي"], correctAnswer: "ي" },
-            { question: "ⵡ", options: ["كْوْ", "ر", "و", "ز"], correctAnswer: "و" },
-            { question: "ⵛ", options: ["غـ", "ش", "ص", "س"], correctAnswer: "ش" },
-            { question: "ⵖ", options: ["ر", "مـ", "غـ", "كْوْ"], correctAnswer: "غـ" },
-            { question: "ⵚ", options: ["ل", "(ر)", "ز", "ص"], correctAnswer: "ص" },
-            { question: "ⵙ", options: ["ل", "ز", "س", "ن"], correctAnswer: "س" },
-            { question: "ⵕ", options: ["(ر)", "كْوْ", "ز", "ي"], correctAnswer: "(ر)" },
-            { question: "ⵎ", options: ["مـ", "ر", "كْوْ", "غـ"], correctAnswer: "مـ" },
-            { question: "ⵔ", options: ["س", "ص", "ر", "ز"], correctAnswer: "ر" },
-            { question: "ⴽⵯ", options: ["ز", "كْوْ", "ل", "ن"], correctAnswer: "كْوْ" },
-            { question: "ⵥ", options: ["(ز)", "ل", "ن", "ي"], correctAnswer: "(ز)" },
-            { question: "ⴰⵢⵢⵉⵙ", options: ["أَيِّسْ", "تِمْصْرِتْ", "إِكْلَنْ", "تِلْلِّ"], correctAnswer: "أَيِّسْ" },
-            { question: "ⵜⵉⵎⵚⵕⵉⵜ", options: ["أَزْݣَّغْ", "إِكْلَنْ", "تِلْلِّ", "تِمْصْرِتْ"], correctAnswer: "تِمْصْرِتْ" },
-            { question: "ⵉⴽⵯⵍⴰⵏ", options: ["تِلْلِّ", "إِكْلَنْ", "أَزْݣَّغْ", "أَيِّسْ"], correctAnswer: "إِكْلَنْ" },
-            { question: "ⵜⵉⵍⴻⵍⵍⵉ", options: ["أَيِّسْ", "أَزْݣَّغْ", "تِلْلِّ", "تِمْصْرِتْ"], correctAnswer: "تِلْلِّ" },
-            { question: "ⴰⵣⴳⴳⵯⴰⵖ", options: ["أَزْݣَّغْ", "أَيِّسْ", "تِمْصْرِتْ", "إِكْلَنْ"], correctAnswer: "أَزْݣَّغْ" }
-        ];
+   {
+       question: "ⵜⴰⴷⴷⴰⴳⵜ",
+       options: ["تَدَلَ", "أَوْتِلْ", "تِهِرِتْ", "تَدَّݣْتْ"],
+       correctAnswer: "تَدَّݣْتْ"
+   },
+   {
+       question: "ⴰⵡⵜⵉⵍ",
+       options: ["تِخْسِ", "أَوْتِلْ", "أَقَّرِضْ", "أَكْرَّجْ"],
+       correctAnswer: "أَوْتِلْ"
+   },
+   {
+       question: "ⵜⵉⵀⵉⵔⵉⵜ",
+       options: ["أَمَلُ", "تَدَلَ", "تِهِرِتْ", "أَسَفَرْ"],
+       correctAnswer: "تِهِرِتْ"
+   },
+   {
+       question: "ⴰⵡⵙⵙⴰⵔ",
+       options: ["أَوْسَّرْ", "أَغْرَبْ", "أَشْوَّلْ", "تَزِرِ"],
+       correctAnswer: "أَوْسَّرْ"
+   },
+   {
+       question: "ⵜⵉⵅⵙⵉ",
+       options: ["أَݣْوْضِ", "تِخْسِ", "أَكْوْفَيْ", "تَمّْمْتْ"],
+       correctAnswer: "تِخْسِ"
+   },
+   {
+       question: "ⴰⵇⵇⴰⵔⵉⴰⴹ",
+       options: ["أَوْسَّرْ", "إِغِرْضْمْ", "أَحْجَّمْ", "أَقَّرِضْ"],
+       correctAnswer: "أَقَّرِضْ"
+   },
+   {
+       question: "ⴰⴽⵕⵕⴰⵊ",
+       options: ["أَزَوَنْ", "أَكْرَّجْ", "تَدَّݣْتْ", "أَوْتِلْ"],
+       correctAnswer: "أَكْرَّجْ"
+   },
+   {
+       question: "ⴰⵎⴰⵍⵓ",
+       options: ["أَسَفَرْ", "تِهِرِتْ", "أَوْسَّرْ", "أَمَلُ"],
+       correctAnswer: "أَمَلُ"
+   },
+   {
+       question: "ⵜⴰⴷⴰⵍⴰ",
+       options: ["أَقَّرِضْ", "تَدَلَ", "أَكْرَّجْ", "أَسَفَرْ"],
+       correctAnswer: "تَدَلَ"
+   },
+   {
+       question: "ⴰⵙⴰⴼⴰⵔ",
+       options: ["أَغْرَبْ", "أَسَفَرْ", "أَشْوَّلْ", "تَزِرِ"],
+       correctAnswer: "أَسَفَرْ"
+   },
+   {
+       question: "ⴰⵖⵔⴰⴱ",
+       options: ["أَݣْوْضِ", "أَكْوْفَيْ", "أَغْرَبْ", "تَمّْمْتْ"],
+       correctAnswer: "أَغْرَبْ"
+   },
+   {
+       question: "ⴰⵛⵡⵡⴰⵍ",
+       options: ["أَوْسَّرْ", "إِغِرْضْمْ", "أَحْجَّمْ", "أَشْوَّلْ"],
+       correctAnswer: "أَشْوَّلْ"
+   },
+   {
+       question: "ⵜⴰⵣⵉⵔⵉ",
+       options: ["أَزَوَنْ", "تَزِرِ", "تَدَّݣْتْ", "أَوْتِلْ"],
+       correctAnswer: "تَزِرِ"
+   },
+   {
+       question: "ⴰⴳⵯⴹⵉ",
+       options: ["تِهِرِتْ", "أَوْسَّرْ", "أَݣْوْضِ", "تِخْسِ"],
+       correctAnswer: "أَݣْوْضِ"
+   },
+   {
+       question: "ⴰⴽⵯⴼⴰⵢ",
+       options: ["أَقَّرِضْ", "أَكْرَّجْ", "أَكْوْفَيْ", "أَمَلُ"],
+       correctAnswer: "أَكْوْفَيْ"
+   },
+   {
+       question: "ⵜⴰⵎⵎⴻⵎⵜ",
+       options: ["تَدَلَ", "أَسَفَرْ", "تَمّْمْتْ", "أَغْرَبْ"],
+       correctAnswer: "تَمّْمْتْ"
+   },
+   {
+       question: "ⵉⵖⵉⵕⴹⵎ",
+       options: ["أَشْوَّلْ", "تَزِرِ", "إِغِرْضْمْ", "أَݣْوْضِ"],
+       correctAnswer: "إِغِرْضْمْ"
+   },
+   {
+       question: "ⴰⵃⵊⵊⴰⵎ",
+       options: ["أَكْوْفَيْ", "أَحْجَّمْ", "تَمّْمْتْ", "أَفْرْطْطُّ"],
+       correctAnswer: "أَحْجَّمْ"
+   },
+   {
+       question: "ⴰⴼⵕⵟⴻⵟⵟⵓ",
+       options: ["أَزَوَنْ", "إِغِرْضْمْ", "أَفْرْطْطُّ", "تَدَّݣْتْ"],
+       correctAnswer: "أَفْرْطْطُّ"
+   },
+   {
+       question: "ⴰⵥⴰⵡⴰⵏ",
+       options: ["أَوْتِلْ", "تِهِرِتْ", "أَزَوَنْ", "أَوْسَّرْ"],
+       correctAnswer: "أَزَوَنْ"
+   }
+];
 
         const PHOTO_PATH = ""; // Define the path to your photos folder (e.g., "photos/")
 
