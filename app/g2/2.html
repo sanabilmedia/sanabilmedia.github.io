@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ⵉⵙⴽⴽⵉⵍⵏ ⵏ ⵜⴼⵉⵏⴰⵖ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        /* Reset and Box-sizing */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #202124;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            transition: min-height 0.3s ease-in-out;
+        }
+
+        .header {
+            padding: 16px 24px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #1a73e8;
+            margin: 0;
+        }
+
+        .header .player-name {
+            font-size: 1rem;
+            color: #5f6368;
+            white-space: nowrap;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .quiz-content {
+            padding: 24px;
+        }
+
+        .timer {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            color: #5f6368;
+        }
+
+        .progress {
+            height: 4px;
+            background-color: #e8f0fe;
+            border-radius: 2px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #1a73e8;
+            width: 0;
+            transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+
+        .progress-bar.warning {
+            background-color: #ffa000;
+        }
+
+        .question {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            transform: scale(2);
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .option {
+            background-color: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 12px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            transform: scale(1);
+            font-size: 1.5rem;
+        }
+
+        .option:hover {
+            background-color: #f1f3f4;
+        }
+
+        .option.selected {
+            background-color: #deebfd;
+            border-color: #90caf9;
+        }
+
+        .option.correct {
+            background-color: #e6f4ea;
+            border-color: #81c784;
+            color: #1b5e20;
+        }
+
+        .option.incorrect {
+            background-color: #ffe0b2;
+            border-color: #ffb300;
+            color: #bf360c;
+        }
+
+       .name-input-screen {
+            text-align: center;
+            padding: 32px;
+        }
+
+        .name-input-screen h1 {
+            margin-bottom: 24px;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #1a73e8;
+        }
+
+        .name-input-screen #userPhotoPreview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+            display: none;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 16px;
+        }
+
+        .name-input-screen select {
+            padding: 10px 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            width: 100%;
+            outline: none;
+        }
+        .name-input-screen select:focus {
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 1px #1a73e8;
+        }
+
+        .name-input-screen button,
+        .restart-btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+            font-weight: 500;
+            outline: none;
+        }
+
+        .name-input-screen button:hover,
+        .restart-btn:hover {
+            background-color: #155bb3;
+        }
+
+        .name-input-screen button:disabled {
+            background-color: #e0e0e0;
+            color: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        .result-screen {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .result-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+            border: 3px solid #1a73e8;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .result-screen h2 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #202124;
+        }
+
+        .result-screen h2.performance-rating {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: #1a73e8;
+        }
+
+        /* Red Final Note Style */
+        .final-score-note {
+            color: #d93025;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .result-item {
+            background-color: #f9f9f9;
+            padding: 16px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        .result-item span {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #202124;
+        }
+
+        .result-item .label {
+            font-size: 0.9rem;
+            color: #757575;
+        }
+
+        .question-review {
+            margin-top: 24px;
+            text-align: left;
+        }
+
+        .question-review-item {
+            margin-bottom: 24px;
+            padding: 16px;
+            border-radius: 4px;
+            background-color: #fff;
+            border: 1px solid #eee;
+        }
+
+        .question-review-item h4 {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .question-review-item.correct { border-left: 4px solid #4caf50; }
+        .question-review-item.correct h4 { color: #4caf50; }
+        .question-review-item.incorrect { border-left: 4px solid #f44336; }
+        .question-review-item.incorrect h4 { color: #f44336; }
+
+        .question-review-item p {
+            margin: 4px 0;
+            color: #5f6368;
+            font-size: 0.9rem;
+        }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            .quiz-container { margin: 10px; }
+            .header h1 { font-size: 1.3rem; }
+            .header-photo { width: 35px; height: 35px; }
+            .header .player-name { font-size: 0.9rem; }
+            .question { font-size: 1rem; }
+            .result-grid { grid-template-columns: 1fr; }
+            .result-photo { width: 80px; height: 80px; }
+            .final-score-note { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container" id="quizApp"></div>
+
+    <script>
+        const QUIZ_QUESTIONS = [
+            { question: "ⴰⵎ", options: ["أَمْ", "بُ", "مُـ", "أَتْ"], correctAnswer: "أَمْ" },
+            { question: "ⴱⵓ", options: ["أُبْ", "بُ", "أَبْ", "تَ"], correctAnswer: "بُ" },
+            { question: "ⵉⵜ", options: ["أَتْ", "تِ", "إِتْ", "مِـ"], correctAnswer: "إِتْ" },
+            { question: "ⴰⴱ", options: ["أَبْ", "أُبْ", "أَمْ", "بُ"], correctAnswer: "أَبْ" },
+            { question: "ⵎⵉ", options: ["مُـ", "تِ", "تَ", "مِـ"], correctAnswer: "مِـ" },
+            { question: "ⵜⴰ", options: ["تَ", "تِ", "أَتْ", "إِتْ"], correctAnswer: "تَ" },
+            { question: "ⵎⵓ", options: ["مِـ", "مُـ", "بُ", "أَمْ"], correctAnswer: "مُـ" },
+            { question: "ⴰⵜ", options: ["أَتْ", "إِتْ", "تَ", "أَبْ"], correctAnswer: "أَتْ" },
+            { question: "ⵓⴱ", options: ["أُبْ", "أَبْ", "بُ", "مُـ"], correctAnswer: "أُبْ" },
+            { question: "ⵜⵉ", options: ["تَ", "مِـ", "إِتْ", "تِ"], correctAnswer: "تِ" },
+            { question: "ⴱⴰⴱⴰ", options: ["إِمَّ", "بَبَ", "تِلِلَ", "بَطَطَ"], correctAnswer: "بَبَ" },
+            { question: "ⵙⵎⵎⵓⵙ", options: ["أَدْلِسْ", "تَفُكْتْ", "سْمُّسْ", "تِفِنَغْ"], correctAnswer: "سْمُّسْ" },
+            { question: "ⵜⴰⴼⵓⴽⵜ", options: ["تَفُكْتْ", "سْمُّسْ", "بَبَ", "إِمَّ"], correctAnswer: "تَفُكْتْ" },
+            { question: "ⵜⵉⵍⵉⵍⴰ", options: ["بَطَطَ", "تِلِلَ", "تَمَزِغْتْ", "إِمَّ"], correctAnswer: "تِلِلَ" },
+            { question: "ⴰⴷⵍⵉⵙ", options: ["أَبْرْكَنْ", "سْمُّسْ", "تِفِنَغْ", "أَدْلِسْ"], correctAnswer: "أَدْلِسْ" },
+            { question: "ⵉⵎⵎⴰ", options: ["بَبَ", "إِمَّ", "تِلِلَ", "تَفُكْتْ"], correctAnswer: "إِمَّ" },
+            { question: "ⴰⴱⵔⴽⴰⵏ", options: ["أَدْلِسْ", "أَبْرْكَنْ", "سْمُّسْ", "تِفِنَغْ"], correctAnswer: "أَبْرْكَنْ" },
+            { question: "ⴱⴰⵟⴰⵟⴰ", options: ["تَمَزِغْتْ", "بَبَ", "بَطَطَ", "إِمَّ"], correctAnswer: "بَطَطَ" },
+            { question: "ⵜⴰⵎⴰⵣⵉⵖⵜ", options: ["تَمَزِغْتْ", "تِفِنَغْ", "تَفُكْتْ", "سْمُّسْ"], correctAnswer: "تَمَزِغْتْ" },
+            { question: "ⵜⵉⴼⵉⵏⴰⵖ", options: ["أَبْرْكَنْ", "تِلِلَ", "أَدْلِسْ", "تِفِنَغْ"], correctAnswer: "تِفِنَغْ" }
+        ];
+
+        const PHOTO_PATH = "";
+
+        class GeneralKnowledgeQuiz {
+            constructor() {
+                this.questions = QUIZ_QUESTIONS;
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+                this.timeLimit = 15;
+                this.timer = null;
+                this.selectedAnswer = null;
+                this.summaryData = [];
+                this.playerName = '';
+                this.selectedUserData = null;
+                this.quizApp = document.getElementById('quizApp');
+                this.startTime = null;
+                this.initialQuizContainerHeight = null;
+                this.users = [
+{ name: "1_G2_بوناب معاذ", photo: "G2_1.jpg" },
+{ name: "2_G2_الزكاني محمد", photo: "G2_2.jpg" },
+{ name: "3_G2_لزرك طه", photo: "G2_3.jpg" },
+{ name: "4_G2_ايت لعبيدي إيمان", photo: "G2_4.jpg" },
+{ name: "5_G2_ايت حمو عمر", photo: "G2_5.jpg" },
+{ name: "6_G2_الخراز خديجة", photo: "G2_6.jpg" },
+{ name: "7_G2_البوطة إيمان", photo: "G2_7.jpg" },
+{ name: "8_G2_الغرابي اشرف", photo: "G2_8.jpg" },
+{ name: "9_G2_العسري ملاك", photo: "G2_9.jpg" },
+{ name: "10_G2_بوناب أميرة الزهور", photo: "G2_10.jpg" },
+{ name: "11_G2_مزوغ عبدالرحمان", photo: "G2_11.jpg" },
+{ name: "12_G2_الموسيح يوسف", photo: "G2_12.jpg" },
+{ name: "13_G2_اوفقير رحاب", photo: "G2_13.jpg" },
+{ name: "14_G2_حبر هداية", photo: "G2_14.jpg" },
+{ name: "15_G2_الضعيف إحسان", photo: "G2_15.jpg" },
+{ name: "16_G2_ميزار محمد", photo: "G2_16.jpg" },
+{ name: "17_G2_أيت أمغار ندى", photo: "G2_17.jpg" },
+{ name: "18_G2_ارطيم اسلام", photo: "G2_18.jpg" },
+{ name: "19_G2_كورتي عبد العزيز", photo: "G2_19.jpg" },
+{ name: "20_G2_ايت عدمان محمد أمين", photo: "G2_20.jpg" },
+{ name: "21_G2_بحب ملاك", photo: "G2_21.jpg" },
+{ name: "22_G2_احميت زياد", photo: "G2_22.jpg" },
+{ name: "23_G2_صبير سارة", photo: "G2_23.jpg" },
+{ name: "24_G2_أمعضور آدم", photo: "G2_24.jpg" },
+{ name: "25_G2_الموسيح يحى", photo: "G2_25.jpg" },
+{ name: "26_G2_بضار انس", photo: "G2_26.jpg" },
+{ name: "27_G2_العمراني امينة", photo: "G2_27.jpg" },
+{ name: "28_G2_بوسكوري حفصة", photo: "G2_28.jpg" },
+{ name: "29_G2_بن المعلم ادم", photo: "G2_29.jpg" },
+{ name: "30_G2_الدويعلي طه عدنان", photo: "G2_30.jpg" }
+                ];
+                this.renderNameInputScreen();
+            }
+
+            renderNameInputScreen() {
+                this.quizApp.innerHTML = `
+                    <div class="name-input-screen">
+                        <h1>ⵉⵙⴽⴽⵉⵍⵏ ⵏ ⵜⴼⵉⵏⴰⵖ</h1>
+                        <img id="userPhotoPreview" src="" alt="User Photo">
+                        <select id="userSelect">
+                            <option value="" disabled selected>ⴰⵔⴰ ⴰⵙⵙⴰⵖ ⵏⴽ</option>
+                            ${this.users.map(user => `<option value="${user.name}">${user.name}</option>`).join('')}
+                        </select>
+                        <button id="startQuizBtn" disabled>ⵙⵙⵏⵜⵉ</button>
+                    </div>
+                `;
+
+                const userSelect = document.getElementById('userSelect');
+                const startButton = document.getElementById('startQuizBtn');
+                const photoPreview = document.getElementById('userPhotoPreview');
+
+                userSelect.addEventListener('change', () => {
+                    const selectedUserName = userSelect.value;
+                    this.selectedUserData = this.users.find(user => user.name === selectedUserName);
+                    if (this.selectedUserData) {
+                        this.playerName = this.selectedUserData.name;
+                        photoPreview.src = PHOTO_PATH + this.selectedUserData.photo;
+                        photoPreview.style.display = 'block';
+                        startButton.disabled = false;
+                    } else {
+                        photoPreview.style.display = 'none';
+                        startButton.disabled = true;
+                    }
+                });
+
+                startButton.addEventListener('click', () => {
+                    if (this.playerName && this.selectedUserData) {
+                        this.initQuiz();
+                    }
+                });
+            }
+
+            initQuiz() {
+                this.renderQuizScreen();
+                this.startTimer();
+            }
+
+            startTimer() {
+                let timeLeft = this.timeLimit;
+                const timerElement = document.getElementById('time');
+                const progressBar = document.querySelector('.progress-bar');
+                this.startTime = Date.now();
+
+                if (this.timer) clearInterval(this.timer);
+
+                this.timer = setInterval(() => {
+                    timeLeft--;
+                    if(timerElement) timerElement.textContent = `${timeLeft}s`;
+                    if(progressBar) progressBar.style.width = `${(timeLeft / this.timeLimit) * 100}%`;
+
+                    if (timeLeft <= 5 && progressBar) progressBar.classList.add('warning');
+                    if (timeLeft === 12) {
+                        this.showOptions();
+                        this.captureInitialHeight();
+                    }
+                    if (timeLeft <= 0) this.handleTimeOut();
+                }, 1000);
+            }
+
+            captureInitialHeight() {
+                if (this.initialQuizContainerHeight === null) {
+                    this.initialQuizContainerHeight = this.quizApp.offsetHeight;
+                    this.quizApp.style.minHeight = `${this.initialQuizContainerHeight}px`;
+                }
+            }
+
+            showOptions() {
+                const optionsContainer = document.querySelector('.options');
+                if (optionsContainer) optionsContainer.classList.remove('hidden');
+            }
+
+            renderQuizScreen() {
+                const currentQuestion = this.questions[this.currentQuestionIndex];
+                const photoSrc = this.selectedUserData ? PHOTO_PATH + this.selectedUserData.photo : '';
+                this.quizApp.innerHTML = `
+                    <div class="header">
+                        <div class="header-left">
+                            <img src="${photoSrc}" alt="User" class="header-photo">
+                             <h1>${this.currentQuestionIndex + 1})</h1>
+                        </div>
+                        <span class="player-name">${this.playerName}</span>
+                    </div>
+                    <div class="quiz-content">
+                        <div class="timer"><span id="time">${this.timeLimit}s</span></div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="question">
+                            ${currentQuestion.question}
+                        </div>
+                         <div class="options hidden">
+                            ${currentQuestion.options.map(option => `
+                                <div class="option" data-option="${option}">${option}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                this.attachOptionListeners();
+            }
+
+            attachOptionListeners() {
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        if (this.selectedAnswer) return;
+                        this.selectedAnswer = option.getAttribute('data-option');
+                        this.checkAnswer(option);
+                    });
+                });
+            }
+
+            checkAnswer(selectedOption) {
+                clearInterval(this.timer);
+                const currentQuestion = this.questions[this.currentQuestionIndex];
+                const correctOption = document.querySelector(`.option[data-option="${currentQuestion.correctAnswer}"]`);
+                const endTime = Date.now();
+                const timeSpent = ((endTime - this.startTime) / 1000).toFixed(1);
+                this.questions[this.currentQuestionIndex].timeSpent = Math.max(0, Math.min(this.timeLimit, timeSpent));
+
+                document.querySelectorAll('.option').forEach(opt => opt.style.pointerEvents = 'none');
+
+                if (this.selectedAnswer === currentQuestion.correctAnswer) {
+                    selectedOption.classList.add('correct');
+                    this.score++;
+                    this.questions[this.currentQuestionIndex].result = "Oui";
+                } else {
+                    selectedOption.classList.add('incorrect');
+                    if(correctOption) correctOption.classList.add('correct');
+                    this.questions[this.currentQuestionIndex].result = "Non";
+                }
+                this.questions[this.currentQuestionIndex].userAnswer = this.selectedAnswer;
+                setTimeout(() => this.nextQuestion(), 1500);
+            }
+
+            handleTimeOut() {
+                clearInterval(this.timer);
+                const currentQuestion = this.questions[this.currentQuestionIndex];
+                const correctOption = document.querySelector(`.option[data-option="${currentQuestion.correctAnswer}"]`);
+                this.showOptions();
+                document.querySelectorAll('.option').forEach(opt => opt.style.pointerEvents = 'none');
+                this.questions[this.currentQuestionIndex].timeSpent = this.timeLimit.toFixed(1);
+                this.questions[this.currentQuestionIndex].userAnswer = "ⵉⵙⵙⵎⴷ ⵡⴰⴽⵓⴷ";
+                this.questions[this.currentQuestionIndex].result = "Non";
+                if(correctOption) correctOption.classList.add('correct');
+                setTimeout(() => this.nextQuestion(), 1500);
+            }
+
+            nextQuestion() {
+                this.currentQuestionIndex++;
+                this.selectedAnswer = null;
+                this.startTime = null;
+                if (this.currentQuestionIndex < this.questions.length) {
+                    this.renderQuizScreen();
+                    this.startTimer();
+                } else {
+                    this.showResult();
+                }
+            }
+
+            calculatePerformanceRating(score) {
+                const percentage = (score / this.questions.length) * 100;
+                if (percentage === 100) return '🏆 ممتاز';
+                if (percentage >= 80) return 'أحسنت';
+                if (percentage >= 60) return 'متوسط';
+                if (percentage >= 40) return 'تمرن جيدا';
+                return 'نتيجة ضعيفة جدا';
+            }
+
+            showResult() {
+                this.questions.forEach(q => { if (q.timeSpent === undefined) q.timeSpent = "0.0"; });
+                const totalTime = this.questions.reduce((sum, q) => sum + parseFloat(q.timeSpent || 0), 0);
+                const avgTime = this.questions.length > 0 ? (totalTime / this.questions.length).toFixed(1) : "0.0";
+                const percentage = ((this.score / this.questions.length) * 100).toFixed(1);
+                const correctAnswers = this.questions.filter(q => q.result === 'Oui');
+                const totalTimeCorrect = correctAnswers.reduce((sum, q) => sum + parseFloat(q.timeSpent || 0), 0);
+                const avgTimeCorrect = correctAnswers.length > 0 ? (totalTimeCorrect / correctAnswers.length).toFixed(1) : "0.0";
+
+                this.summaryData = this.questions.map((q, i) => ({
+                    Question: q.question,
+                    YourAnswer: q.userAnswer || "ⵓⵔ ⵜⵙⵙⵏⴰⵡⴰ",
+                    CorrectAnswer: q.correctAnswer,
+                    Result: q.result || "Non",
+                    TimeSpent: q.timeSpent ? `${q.timeSpent}s` : "0s"
+                }));
+
+                const photoSrc = this.selectedUserData ? PHOTO_PATH + this.selectedUserData.photo : '';
+                this.quizApp.innerHTML = `
+                    <div class="header">
+                         <div class="header-left"><h1>ⵉⵙⴽⴽⵉⵍⵏ</h1></div>
+                          <span class="player-name">${this.playerName}</span>
+                    </div>
+                    <div class="result-screen">
+                        <img src="${photoSrc}" alt="User Photo" class="result-photo">
+                        <h2>${this.playerName}</h2>
+
+                        <!-- Fixed: Final Score in Red -->
+                        <div class="final-score-note">${this.score}/${this.questions.length}</div>
+
+                        <h2 class="performance-rating">${this.calculatePerformanceRating(this.score)}</h2>
+                        <div class="result-grid">
+                            <div class="result-item"><span>${this.score}/${this.questions.length}</span><span class="label">ⴰⵜⵉⴳ</span></div>
+                            <div class="result-item"><span>${percentage}%</span><span class="label">ⵜⵉⴳⵎⵉⴹⵉ</span></div>
+                            <div class="result-item"><span>${avgTime}s</span><span class="label">ⴰⴽⵓⴷ</span></div>
+                            <div class="result-item"><span>${avgTimeCorrect}s</span><span class="label">ⴰⴽⵓⴷ ⵏ ⵉⵎⵉⴷⵉⵜⵏ</span></div>
+                        </div>
+                        <h3>ⵉⴼⵔⵓⵔⵉⵜⵏ</h3>
+                        <div class="question-review">
+                            ${this.questions.map((q, i) => {
+                                const isCorrect = q.result === 'Oui';
+                                return `
+                                <div class="question-review-item ${isCorrect ? 'correct' : 'incorrect'}">
+                                    <h4>${i + 1} <i class="material-icons">${isCorrect ? 'check_circle' : 'highlight_off'}</i></h4>
+                                    <p><b>ⴰⵙⵇⵙⵉ:</b> ${q.question}</p>
+                                    <p><b>ⵜⴰⵎⵔⴰⵔⵓⵜ ⵏⴽ:</b> ${q.userAnswer || "ⵉⵙⵙⵎⴷ ⵡⴰⴽⵓⴷ"}</p>
+                                    ${!isCorrect ? `<p><b>ⵜⴰⵎⵔⴰⵔⵓⵜ:</b> ${q.correctAnswer}</p>` : ''}
+                                     <p><b>ⴰⴽⵓⴷ:</b> ${q.timeSpent}s</p>
+                                </div>`}).join('')}
+                        </div>
+                        <button class="restart-btn" onclick="location.reload()">ⵙⵙⵏⵜⵉ ⴷⴰⵖ</button>
+                    </div>
+                `;
+                downloadCSV(this.summaryData, this.playerName, avgTimeCorrect, this.score, this.questions.length);
+            }
+        }
+
+        function downloadCSV(summaryData, playerName, avgTimeCorrect, score, totalQuestions) {
+            if (!summaryData || summaryData.length === 0) return;
+            function escapeCSV(field) {
+                const strField = String(field || '');
+                return (strField.includes(',') || strField.includes('\n') || strField.includes('"')) ? `"${strField.replace(/"/g, '""')}"` : strField;
+            }
+
+            const headers = ['ⴰⵙⵇⵙⵉ', 'ⴰⵙⴽⴽⵉⵍ', 'ⵜⴰⵎⵔⴰⵔⵓⵜ', 'ⵜⴰⵎⵔⴰⵔⵓⵜ ⵏⴽ', 'ⴰⴽⵓⴷ', 'ⴰⵙⵏⵓⵎ'];
+            const csvRows = summaryData.map((row, i) => [i + 1, escapeCSV(row.Question), escapeCSV(row.CorrectAnswer), escapeCSV(row.YourAnswer), escapeCSV(row.TimeSpent), escapeCSV(row.Result)].join(','));
+
+            const percentage = ((score / totalQuestions) * 100).toFixed(1);
+            const totalTime = summaryData.reduce((sum, row) => sum + parseFloat(row.TimeSpent), 0);
+            const avgTime = (totalTime / summaryData.length).toFixed(1);
+
+            const summary = ['', 'ⵜⴰⴳⴹⵡⵉⵜ:', `ⴰⵙⵙⴰⵖ,${escapeCSV(playerName)}`, `ⴰⵜⵉⴳ,"${score}/${totalQuestions}"`, `ⵉⵙⴽⴽⵉⵍⵏ,"${percentage}%"`, `ⴰⴽⵓⴷ,"${avgTime}s"`, `ⴰⴽⵓⴷ ⵏ ⵉⵎⵉⴷⵉⵜⵏ,"${avgTimeCorrect}s"`].join('\n');
+            const fullCSV = [headers.join(','), ...csvRows, summary].join('\n');
+
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + fullCSV], { type: 'text/csv;charset=utf-8;' });
+
+            // Fixed: Sanitizer now allows Arabic and Tifinagh characters
+            const sanitizedName = playerName.replace(/[\\/:*?"<>|]/g, '_');
+
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `${sanitizedName}_quiz_results.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        new GeneralKnowledgeQuiz();
+    </script>
+</body>
+</html>
