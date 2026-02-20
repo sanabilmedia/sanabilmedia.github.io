@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Quiz Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --success: #22c55e;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --bg: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #202124;
+            --text-light: #5f6368;
+            --radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .quiz-container {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 550px;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #ffffff, #f8faff);
+        }
+
+        .header-left { display: flex; align-items: center; gap: 12px; }
+
+        .header-photo {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            padding: 2px;
+        }
+
+        .player-info h1 { font-size: 1.1rem; color: var(--primary); }
+        .player-name { font-size: 0.85rem; color: var(--text-light); }
+
+        .quiz-content { padding: 30px 24px; }
+
+        .timer-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #time { font-weight: bold; font-family: 'Roboto'; font-size: 1.1rem; }
+
+        .progress-container {
+            height: 8px;
+            background-color: #e8f0fe;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), #4285f4);
+            width: 100%;
+            transition: width 1s linear;
+        }
+
+        .progress-bar.warning { background: var(--error); }
+
+        .question-box { text-align: center; margin-bottom: 30px; }
+
+        .question-text {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-main);
+            font-family: 'Roboto', sans-serif;
+            display: inline-block;
+            direction: ltr !important; 
+            unicode-bidi: isolate;
+        }
+
+        .waiting-msg {
+            color: var(--warning);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius);
+            padding: 18px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Roboto';
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background-color: #f8faff;
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct { background-color: var(--success) !important; border-color: var(--success) !important; color: white; }
+        .option-btn.incorrect { background-color: var(--error) !important; border-color: var(--error) !important; color: white; }
+
+        .screen { padding: 40px 20px; text-align: center; }
+        
+        .name-input-screen select {
+            width: 100%;
+            padding: 15px;
+            border-radius: var(--radius);
+            border: 2px solid #ddd;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-family: 'Tajawal';
+        }
+
+        .btn-main {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-main:disabled {
+            background-color: #ccc; /* This is the grey color */
+            color: #888;            /* Optional: makes the text a bit lighter too */
+            cursor: not-allowed;    /* Shows a "no entry" sign when hovering */
+        }
+
+        .final-score { font-size: 3.5rem; color: var(--error); font-weight: 800; font-family: 'Roboto'; }
+
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: var(--radius); border: 1px solid #eee; }
+        .stat-val { font-size: 1.2rem; font-weight: bold; color: var(--primary); font-family: 'Roboto'; }
+        .stat-label { font-size: 0.8rem; color: var(--text-light); }
+
+        .review-list { margin-top: 30px; text-align: right; max-height: 250px; overflow-y: auto; padding-left: 10px; }
+        .review-item { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 12px 8px; 
+            border-bottom: 1px solid #f0f0f0; 
+            font-size: 0.95rem; 
+        }
+
+        .math-review { direction: ltr !important; display: inline-block; font-family: 'Roboto'; font-weight: bold; }
+
+        /* FIXED: Typo Noe -> none */
+        .hidden { display: none !important; }
+
+        #userPhotoPreview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: none;
+            border: 3px solid var(--primary);
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container" id="quizApp"></div>
+
+    <script>
+        const QUIZ_QUESTIONS = [
+            { question: "9 x 2 = ", options: ["81", "18", "24", "21"], correctAnswer: "18" },
+            { question: "6 x 7 = ", options: ["27", "36", "42", "49"], correctAnswer: "42" },
+            { question: "9 x 9 = ", options: ["63", "54", "72", "81"], correctAnswer: "81" },
+            { question: "7 x 3 = ", options: ["21", "25", "24", "28"], correctAnswer: "21" },
+            { question: "6 x 9 = ", options: ["56", "54", "63", "72"], correctAnswer: "54" },
+            { question: "5 x 5 = ", options: ["20", "35", "25", "45"], correctAnswer: "25" },
+            { question: "8 x 7 = ", options: ["56", "42", "36", "48"], correctAnswer: "56" },
+            { question: "9 x 7 = ", options: ["72", "49", "63", "56"], correctAnswer: "63" },
+            { question: "6 x 3 = ", options: ["24", "18", "21", "81"], correctAnswer: "18" },
+            { question: "8 x 3 = ", options: ["42", "28", "27", "24"], correctAnswer: "24" },
+            { question: "9 x 4 = ", options: ["32", "36", "63", "18"], correctAnswer: "36" },
+            { question: "8 x 6 = ", options: ["64", "54", "48", "40"], correctAnswer: "48" },
+            { question: "7 x 4 = ", options: ["28", "27", "21", "24"], correctAnswer: "28" },
+            { question: "6 x 6 = ", options: ["32", "42", "36", "25"], correctAnswer: "36" },
+            { question: "8 x 9 = ", options: ["63", "72", "64", "81"], correctAnswer: "72" },
+            { question: "9 x 3 = ", options: ["21", "25", "24", "27"], correctAnswer: "27" },
+            { question: "8 x 8 = ", options: ["72", "64", "54", "81"], correctAnswer: "64" },
+            { question: "6 x 4 = ", options: ["24", "21", "32", "36"], correctAnswer: "24" },
+            { question: "8 x 4 = ", options: ["24", "27", "36", "32"], correctAnswer: "32" },
+            { question: "7 x 7 = ", options: ["48", "42", "49", "56"], correctAnswer: "49" }
+        ];
+
+        const PHOTO_PATH = "";
+
+        class MultiplicationQuiz {
+            constructor() {
+                this.questions = QUIZ_QUESTIONS;
+                this.currentIndex = 0;
+                this.score = 0;
+                this.timeLimit = 10;
+                this.timer = null;
+                this.playerName = '';
+                this.selectedUserData = null;
+                this.quizApp = document.getElementById('quizApp');
+                
+                this.users = [
+                    { name: "01_G4_الدراع اية", photo: "G4_1.jpg" },
+                    { name: "02_G4_بن جات احمد", photo: "G4_2.jpg" },
+                    { name: "03_G4_اعنيبة رياض", photo: "G4_3.jpg" },
+                    { name: "04_G4_فراح هبة", photo: "G4_4.jpg" },
+                    { name: "05_G4_لياسي صفية", photo: "G4_5.jpg" },
+                    { name: "06_G4_اغراس حورية", photo: "G4_6.jpg" },
+                    { name: "07_G4_ابيك سلسبيل", photo: "G4_7.jpg" },
+                    { name: "08_G4_العبيدي يوسف", photo: "G4_8.jpg" },
+                    { name: "09_G4_العسيكري علاء الدين", photo: "G4_9.jpg" },
+                    { name: "10_G4_اتلعينت مروان", photo: "G4_10.jpg" },
+                    { name: "11_G4_أيت مبارك زكرياء", photo: "G4_11.jpg" },
+                    { name: "12_G4_نوحي محمد أمين", photo: "G4_12.jpg" },
+                    { name: "13_G4_ايت بلكويم ملاك", photo: "G4_13.jpg" },
+                    { name: "14_G4_الحسنات سلمى", photo: "G4_14.jpg" },
+                    { name: "15_G4_الغزالي زينب", photo: "G4_15.jpg" },
+                    { name: "16_G4_غراس سعد الدين", photo: "G4_16.jpg" },
+                    { name: "17_G4_العاريفي فاطمة الزهراء", photo: "G4_17.jpg" },
+                    { name: "18_G4_كروم عمران", photo: "G4_18.jpg" },
+                    { name: "19_G4_جراف حفصة", photo: "G4_19.jpg" },
+                    { name: "20_G4_فراح أمين", photo: "G4_20.jpg" },
+                    { name: "21_G4_الكراب يونس", photo: "G4_21.jpg" },
+                    { name: "22_G4_أمعضور آية", photo: "G4_22.jpg" },
+                    { name: "23_G4_بوكار علي", photo: "G4_23.jpg" },
+                    { name: "24_G4_اوبيش ياسر", photo: "G4_24.jpg" },
+                    { name: "25_G4_زويهر مارية", photo: "G4_25.jpg" },
+                    { name: "26_G4_جبران نعيمة", photo: "G4_26.jpg" },
+                    { name: "27_G4_تفسوت حفصة", photo: "G4_27.jpg" },
+                    { name: "28_G4_زدي دعاء", photo: "G4_28.jpg" },
+                    { name: "29_G4_أبعير رانية", photo: "G4_29.jpg" },
+                    { name: "30_G4_ابن الحبيب نهاد", photo: "G4_30.jpg" },
+                    { name: "99_G4_Test", photo: "guest.jpg" }
+                ];
+                
+                this.renderWelcome();
+            }
+
+            renderWelcome() {
+                this.quizApp.innerHTML = `
+                    <div class="screen name-input-screen">
+                        <h1 style="margin-bottom:20px">اختبار جدول الضرب</h1>
+                        <img id="userPhotoPreview" src="" alt="">
+                        <select id="userSelect">
+                            <option value="" disabled selected>اختر اسمك من القائمة</option>
+                            ${this.users.map(u => `<option value="${u.name}">${u.name}</option>`).join('')}
+                        </select>
+                        <button id="startBtn" class="btn-main" disabled>ابدأ الاختبار</button>
+                    </div>
+                `;
+                const sel = document.getElementById('userSelect');
+                const btn = document.getElementById('startBtn');
+                const img = document.getElementById('userPhotoPreview');
+                sel.addEventListener('change', () => {
+                    this.selectedUserData = this.users.find(u => u.name === sel.value);
+                    this.playerName = this.selectedUserData.name;
+                    img.src = PHOTO_PATH + this.selectedUserData.photo;
+                    img.style.display = 'block';
+                    btn.disabled = false;
+                });
+                btn.addEventListener('click', () => this.startQuiz());
+            }
+
+            startQuiz() {
+                this.currentIndex = 0;
+                this.score = 0;
+                this.renderQuestion();
+            }
+
+            renderQuestion() {
+                const q = this.questions[this.currentIndex];
+                const photo = this.selectedUserData ? PHOTO_PATH + this.selectedUserData.photo : '';
+                this.quizApp.innerHTML = `
+                    <div class="header">
+                        <div class="header-left">
+                            <img src="${photo}" class="header-photo">
+                            <div class="player-info">
+                                <h1>السؤال ${this.currentIndex + 1}</h1>
+                                <span class="player-name">${this.playerName}</span>
+                            </div>
+                        </div>
+                        <div class="score-badge">النقاط: ${this.score}</div>
+                    </div>
+                    <div class="quiz-content">
+                        <div class="timer-wrapper">
+                            <span>الوقت المتبقي</span>
+                            <span id="time">${this.timeLimit}s</span>
+                        </div>
+                        <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+                        <div class="question-box">
+                            <span class="question-text">${q.question}</span>
+                            <div id="waitMsg" class="waiting-msg"><i class="material-icons">hourglass_empty</i> انتظر ظهور الخيارات...</div>
+                        </div>
+                        <div id="optionsBox" class="options-grid hidden">
+                            ${q.options.map(opt => `<button class="option-btn" onclick="instance.check('${opt}', this)">${opt}</button>`).join('')}
+                        </div>
+                    </div>
+                `;
+                this.runTimer();
+            }
+
+            runTimer() {
+                let left = this.timeLimit;
+                const bar = document.getElementById('bar');
+                const txt = document.getElementById('time');
+                const msg = document.getElementById('waitMsg');
+                const box = document.getElementById('optionsBox');
+                this.startTs = Date.now();
+                clearInterval(this.timer);
+                
+                this.timer = setInterval(() => {
+                    left--;
+                    txt.innerText = left + 's';
+                    bar.style.width = (left / this.timeLimit * 100) + '%';
+                    
+                    if (left <= 3) bar.classList.add('warning');
+                    
+                    // Logic: After 3 seconds pass (10 -> 7), hide message and show options
+                    if (left <= 7) { 
+                        msg.classList.add('hidden'); 
+                        box.classList.remove('hidden'); 
+                    }
+                    
+                    if (left <= 0) { 
+                        clearInterval(this.timer); 
+                        this.check(null, null); 
+                    }
+                }, 1000);
+            }
+
+            check(ans, btn) {
+                clearInterval(this.timer);
+                const q = this.questions[this.currentIndex];
+                q.timeSpent = ((Date.now() - this.startTs) / 1000).toFixed(1);
+                q.userAnswer = ans || "انتهى الوقت";
+                
+                const btns = document.querySelectorAll('.option-btn');
+                btns.forEach(b => b.disabled = true);
+                
+                document.getElementById('waitMsg').classList.add('hidden');
+                document.getElementById('optionsBox').classList.remove('hidden');
+                
+                if (ans === q.correctAnswer) {
+                    if (btn) btn.classList.add('correct');
+                    this.score++;
+                    q.result = "Yes";
+                } else {
+                    if (btn) btn.classList.add('incorrect');
+                    btns.forEach(b => { if (b.innerText === q.correctAnswer) b.classList.add('correct'); });
+                    q.result = "No";
+                }
+                
+                setTimeout(() => {
+                    this.currentIndex++;
+                    if (this.currentIndex < this.questions.length) this.renderQuestion();
+                    else this.showResults();
+                }, 1500);
+            }
+
+            showResults() {
+                const totalCorrectTime = this.questions.filter(q => q.result === "Yes").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / this.questions.length).toFixed(1);
+                const percentage = (this.score / this.questions.length * 100).toFixed(0);
+                
+                this.quizApp.innerHTML = `
+                    <div class="screen">
+                        <img src="${PHOTO_PATH + this.selectedUserData.photo}" class="header-photo" style="width:80px;height:80px;margin-bottom:10px">
+                        <h2>${this.playerName}</h2>
+                        <div class="final-score">${this.score}/${this.questions.length}</div>
+                        <div class="stats-grid">
+                            <div class="stat-card"><span class="stat-val">${percentage}%</span><br><span class="stat-label">نسبة النجاح</span></div>
+                            <div class="stat-card"><span class="stat-val">${totalCorrectTime}s</span><br><span class="stat-label">إجمالي وقت الإجابات الصحيحة</span></div>
+                            <div class="stat-card"><span class="stat-val">${avgTime}s</span><br><span class="stat-label">متوسط السرعة</span></div>
+                            <div class="stat-card"><span class="stat-val">${this.questions.length}</span><br><span class="stat-label">إجمالي الأسئلة</span></div>
+                        </div>
+                        <div class="review-list">
+                            ${this.questions.map((q, i) => `
+                                <div class="review-item" style="color:${q.result === 'Yes' ? 'green' : 'red'}">
+                                    <span>${i+1}) <span class="math-review">${q.question}${q.correctAnswer}</span></span>
+                                    <span>إجابتك: ${q.userAnswer} (${q.timeSpent}s)</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div style="margin-top:25px; display:flex; justify-content: center;">
+                            <button class="btn-main" onclick="location.reload()">اختبار جديد</button>
+                        </div>
+                    </div>
+                `;
+                this.download();
+            }
+
+            download() {
+                const BOM = '\uFEFF';
+                let csv = 'N,Question,Correct,User,Time,Result\n';
+                this.questions.forEach((q, i) => {
+                    csv += `${i+1},"${q.question.replace('=','')}",${q.correctAnswer},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
+                });
+                const totalTime = this.questions.filter(q => q.result === "Yes").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
+                csv += `\nName,${this.playerName}\nScore,${this.score}\nTotal correct time,${totalTime}s\n`;
+                
+                const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${this.playerName.replace(/[\\/:*?"<>|]/g, '_')}_results.csv`;
+                link.click();
+            }
+        }
+        const instance = new MultiplicationQuiz();
+    </script>
+</body>
+</html>
