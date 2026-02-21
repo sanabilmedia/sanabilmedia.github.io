@@ -165,13 +165,14 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 25px;
             border-radius: var(--radius);
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            width: 100%;
+            flex: 1; /* Make buttons share space equally */
         }
+
         .btn-main:disabled {
             background-color: #ccc;
             color: #888;
@@ -251,8 +252,8 @@
                 this.quizApp = document.getElementById('quizApp');
                 
                 this.users = [
-{ name: "ندى", photo: "girl.jpg" },
-{ name: "مجد", photo: "boy.jpg" }
+                    { name: "ندى", photo: "girl.jpg" },
+                    { name: "مجد", photo: "boy.jpg" }
                 ];
                 
                 this.renderWelcome();
@@ -275,7 +276,7 @@
                             <option value="" disabled selected>اختر اسمك من القائمة</option>
                             ${this.users.map(u => `<option value="${u.name}">${u.name}</option>`).join('')}
                         </select>
-                        <button id="startBtn" class="btn-main" disabled>ابدأ الاختبار</button>
+                        <button id="startBtn" class="btn-main" disabled style="width:100%">ابدأ الاختبار</button>
                     </div>
                 `;
                 const sel = document.getElementById('userSelect');
@@ -404,7 +405,6 @@
                         </div>
                         <div class="review-list">
                             ${this.questions.map((q, i) => {
-                                // Logic: If time is up, don't show "إجابتك:"
                                 const userAnsText = q.userAnswer === "انتهى الوقت" ? q.userAnswer : `إجابتك: ${q.userAnswer}`;
                                 return `
                                 <div class="review-item" style="color:${q.result === 'صحيح' ? 'green' : 'red'}">
@@ -413,12 +413,12 @@
                                 </div>
                             `}).join('')}
                         </div>
-                        <div style="margin-top:25px; display:flex; justify-content: center;">
+                        <div style="margin-top:25px; display:flex; gap:10px; justify-content: center;">
                             <button class="btn-main" onclick="location.reload()">اختبار جديد</button>
+                            <button class="btn-main" style="background-color: #4b5563;" onclick="instance.download()">تحميل الإجابات</button>
                         </div>
                     </div>
                 `;
-                this.download();
             }
 
             download() {
