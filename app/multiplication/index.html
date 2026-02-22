@@ -100,7 +100,7 @@
 
         .progress-bar.warning { background: var(--error); }
 
-        .question-box { text-align: center; margin-bottom: 30px; }
+        .question-box { text-align: center; margin-bottom: 20px; }
 
         .question-text {
             font-size: 3rem;
@@ -112,20 +112,41 @@
             unicode-bidi: isolate;
         }
 
+        /* حاوية الخيارات مع تحديد ارتفاع أدنى ثابت لمنع الاهتزاز */
+        .options-area {
+            position: relative;
+            min-height: 180px; /* ارتفاع ثابت تقريباً لصفين من الأزرار */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .waiting-msg {
             color: var(--warning);
-            font-size: 0.9rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            margin-top: 10px;
+            gap: 8px;
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
         }
 
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* إخفاء العناصر مع الحفاظ على مساحتها */
+        .invisible {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .option-btn {
@@ -151,14 +172,15 @@
 
         .screen { padding: 40px 20px; text-align: center; }
         
-        .name-input-screen select {
+        .name-input-screen select, .name-input-screen input {
             width: 100%;
             padding: 15px;
             border-radius: var(--radius);
             border: 2px solid #ddd;
             font-size: 1rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-family: 'Tajawal';
+            outline: none;
         }
 
         .btn-main {
@@ -170,14 +192,10 @@
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            flex: 1; /* Make buttons share space equally */
+            flex: 1;
         }
 
-        .btn-main:disabled {
-            background-color: #ccc;
-            color: #888;
-            cursor: not-allowed;
-        }
+        .btn-main:disabled { background-color: #ccc; color: #888; cursor: not-allowed; }
 
         .final-score { font-size: 3.5rem; color: var(--error); font-weight: 800; font-family: 'Roboto'; }
 
@@ -253,7 +271,8 @@
                 
                 this.users = [
                     { name: "ندى", photo: "girl.jpg" },
-                    { name: "مجد", photo: "boy.jpg" }
+                    { name: "مجد", photo: "boy.jpg" },
+                    { name: "اسمك هنا", photo: "person.jpg" }
                 ];
                 
                 this.renderWelcome();
@@ -276,19 +295,39 @@
                             <option value="" disabled selected>اختر اسمك من القائمة</option>
                             ${this.users.map(u => `<option value="${u.name}">${u.name}</option>`).join('')}
                         </select>
+                        <div id="customNameContainer" class="hidden">
+                            <input type="text" id="customNameInput" placeholder="اكتب اسمك هنا">
+                        </div>
                         <button id="startBtn" class="btn-main" disabled style="width:100%">ابدأ الاختبار</button>
                     </div>
                 `;
                 const sel = document.getElementById('userSelect');
                 const btn = document.getElementById('startBtn');
                 const img = document.getElementById('userPhotoPreview');
+                const customInp = document.getElementById('customNameInput');
+                const customCont = document.getElementById('customNameContainer');
+
                 sel.addEventListener('change', () => {
                     this.selectedUserData = this.users.find(u => u.name === sel.value);
-                    this.playerName = this.selectedUserData.name;
                     img.src = PHOTO_PATH + this.selectedUserData.photo;
                     img.style.display = 'block';
-                    btn.disabled = false;
+
+                    if (sel.value === "اسمك هنا") {
+                        customCont.classList.remove('hidden');
+                        this.playerName = customInp.value.trim();
+                        btn.disabled = this.playerName === "";
+                    } else {
+                        customCont.classList.add('hidden');
+                        this.playerName = this.selectedUserData.name;
+                        btn.disabled = false;
+                    }
                 });
+
+                customInp.addEventListener('input', () => {
+                    this.playerName = customInp.value.trim();
+                    btn.disabled = this.playerName === "";
+                });
+
                 btn.addEventListener('click', () => this.startQuiz());
             }
 
@@ -323,10 +362,16 @@
                         <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
                         <div class="question-box">
                             <span class="question-text">${q.question}</span>
-                            <div id="waitMsg" class="waiting-msg"><i class="material-icons">hourglass_empty</i> انتظر ظهور الخيارات...</div>
                         </div>
-                        <div id="optionsBox" class="options-grid hidden">
-                            ${shuffledOptions.map(opt => `<button class="option-btn" onclick="instance.check('${opt}', this)">${opt}</button>`).join('')}
+                        
+                        <div class="options-area">
+                            <div id="waitMsg" class="waiting-msg">
+                                <i class="material-icons">hourglass_empty</i> 
+                                انتظر ظهور الخيارات...
+                            </div>
+                            <div id="optionsBox" class="options-grid invisible">
+                                ${shuffledOptions.map(opt => `<button class="option-btn" onclick="instance.check('${opt}', this)">${opt}</button>`).join('')}
+                            </div>
                         </div>
                     </div>
                 `;
@@ -347,9 +392,10 @@
                     txt.innerText = left + 's';
                     bar.style.width = (left / this.timeLimit * 100) + '%';
                     if (left <= 3) bar.classList.add('warning');
+                    
                     if (left <= 7) { 
                         msg.classList.add('hidden'); 
-                        box.classList.remove('hidden'); 
+                        box.classList.remove('invisible'); 
                     }
                     if (left <= 0) { 
                         clearInterval(this.timer); 
@@ -368,7 +414,7 @@
                 btns.forEach(b => b.disabled = true);
                 
                 document.getElementById('waitMsg').classList.add('hidden');
-                document.getElementById('optionsBox').classList.remove('hidden');
+                document.getElementById('optionsBox').classList.remove('invisible');
                 
                 if (ans === q.correctAnswer) {
                     if (btn) btn.classList.add('correct');
@@ -422,13 +468,17 @@
             }
 
             download() {
+                const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / this.questions.length).toFixed(1);
+                
                 const BOM = '\uFEFF';
                 let csv = 'رقم,السؤال,الصحيح,الاجابة,المدة,النتيجة\n';
                 this.questions.forEach((q, i) => {
                     csv += `${i+1},"${q.question.replace('=','')}",${q.correctAnswer},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
                 });
-                const totalTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
-                csv += `\nالاسم,${this.playerName}\nالنقطة,${this.score}\nاجمالي وقت الاجابات الصحيحة,${totalTime}s\n`;
+                
+                csv += `\nالاسم,${this.playerName}\nالنقطة,${this.score}\nاجمالي وقت الاجابات الصحيحة,${totalCorrectTime}s\n`;
+                csv += `متوسط السرعة,${avgTime}s\n`;
                 
                 const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement('a');
