@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الجمع السريع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --success: #22c55e;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --bg-page: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #202124;
+            --text-light: #5f6368;
+            --radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .quiz-container {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 650px;
+            min-height: 450px;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+            position: relative;
+        }
+
+        .welcome-screen {
+            background-image: url('bg.webp');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .welcome-form-container {
+            width: 100%;
+            max-width: 300px;
+            z-index: 2;
+        }
+
+        .welcome-screen h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .welcome-screen select, .welcome-screen input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: var(--radius);
+            border: 2px solid #ddd;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-family: 'Tajawal';
+            background-color: rgba(255, 255, 255, 0.9);
+            outline: none;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- الهيدر المطلوب بالضبط --- */
+        .header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            position: relative;
+        }
+
+        /* 1. اليمين: الصورة والاسم ورقم السؤال */
+        .header-player-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+        .header-photo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); background: #eee; }
+        .player-info h1 { font-size: 1.1rem; color: var(--primary); margin: 0; }
+        .player-name { font-size: 0.85rem; color: var(--text-light); }
+
+        /* 2. المنتصف: المستوى */
+        .level-header {
+            font-weight: bold;
+            color: #555;
+            font-size: 1rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .level-header span { color: var(--error); }
+
+        /* 3. اليسار: النقاط */
+        .score-badge {
+            font-weight: bold;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .quiz-content { padding: 25px; }
+
+        /* --- تنسيق العداد: النص يمين والرقم يسار --- */
+        .timer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+        #time-txt { font-family: 'Roboto'; }
+
+        .progress-container { height: 8px; background-color: #e8f0fe; border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--primary); width: 100%; transition: width 1s linear; }
+        .progress-bar.warning { background: var(--error); }
+
+        .question-box { text-align: center; margin-bottom: 20px; }
+        .question-text {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--text-main);
+            font-family: 'Roboto';
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .options-area { position: relative; min-height: 180px; display: flex; flex-direction: column; justify-content: center; }
+        .waiting-msg { color: var(--warning); font-size: 1.1rem; position: absolute; width: 100%; top: 40%; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; transition: opacity 0.3s ease; }
+        .invisible { opacity: 0; pointer-events: none; }
+        .hidden { display: none !important; }
+
+        .option-btn { background-color: #fff; border: 2px solid #e0e0e0; border-radius: var(--radius); padding: 18px; font-size: 1.6rem; font-weight: bold; cursor: pointer; transition: all 0.2s; font-family: 'Roboto'; }
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: #f8faff; }
+        .option-btn.correct { background-color: var(--success) !important; color: white; border-color: var(--success); }
+        .option-btn.incorrect { background-color: var(--error) !important; color: white; border-color: var(--error); }
+
+        .screen { padding: 30px 20px; text-align: center; }
+        .btn-main { background-color: var(--primary); color: white; border: none; padding: 15px; border-radius: var(--radius); font-weight: bold; cursor: pointer; font-size: 1.1rem; width: 100%; }
+        .btn-main:disabled { background-color: #ccc; cursor: not-allowed; }
+
+        .final-score { font-size: 4rem; color: var(--error); font-weight: 800; margin: 10px 0; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: var(--radius); border: 1px solid #eee; }
+        .stat-val { font-size: 1.2rem; font-weight: bold; color: var(--primary); display: block; margin-bottom: 5px; font-family: 'Roboto', sans-serif; }
+        .stat-label { font-size: 0.8rem; color: var(--text-light); display: block; }
+
+        .review-list { text-align: right; max-height: 200px; overflow-y: auto; margin-top: 20px; border-top: 1px solid #eee; }
+        .review-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; }
+        .math-ltr { direction: ltr; display: inline-block; font-family: 'Roboto'; font-weight: bold; }
+
+        #userPhotoPreview { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 15px; display: none; border: 3px solid var(--primary); object-fit: cover; background-color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container" id="quizApp"></div>
+
+    <script>
+        const LEVELS_DATA = {
+            "مبتدئ": [[1,6],[1,7],[1,8],[1,9],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[3,3],[3,4],[3,5],[3,6],[4,4],[4,5],[4,6],[5,5]],
+            "متوسط": [[3,7],[3,8],[3,9],[4,8],[4,9],[4,7],[5,6],[5,7],[5,8],[5,9],[6,6],[6,7],[6,8],[6,9],[7,7],[7,8],[7,9],[8,8],[8,9],[9,9]],
+            "متقدم": [[10,9],[11,7],[12,6],[13,8],[14,5],[15,6],[16,7],[17,4],[18,3],[19,2],[11,9],[12,7],[13,6],[14,8],[15,9],[16,6],[17,7],[18,4],[19,3],[10,13]]
+        };
+
+        class AdditionQuiz {
+            constructor() {
+                this.users = [
+                    { name: "ندى", photo: "girl.jpg" },
+                    { name: "مجد", photo: "boy.jpg" },
+                    { name: "اسمك هنا", photo: "person.jpg" }
+                ];
+                this.quizApp = document.getElementById('quizApp');
+                this.renderWelcome();
+            }
+
+            shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            renderWelcome() {
+                this.quizApp.innerHTML = `
+                    <div class="welcome-screen">
+                        <h1>اختبار الجمع السريع</h1>
+                        <div class="welcome-form-container">
+                            <img id="userPhotoPreview" src="" alt="">
+                            <select id="userSelect">
+                                <option value="" disabled selected>اختر اسمك من القائمة</option>
+                                ${this.users.map(u => `<option value="${u.name}">${u.name}</option>`).join('')}
+                            </select>
+                            <input type="text" id="customNameInput" class="hidden" placeholder="اكتب اسمك هنا">
+                            <select id="levelSelect">
+                                <option value="" disabled selected>اختر مستوى الصعوبة</option>
+                                <option value="مبتدئ">مبتدئ</option>
+                                <option value="متوسط">متوسط</option>
+                                <option value="متقدم">متقدم</option>
+                            </select>
+                            <button id="startBtn" class="btn-main" disabled>ابدأ الاختبار</button>
+                        </div>
+                    </div>
+                `;
+
+                const sel = document.getElementById('userSelect');
+                const lvl = document.getElementById('levelSelect');
+                const btn = document.getElementById('startBtn');
+                const img = document.getElementById('userPhotoPreview');
+                const customInp = document.getElementById('customNameInput');
+
+                const checkReady = () => {
+                    const nameOk = (sel.value === "اسمك هنا") ? customInp.value.trim() !== "" : sel.value !== "";
+                    btn.disabled = !(nameOk && lvl.value !== "");
+                };
+
+                sel.addEventListener('change', () => {
+                    const user = this.users.find(u => u.name === sel.value);
+                    img.src = user.photo;
+                    img.style.display = 'block';
+                    customInp.classList.toggle('hidden', sel.value !== "اسمك هنا");
+                    checkReady();
+                });
+
+                lvl.addEventListener('change', checkReady);
+                customInp.addEventListener('input', checkReady);
+                btn.addEventListener('click', () => {
+                    this.playerName = (sel.value === "اسمك هنا") ? customInp.value.trim() : sel.value;
+                    this.selectedLevel = lvl.value;
+                    this.selectedPhoto = img.src;
+                    this.startQuiz();
+                });
+            }
+
+            startQuiz() {
+                this.score = 0;
+                this.currentIndex = 0;
+                this.questions = LEVELS_DATA[this.selectedLevel].map(pair => {
+                    const swap = Math.random() > 0.5;
+                    const n1 = swap ? pair[1] : pair[0];
+                    const n2 = swap ? pair[0] : pair[1];
+                    const res = n1 + n2;
+                    let opts = new Set([res]);
+                    while(opts.size < 4) {
+                        let alt = res + (Math.floor(Math.random() * 7) - 3);
+                        if(alt >= 0 && alt !== res) opts.add(alt);
+                    }
+                    return {
+                        text: `${n1} + ${n2} = `,
+                        correct: res.toString(),
+                        options: this.shuffle(Array.from(opts).map(String))
+                    };
+                });
+                this.shuffle(this.questions);
+                this.renderQuestion();
+            }
+
+            renderQuestion() {
+                const q = this.questions[this.currentIndex];
+                this.quizApp.innerHTML = `
+                    <div class="header">
+                        <div class="header-player-box">
+                            <img src="${this.selectedPhoto}" class="header-photo">
+                            <div class="player-info">
+                                <h1>السؤال ${this.currentIndex + 1}</h1>
+                                <span class="player-name">${this.playerName}</span>
+                            </div>
+                        </div>
+                        <div class="level-header">مستوى الصعوبة : <span>${this.selectedLevel}</span></div>
+                        <div class="score-badge">النقاط: ${this.score}</div>
+                    </div>
+                    <div class="quiz-content">
+                        <div class="timer-wrapper">
+                            <span>الوقت المتبقي</span>
+                            <span id="time-txt">10s</span>
+                        </div>
+                        <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+                        <div class="question-box"><span class="question-text">${q.text}</span></div>
+                        <div class="options-area">
+                            <div id="waitMsg" class="waiting-msg"><i class="material-icons">hourglass_empty</i> انتظر...</div>
+                            <div id="optionsBox" class="options-grid invisible">
+                                ${q.options.map(o => `<button class="option-btn" onclick="instance.check('${o}', this)">${o}</button>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                this.runTimer();
+            }
+
+            runTimer() {
+                let left = 10;
+                const bar = document.getElementById('bar');
+                const txt = document.getElementById('time-txt');
+                const msg = document.getElementById('waitMsg');
+                const box = document.getElementById('optionsBox');
+                this.startTs = Date.now();
+                clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    left--;
+                    txt.innerText = left + 's';
+                    bar.style.width = (left * 10) + '%';
+                    if (left <= 3) bar.classList.add('warning');
+                    if (left <= 7) { msg.classList.add('hidden'); box.classList.remove('invisible'); }
+                    if (left <= 0) { clearInterval(this.timer); this.check(null, null); }
+                }, 1000);
+            }
+
+            check(ans, btn) {
+                clearInterval(this.timer);
+                const q = this.questions[this.currentIndex];
+                q.timeSpent = ((Date.now() - this.startTs) / 1000).toFixed(1);
+                q.userAnswer = ans || "انتهى الوقت";
+                const btns = document.querySelectorAll('.option-btn');
+                btns.forEach(b => b.disabled = true);
+                document.getElementById('waitMsg').classList.add('hidden');
+                document.getElementById('optionsBox').classList.remove('invisible');
+                if (ans === q.correct) {
+                    if (btn) btn.classList.add('correct');
+                    this.score++;
+                    q.result = "صحيح";
+                } else {
+                    if (btn) btn.classList.add('incorrect');
+                    btns.forEach(b => { if (b.innerText === q.correct) b.classList.add('correct'); });
+                    q.result = "خطأ";
+                }
+                setTimeout(() => {
+                    this.currentIndex++;
+                    if (this.currentIndex < 20) this.renderQuestion();
+                    else this.showResults();
+                }, 1500);
+            }
+
+            showResults() {
+                const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
+                const percentage = (this.score / 20 * 100).toFixed(0);
+
+                this.quizApp.innerHTML = `
+                    <div class="screen">
+                        <img src="${this.selectedPhoto}" class="header-photo" style="width:100px; height:100px; margin-bottom:15px">
+                        <h2 style="margin-bottom:10px">${this.playerName}</h2>
+                        <div class="final-score">${this.score}/20</div>
+                        <div class="stats-grid">
+                            <div class="stat-card"><span class="stat-val">${totalCorrectTime}s</span><span class="stat-label">إجمالي وقت الإجابات الصحيحة</span></div>
+                            <div class="stat-card"><span class="stat-val">${percentage}%</span><span class="stat-label">نسبة النجاح</span></div>
+                            <div class="stat-card"><span class="stat-val" style="color:var(--primary)">${this.selectedLevel}</span><span class="stat-label">مستوى الصعوبة</span></div>
+                            <div class="stat-card"><span class="stat-val">${avgTime}s</span><span class="stat-label">متوسط السرعة</span></div>
+                        </div>
+                        <div class="review-list">
+                            ${this.questions.map((q, i) => `
+                                <div class="review-item" style="color:${q.result === 'صحيح' ? 'green' : 'red'}">
+                                    <span>${i+1}) <span class="math-ltr">${q.text}${q.correct}</span></span>
+                                    <span>${q.userAnswer === "انتهى الوقت" ? "انتهى الوقت" : "إجابتك: " + q.userAnswer} (${q.timeSpent}s)</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div style="margin-top:25px; display:flex; gap:10px;">
+                            <button class="btn-main" onclick="location.reload()" style="flex:1">اختبار جديد</button>
+                            <button class="btn-main" onclick="instance.download()" style="background:#4b5563; flex:1">تحميل الإجابات</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            download() {
+                const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
+                const BOM = '\uFEFF';
+                let csv = 'رقم,السؤال,الصحيح,الإجابة,المدة,النتيجة\n';
+                this.questions.forEach((q, i) => {
+                    csv += `${i+1},"${q.text.replace('=','')}",${q.correct},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
+                });
+                csv += `\nالاسم,${this.playerName}\nالمستوى,${this.selectedLevel}\nالنقطة,${this.score}\nإجمالي وقت الإجابات الصحيحة,${totalCorrectTime}s\nمتوسط السرعة,${avgTime}s\n`;
+                const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${this.playerName}_results.csv`;
+                link.click();
+            }
+        }
+
+        const instance = new AdditionQuiz();
+    </script>
+</body>
+</html>
