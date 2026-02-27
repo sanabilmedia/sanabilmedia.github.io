@@ -103,7 +103,7 @@
 
         /* 1. اليمين: النقاط */
         .score-badge {
-            order: 1;
+            order: 2;
             font-weight: bold;
             color: var(--text-main);
             font-size: 1rem;
@@ -111,10 +111,8 @@
 
         /* 2. المنتصف: المستوى */
         .level-header {
-            order: 2;
-            font-weight: bold;
             color: #555;
-            font-size: 1rem;
+            font-size: 0.9rem;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -123,7 +121,7 @@
 
         /* 3. اليسار: الصورة ورقم السؤال */
         .header-left-side {
-            order: 3;
+            order: 1;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -298,15 +296,17 @@
                 this.quizApp.innerHTML = `
                     <div class="header">
                         <div class="score-badge">النقاط: ${this.score}</div>
-                        <div class="level-header">مستوى الصعوبة : <span>${this.selectedLevel}</span></div>
                         <div class="header-left-side">
+                        <img src="${this.selectedPhoto}" class="header-photo">
                             <div class="player-info">
+
                                 <h1>السؤال ${this.currentIndex + 1}</h1>
                                 <span class="player-name">${this.playerName}</span>
                             </div>
-                            <img src="${this.selectedPhoto}" class="header-photo">
+
                         </div>
                     </div>
+                     <div class="level-header">مستوى الصعوبة : <span>${this.selectedLevel}</span></div><br>
                     <div class="quiz-content">
                         <div class="timer-wrapper">
                             <span>الوقت المتبقي</span>
