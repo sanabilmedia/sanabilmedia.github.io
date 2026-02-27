@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplication Quiz</title>
+    <title>اختبار الطرح السريع</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
@@ -39,42 +39,38 @@
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             width: 100%;
-            max-width: 650px; /* جعل الحاوية أعرض قليلاً لتناسب صورة الخلفية */
-            min-height: 400px;
+            max-width: 650px;
+            min-height: 450px;
             overflow: hidden;
             animation: slideUp 0.5s ease-out;
             position: relative;
         }
 
-        /* --- تنسيق شاشة الترحيب مع الخلفية --- */
         .welcome-screen {
             background-image: url('bg.webp');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             width: 100%;
             height: 100%;
-            min-height: 400px;
+            min-height: 450px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            text-align: center;
-        }
-
-        .welcome-screen h1 {
-            margin-bottom: 15px;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #333;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         .welcome-form-container {
             width: 100%;
-            max-width: 300px; /* لتوسيط المدخلات بين صور الأطفال */
+            max-width: 300px;
             z-index: 2;
+        }
+
+        .welcome-screen h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
         }
 
         .welcome-screen select, .welcome-screen input {
@@ -86,177 +82,110 @@
             margin-bottom: 10px;
             font-family: 'Tajawal';
             background-color: rgba(255, 255, 255, 0.9);
+            outline: none;
         }
-        /* --- نهاية تنسيق شاشة الترحيب --- */
 
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- الهيدر المطلوب بالترتيب المخصص --- */
         .header {
-            padding: 20px;
+            padding: 15px 20px;
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to right, #ffffff, #f8faff);
+            background: #fff;
+            position: relative;
         }
 
-        .header-left { display: flex; align-items: center; gap: 12px; }
-
-        .header-photo {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary);
-            padding: 2px;
+        /* 1. اليمين: النقاط */
+        .score-badge {
+            order: 1;
+            font-weight: bold;
+            color: var(--text-main);
+            font-size: 1rem;
         }
 
-        .player-info h1 { font-size: 1.1rem; color: var(--primary); }
+        /* 2. المنتصف: المستوى */
+        .level-header {
+            order: 2;
+            font-weight: bold;
+            color: #555;
+            font-size: 1rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .level-header span { color: var(--error); }
+
+        /* 3. اليسار: الصورة ورقم السؤال */
+        .header-left-side {
+            order: 3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+        .header-photo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); background: #eee; }
+        .player-info h1 { font-size: 1.1rem; color: var(--primary); margin: 0; }
         .player-name { font-size: 0.85rem; color: var(--text-light); }
 
-        .quiz-content { padding: 30px 24px; }
+        .quiz-content { padding: 25px; }
 
         .timer-wrapper {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+            font-weight: bold;
         }
+        #time-txt { font-family: 'Roboto'; }
 
-        #time { font-weight: bold; font-family: 'Roboto'; font-size: 1.1rem; }
-
-        .progress-container {
-            height: 8px;
-            background-color: #e8f0fe;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary), #4285f4);
-            width: 100%;
-            transition: width 1s linear;
-        }
-
+        .progress-container { height: 8px; background-color: #e8f0fe; border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--primary); width: 100%; transition: width 1s linear; }
         .progress-bar.warning { background: var(--error); }
 
         .question-box { text-align: center; margin-bottom: 20px; }
-
         .question-text {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 800;
             color: var(--text-main);
-            font-family: 'Roboto', sans-serif;
-            display: inline-block;
-            direction: ltr !important; 
-            unicode-bidi: isolate;
-        }
-
-        .options-area {
-            position: relative;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .waiting-msg {
-            color: var(--warning);
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            position: absolute;
-            width: 100%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            transition: opacity 0.3s ease;
-        }
-
-        .invisible { opacity: 0; pointer-events: none; }
-
-        .option-btn {
-            background-color: #fff;
-            border: 2px solid #e0e0e0;
-            border-radius: var(--radius);
-            padding: 18px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
             font-family: 'Roboto';
+            direction: ltr;
+            display: inline-block;
         }
 
-        .option-btn:hover:not(:disabled) {
-            border-color: var(--primary);
-            background-color: #f8faff;
-            transform: translateY(-2px);
-        }
+        .options-area { position: relative; min-height: 180px; display: flex; flex-direction: column; justify-content: center; }
+        .waiting-msg { color: var(--warning); font-size: 1.1rem; position: absolute; width: 100%; top: 40%; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
-        .option-btn.correct { background-color: var(--success) !important; border-color: var(--success) !important; color: white; }
-        .option-btn.incorrect { background-color: var(--error) !important; border-color: var(--error) !important; color: white; }
-
-        .screen { padding: 40px 20px; text-align: center; }
-        
-        .btn-main {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: var(--radius);
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: block;
-            width: 100%;
-        }
-
-        .btn-main:disabled { background-color: #ccc; color: #888; cursor: not-allowed; }
-
-        .final-score { font-size: 3.5rem; color: var(--error); font-weight: 800; font-family: 'Roboto'; }
-
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .stat-card { background: #f8f9fa; padding: 15px; border-radius: var(--radius); border: 1px solid #eee; }
-        .stat-val { font-size: 1.2rem; font-weight: bold; color: var(--primary); font-family: 'Roboto'; }
-        .stat-label { font-size: 0.8rem; color: var(--text-light); }
-
-        .review-list { margin-top: 30px; text-align: right; max-height: 250px; overflow-y: auto; padding-left: 10px; }
-        .review-item { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 12px 8px; 
-            border-bottom: 1px solid #f0f0f0; 
-            font-size: 0.95rem; 
-        }
-
-        .math-review { direction: ltr !important; display: inline-block; font-family: 'Roboto'; font-weight: bold; }
-
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; transition: opacity 0.3s ease; }
+        .invisible { opacity: 0; pointer-events: none; }
         .hidden { display: none !important; }
 
-        #userPhotoPreview {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: none;
-            border: 3px solid var(--primary);
-            object-fit: cover;
-            background-color: white;
-        }
+        .option-btn { background-color: #fff; border: 2px solid #e0e0e0; border-radius: var(--radius); padding: 18px; font-size: 1.6rem; font-weight: bold; cursor: pointer; transition: all 0.2s; font-family: 'Roboto'; }
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: #f8faff; }
+        .option-btn.correct { background-color: var(--success) !important; color: white; border-color: var(--success); }
+        .option-btn.incorrect { background-color: var(--error) !important; color: white; border-color: var(--error); }
+
+        .screen { padding: 30px 20px; text-align: center; }
+        .btn-main { background-color: var(--primary); color: white; border: none; padding: 15px; border-radius: var(--radius); font-weight: bold; cursor: pointer; font-size: 1.1rem; width: 100%; }
+        .btn-main:disabled { background-color: #ccc; cursor: not-allowed; }
+
+        .final-score { font-size: 4rem; color: var(--error); font-weight: 800; margin: 10px 0; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: var(--radius); border: 1px solid #eee; }
+        .stat-val { font-size: 1.2rem; font-weight: bold; color: var(--primary); display: block; margin-bottom: 5px; font-family: 'Roboto', sans-serif; }
+        .stat-label { font-size: 0.8rem; color: var(--text-light); display: block; }
+
+        .review-list { text-align: right; max-height: 200px; overflow-y: auto; margin-top: 20px; border-top: 1px solid #eee; }
+        .review-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; }
+        .math-ltr { direction: ltr; display: inline-block; font-family: 'Roboto'; font-weight: bold; }
+
+        #userPhotoPreview { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 15px; display: none; border: 3px solid var(--primary); object-fit: cover; background-color: white; }
     </style>
 </head>
 <body>
@@ -264,48 +193,22 @@
     <div class="quiz-container" id="quizApp"></div>
 
     <script>
-        const QUIZ_QUESTIONS = [
-            { question: "9 x 2 = ", options: ["81", "18", "24", "21"], correctAnswer: "18" },
-            { question: "6 x 7 = ", options: ["27", "36", "42", "49"], correctAnswer: "42" },
-            { question: "9 x 9 = ", options: ["63", "54", "72", "81"], correctAnswer: "81" },
-            { question: "7 x 3 = ", options: ["21", "25", "24", "28"], correctAnswer: "21" },
-            { question: "6 x 9 = ", options: ["56", "54", "63", "72"], correctAnswer: "54" },
-            { question: "5 x 5 = ", options: ["20", "35", "25", "45"], correctAnswer: "25" },
-            { question: "8 x 7 = ", options: ["56", "42", "36", "48"], correctAnswer: "56" },
-            { question: "9 x 7 = ", options: ["72", "49", "63", "56"], correctAnswer: "63" },
-            { question: "6 x 3 = ", options: ["24", "18", "21", "81"], correctAnswer: "18" },
-            { question: "8 x 3 = ", options: ["42", "28", "27", "24"], correctAnswer: "24" },
-            { question: "9 x 4 = ", options: ["32", "36", "63", "18"], correctAnswer: "36" },
-            { question: "8 x 6 = ", options: ["64", "54", "48", "40"], correctAnswer: "48" },
-            { question: "7 x 4 = ", options: ["28", "27", "21", "24"], correctAnswer: "28" },
-            { question: "6 x 6 = ", options: ["32", "42", "36", "25"], correctAnswer: "36" },
-            { question: "8 x 9 = ", options: ["63", "72", "64", "81"], correctAnswer: "72" },
-            { question: "9 x 3 = ", options: ["21", "25", "24", "27"], correctAnswer: "27" },
-            { question: "8 x 8 = ", options: ["72", "64", "54", "81"], correctAnswer: "64" },
-            { question: "6 x 4 = ", options: ["24", "21", "32", "36"], correctAnswer: "24" },
-            { question: "8 x 4 = ", options: ["24", "27", "36", "32"], correctAnswer: "32" },
-            { question: "7 x 7 = ", options: ["48", "42", "49", "56"], correctAnswer: "49" }
-        ];
+        const LEVELS_DATA = {
+            "مبتدئ": [[6,1],[7,1],[8,1],[9,1],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[3,3],[4,3],[5,3],[6,3],[4,4],[5,4],[6,4],[5,5]],
+            "متوسط": [[7,3],[8,3],[9,3],[8,4],[9,4],[7,4],[6,5],[7,5],[8,5],[9,5],[6,6],[7,6],[8,6],[9,6],[7,7],[8,7],[9,7],[8,8],[9,8],[9,9]],
+            "متقدم": [[10,9],[11,7],[12,6],[13,8],[14,5],[15,6],[16,7],[17,4],[18,3],[19,2],[11,9],[12,7],[13,6],[14,8],[15,9],[16,6],[17,7],[18,4],[19,3],[13,10]]
+        };
 
         const PHOTO_PATH = "";
 
-        class MultiplicationQuiz {
+        class SubtractionQuiz {
             constructor() {
-                this.questions = [...QUIZ_QUESTIONS];
-                this.currentIndex = 0;
-                this.score = 0;
-                this.timeLimit = 10;
-                this.timer = null;
-                this.playerName = '';
-                this.selectedUserData = null;
-                this.quizApp = document.getElementById('quizApp');
-                
                 this.users = [
                     { name: "ندى", photo: "girl.jpg" },
                     { name: "مجد", photo: "boy.jpg" },
                     { name: "اسمك هنا", photo: "person.jpg" }
                 ];
-                
+                this.quizApp = document.getElementById('quizApp');
                 this.renderWelcome();
             }
 
@@ -320,90 +223,101 @@
             renderWelcome() {
                 this.quizApp.innerHTML = `
                     <div class="welcome-screen">
-                        <h1>اختبار جدول الضرب</h1>
+                        <h1>اختبار الطرح السريع</h1>
                         <div class="welcome-form-container">
                             <img id="userPhotoPreview" src="" alt="">
                             <select id="userSelect">
                                 <option value="" disabled selected>اختر اسمك من القائمة</option>
                                 ${this.users.map(u => `<option value="${u.name}">${u.name}</option>`).join('')}
                             </select>
-                            <div id="customNameContainer" class="hidden">
-                                <input type="text" id="customNameInput" placeholder="اكتب اسمك هنا">
-                            </div>
+                            <input type="text" id="customNameInput" class="hidden" placeholder="اكتب اسمك هنا">
+                            <select id="levelSelect">
+                                <option value="" disabled selected>اختر مستوى الصعوبة</option>
+                                <option value="مبتدئ">مبتدئ</option>
+                                <option value="متوسط">متوسط</option>
+                                <option value="متقدم">متقدم</option>
+                            </select>
                             <button id="startBtn" class="btn-main" disabled>ابدأ الاختبار</button>
                         </div>
                     </div>
                 `;
+
                 const sel = document.getElementById('userSelect');
+                const lvl = document.getElementById('levelSelect');
                 const btn = document.getElementById('startBtn');
                 const img = document.getElementById('userPhotoPreview');
                 const customInp = document.getElementById('customNameInput');
-                const customCont = document.getElementById('customNameContainer');
+
+                const checkReady = () => {
+                    const nameOk = (sel.value === "اسمك هنا") ? customInp.value.trim() !== "" : sel.value !== "";
+                    btn.disabled = !(nameOk && lvl.value !== "");
+                };
 
                 sel.addEventListener('change', () => {
-                    this.selectedUserData = this.users.find(u => u.name === sel.value);
-                    img.src = PHOTO_PATH + this.selectedUserData.photo;
+                    const user = this.users.find(u => u.name === sel.value);
+                    img.src = PHOTO_PATH + user.photo;
                     img.style.display = 'block';
-
-                    if (sel.value === "اسمك هنا") {
-                        customCont.classList.remove('hidden');
-                        this.playerName = customInp.value.trim();
-                        btn.disabled = this.playerName === "";
-                    } else {
-                        customCont.classList.add('hidden');
-                        this.playerName = this.selectedUserData.name;
-                        btn.disabled = false;
-                    }
+                    customInp.classList.toggle('hidden', sel.value !== "اسمك هنا");
+                    checkReady();
                 });
 
-                customInp.addEventListener('input', () => {
-                    this.playerName = customInp.value.trim();
-                    btn.disabled = this.playerName === "";
+                lvl.addEventListener('change', checkReady);
+                customInp.addEventListener('input', checkReady);
+                btn.addEventListener('click', () => {
+                    this.playerName = (sel.value === "اسمك هنا") ? customInp.value.trim() : sel.value;
+                    this.selectedLevel = lvl.value;
+                    this.selectedPhoto = img.src;
+                    this.startQuiz();
                 });
-
-                btn.addEventListener('click', () => this.startQuiz());
             }
 
             startQuiz() {
-                this.currentIndex = 0;
                 this.score = 0;
+                this.currentIndex = 0;
+                this.questions = LEVELS_DATA[this.selectedLevel].map(pair => {
+                    const n1 = pair[0];
+                    const n2 = pair[1];
+                    const res = n1 - n2;
+                    let opts = new Set([res]);
+                    while(opts.size < 4) {
+                        let alt = res + (Math.floor(Math.random() * 7) - 3);
+                        if(alt >= 0 && alt !== res) opts.add(alt);
+                    }
+                    return {
+                        text: `${n1} - ${n2} = `,
+                        correct: res.toString(),
+                        options: this.shuffle(Array.from(opts).map(String))
+                    };
+                });
                 this.shuffle(this.questions);
                 this.renderQuestion();
             }
 
             renderQuestion() {
                 const q = this.questions[this.currentIndex];
-                const photo = this.selectedUserData ? PHOTO_PATH + this.selectedUserData.photo : '';
-                const shuffledOptions = this.shuffle([...q.options]);
-
                 this.quizApp.innerHTML = `
                     <div class="header">
-                        <div class="header-left">
-                            <img src="${photo}" class="header-photo">
+                        <div class="score-badge">النقاط: ${this.score}</div>
+                        <div class="level-header">مستوى الصعوبة : <span>${this.selectedLevel}</span></div>
+                        <div class="header-left-side">
                             <div class="player-info">
                                 <h1>السؤال ${this.currentIndex + 1}</h1>
                                 <span class="player-name">${this.playerName}</span>
                             </div>
+                            <img src="${this.selectedPhoto}" class="header-photo">
                         </div>
-                        <div class="score-badge">النقاط: ${this.score}</div>
                     </div>
                     <div class="quiz-content">
                         <div class="timer-wrapper">
                             <span>الوقت المتبقي</span>
-                            <span id="time">${this.timeLimit}s</span>
+                            <span id="time-txt">10s</span>
                         </div>
                         <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
-                        <div class="question-box">
-                            <span class="question-text">${q.question}</span>
-                        </div>
-                        
+                        <div class="question-box"><span class="question-text">${q.text}</span></div>
                         <div class="options-area">
-                            <div id="waitMsg" class="waiting-msg">
-                                <i class="material-icons">hourglass_empty</i> 
-                                انتظر ظهور الخيارات...
-                            </div>
+                            <div id="waitMsg" class="waiting-msg"><i class="material-icons">hourglass_empty</i> انتظر...</div>
                             <div id="optionsBox" class="options-grid invisible">
-                                ${shuffledOptions.map(opt => `<button class="option-btn" onclick="instance.check('${opt}', this)">${opt}</button>`).join('')}
+                                ${q.options.map(o => `<button class="option-btn" onclick="instance.check('${o}', this)">${o}</button>`).join('')}
                             </div>
                         </div>
                     </div>
@@ -412,28 +326,20 @@
             }
 
             runTimer() {
-                let left = this.timeLimit;
+                let left = 10;
                 const bar = document.getElementById('bar');
-                const txt = document.getElementById('time');
+                const txt = document.getElementById('time-txt');
                 const msg = document.getElementById('waitMsg');
                 const box = document.getElementById('optionsBox');
                 this.startTs = Date.now();
                 clearInterval(this.timer);
-                
                 this.timer = setInterval(() => {
                     left--;
                     txt.innerText = left + 's';
-                    bar.style.width = (left / this.timeLimit * 100) + '%';
+                    bar.style.width = (left * 10) + '%';
                     if (left <= 3) bar.classList.add('warning');
-                    
-                    if (left <= 7) { 
-                        msg.classList.add('hidden'); 
-                        box.classList.remove('invisible'); 
-                    }
-                    if (left <= 0) { 
-                        clearInterval(this.timer); 
-                        this.check(null, null); 
-                    }
+                    if (left <= 7) { msg.classList.add('hidden'); box.classList.remove('invisible'); }
+                    if (left <= 0) { clearInterval(this.timer); this.check(null, null); }
                 }, 1000);
             }
 
@@ -442,59 +348,53 @@
                 const q = this.questions[this.currentIndex];
                 q.timeSpent = ((Date.now() - this.startTs) / 1000).toFixed(1);
                 q.userAnswer = ans || "انتهى الوقت";
-                
                 const btns = document.querySelectorAll('.option-btn');
                 btns.forEach(b => b.disabled = true);
-                
                 document.getElementById('waitMsg').classList.add('hidden');
                 document.getElementById('optionsBox').classList.remove('invisible');
-                
-                if (ans === q.correctAnswer) {
+                if (ans === q.correct) {
                     if (btn) btn.classList.add('correct');
                     this.score++;
                     q.result = "صحيح";
                 } else {
                     if (btn) btn.classList.add('incorrect');
-                    btns.forEach(b => { if (b.innerText === q.correctAnswer) b.classList.add('correct'); });
+                    btns.forEach(b => { if (b.innerText === q.correct) b.classList.add('correct'); });
                     q.result = "خطأ";
                 }
-                
                 setTimeout(() => {
                     this.currentIndex++;
-                    if (this.currentIndex < this.questions.length) this.renderQuestion();
+                    if (this.currentIndex < 20) this.renderQuestion();
                     else this.showResults();
                 }, 1500);
             }
 
             showResults() {
                 const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
-                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / this.questions.length).toFixed(1);
-                const percentage = (this.score / this.questions.length * 100).toFixed(0);
-                
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
+                const percentage = (this.score / 20 * 100).toFixed(0);
+
                 this.quizApp.innerHTML = `
                     <div class="screen">
-                        <img src="${PHOTO_PATH + this.selectedUserData.photo}" class="header-photo" style="width:80px;height:80px;margin-bottom:10px">
-                        <h2>${this.playerName}</h2>
-                        <div class="final-score">${this.score}/${this.questions.length}</div>
+                        <img src="${this.selectedPhoto}" class="header-photo" style="width:100px; height:100px; margin-bottom:15px">
+                        <h2 style="margin-bottom:10px">${this.playerName}</h2>
+                        <div class="final-score">${this.score}/20</div>
                         <div class="stats-grid">
-                            <div class="stat-card"><span class="stat-val">${percentage}%</span><br><span class="stat-label">نسبة النجاح</span></div>
-                            <div class="stat-card"><span class="stat-val">${totalCorrectTime}s</span><br><span class="stat-label">إجمالي وقت الإجابات الصحيحة</span></div>
-                            <div class="stat-card"><span class="stat-val">${avgTime}s</span><br><span class="stat-label">متوسط السرعة</span></div>
-                            <div class="stat-card"><span class="stat-val">${this.questions.length}</span><br><span class="stat-label">إجمالي الأسئلة</span></div>
+                            <div class="stat-card"><span class="stat-val">${totalCorrectTime}s</span><span class="stat-label">إجمالي وقت الإجابات الصحيحة</span></div>
+                            <div class="stat-card"><span class="stat-val">${percentage}%</span><span class="stat-label">نسبة النجاح</span></div>
+                            <div class="stat-card"><span class="stat-val" style="color:var(--primary)">${this.selectedLevel}</span><span class="stat-label">مستوى الصعوبة</span></div>
+                            <div class="stat-card"><span class="stat-val">${avgTime}s</span><span class="stat-label">متوسط السرعة</span></div>
                         </div>
                         <div class="review-list">
-                            ${this.questions.map((q, i) => {
-                                const userAnsText = q.userAnswer === "انتهى الوقت" ? q.userAnswer : `إجابتك: ${q.userAnswer}`;
-                                return `
+                            ${this.questions.map((q, i) => `
                                 <div class="review-item" style="color:${q.result === 'صحيح' ? 'green' : 'red'}">
-                                    <span>${i+1}) <span class="math-review">${q.question}${q.correctAnswer}</span></span>
-                                    <span>${userAnsText} (${q.timeSpent}s)</span>
+                                    <span>${i+1}) <span class="math-ltr">${q.text}${q.correct}</span></span>
+                                    <span>${q.userAnswer === "انتهى الوقت" ? "انتهى الوقت" : "إجابتك: " + q.userAnswer} (${q.timeSpent}s)</span>
                                 </div>
-                            `}).join('')}
+                            `).join('')}
                         </div>
-                        <div style="margin-top:25px; display:flex; gap:10px; justify-content: center;">
-                            <button class="btn-main" onclick="location.reload()">اختبار جديد</button>
-                            <button class="btn-main" style="background-color: #4b5563;" onclick="instance.download()">تحميل الإجابات</button>
+                        <div style="margin-top:25px; display:flex; gap:10px;">
+                            <button class="btn-main" onclick="location.reload()" style="flex:1">اختبار جديد</button>
+                            <button class="btn-main" onclick="instance.download()" style="background:#4b5563; flex:1">تحميل الإجابات</button>
                         </div>
                     </div>
                 `;
@@ -502,25 +402,22 @@
 
             download() {
                 const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
-                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / this.questions.length).toFixed(1);
-                
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
                 const BOM = '\uFEFF';
-                let csv = 'رقم,السؤال,الصحيح,الاجابة,المدة,النتيجة\n';
+                let csv = 'رقم,السؤال,الصحيح,الإجابة,المدة,النتيجة\n';
                 this.questions.forEach((q, i) => {
-                    csv += `${i+1},"${q.question.replace('=','')}",${q.correctAnswer},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
+                    csv += `${i+1},"${q.text.replace('=','')}",${q.correct},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
                 });
-                
-                csv += `\nالاسم,${this.playerName}\nالنقطة,${this.score}\nاجمالي وقت الاجابات الصحيحة,${totalCorrectTime}s\n`;
-                csv += `متوسط السرعة,${avgTime}s\n`;
-                
+                csv += `\nالاسم,${this.playerName}\nالمستوى,${this.selectedLevel}\nالنقطة,${this.score}\nإجمالي وقت الإجابات الصحيحة,${totalCorrectTime}s\nمتوسط السرعة,${avgTime}s\n`;
                 const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = `${this.playerName.replace(/[\\/:*?"<>|]/g, '_')}_results.csv`;
+                link.download = `${this.playerName}_subtraction_results.csv`;
                 link.click();
             }
         }
-        const instance = new MultiplicationQuiz();
+
+        const instance = new SubtractionQuiz();
     </script>
 </body>
 </html>

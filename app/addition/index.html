@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار الجمع السريع</title>
+    <title>اختبار الطرح السريع</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
@@ -90,19 +90,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- الهيدر المطلوب بالضبط --- */
         .header {
             padding: 15px 20px;
             border-bottom: 1px solid #eee;
             display: flex;
-            justify-content: space-between;
             align-items: center;
             background: #fff;
             position: relative;
+            justify-content: space-between;
         }
 
-        /* 1. اليمين: الصورة والاسم ورقم السؤال */
-        .header-player-box {
+        .header-player-info {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -112,7 +110,6 @@
         .player-info h1 { font-size: 1.1rem; color: var(--primary); margin: 0; }
         .player-name { font-size: 0.85rem; color: var(--text-light); }
 
-        /* 2. المنتصف: المستوى */
         .level-header {
             font-weight: bold;
             color: #555;
@@ -120,19 +117,19 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            white-space: nowrap;
         }
         .level-header span { color: var(--error); }
 
-        /* 3. اليسار: النقاط */
         .score-badge {
             font-weight: bold;
             color: var(--text-main);
             font-size: 1rem;
+            text-align: left;
         }
 
         .quiz-content { padding: 25px; }
 
-        /* --- تنسيق العداد: النص يمين والرقم يسار --- */
         .timer-wrapper {
             display: flex;
             justify-content: space-between;
@@ -192,12 +189,12 @@
 
     <script>
         const LEVELS_DATA = {
-            "مبتدئ": [[1,6],[1,7],[1,8],[1,9],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[3,3],[3,4],[3,5],[3,6],[4,4],[4,5],[4,6],[5,5]],
-            "متوسط": [[3,7],[3,8],[3,9],[4,8],[4,9],[4,7],[5,6],[5,7],[5,8],[5,9],[6,6],[6,7],[6,8],[6,9],[7,7],[7,8],[7,9],[8,8],[8,9],[9,9]],
-            "متقدم": [[10,9],[11,7],[12,6],[13,8],[14,5],[15,6],[16,7],[17,4],[18,3],[19,2],[11,9],[12,7],[13,6],[14,8],[15,9],[16,6],[17,7],[18,4],[19,3],[10,13]]
+            "مبتدئ": [[6,1],[7,1],[8,1],[9,1],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[3,3],[4,3],[5,3],[6,3],[4,4],[5,4],[6,4],[5,5]],
+            "متوسط": [[7,3],[8,3],[9,3],[8,4],[9,4],[7,4],[6,5],[7,5],[8,5],[9,5],[6,6],[7,6],[8,6],[9,6],[7,7],[8,7],[9,7],[8,8],[9,8],[9,9]],
+            "متقدم": [[10,9],[11,7],[12,6],[13,8],[14,5],[15,6],[16,7],[17,4],[18,3],[19,2],[11,9],[12,7],[13,6],[14,8],[15,9],[16,6],[17,7],[18,4],[19,3],[13,10]]
         };
 
-        class AdditionQuiz {
+        class SubtractionQuiz {
             constructor() {
                 this.users = [
                     { name: "ندى", photo: "girl.jpg" },
@@ -219,7 +216,7 @@
             renderWelcome() {
                 this.quizApp.innerHTML = `
                     <div class="welcome-screen">
-                        <h1>اختبار الجمع السريع</h1>
+                        <h1>اختبار الطرح السريع</h1>
                         <div class="welcome-form-container">
                             <img id="userPhotoPreview" src="" alt="">
                             <select id="userSelect">
@@ -237,7 +234,6 @@
                         </div>
                     </div>
                 `;
-
                 const sel = document.getElementById('userSelect');
                 const lvl = document.getElementById('levelSelect');
                 const btn = document.getElementById('startBtn');
@@ -249,42 +245,35 @@
                     btn.disabled = !(nameOk && lvl.value !== "");
                 };
 
-                sel.addEventListener('change', () => {
+                sel.onchange = () => {
                     const user = this.users.find(u => u.name === sel.value);
                     img.src = user.photo;
                     img.style.display = 'block';
                     customInp.classList.toggle('hidden', sel.value !== "اسمك هنا");
                     checkReady();
-                });
-
-                lvl.addEventListener('change', checkReady);
-                customInp.addEventListener('input', checkReady);
-                btn.addEventListener('click', () => {
+                };
+                lvl.onchange = checkReady;
+                customInp.oninput = checkReady;
+                btn.onclick = () => {
                     this.playerName = (sel.value === "اسمك هنا") ? customInp.value.trim() : sel.value;
                     this.selectedLevel = lvl.value;
                     this.selectedPhoto = img.src;
                     this.startQuiz();
-                });
+                };
             }
 
             startQuiz() {
                 this.score = 0;
                 this.currentIndex = 0;
                 this.questions = LEVELS_DATA[this.selectedLevel].map(pair => {
-                    const swap = Math.random() > 0.5;
-                    const n1 = swap ? pair[1] : pair[0];
-                    const n2 = swap ? pair[0] : pair[1];
-                    const res = n1 + n2;
+                    const n1 = pair[0], n2 = pair[1];
+                    const res = n1 - n2;
                     let opts = new Set([res]);
                     while(opts.size < 4) {
                         let alt = res + (Math.floor(Math.random() * 7) - 3);
                         if(alt >= 0 && alt !== res) opts.add(alt);
                     }
-                    return {
-                        text: `${n1} + ${n2} = `,
-                        correct: res.toString(),
-                        options: this.shuffle(Array.from(opts).map(String))
-                    };
+                    return { text: `${n1} - ${n2} = `, correct: res.toString(), options: this.shuffle(Array.from(opts).map(String)) };
                 });
                 this.shuffle(this.questions);
                 this.renderQuestion();
@@ -294,7 +283,7 @@
                 const q = this.questions[this.currentIndex];
                 this.quizApp.innerHTML = `
                     <div class="header">
-                        <div class="header-player-box">
+                        <div class="header-player-info">
                             <img src="${this.selectedPhoto}" class="header-photo">
                             <div class="player-info">
                                 <h1>السؤال ${this.currentIndex + 1}</h1>
@@ -401,11 +390,16 @@
                 const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
                 const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
                 const BOM = '\uFEFF';
+                
                 let csv = 'رقم,السؤال,الصحيح,الإجابة,المدة,النتيجة\n';
                 this.questions.forEach((q, i) => {
-                    csv += `${i+1},"${q.text.replace('=','')}",${q.correct},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
+                    // تم إضافة \t (Tab) قبل السؤال لمنع إكسيل من تحويله لتاريخ
+                    const questionText = q.text.replace('=','').trim();
+                    csv += `${i+1},"\t${questionText}",${q.correct},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
                 });
+                
                 csv += `\nالاسم,${this.playerName}\nالمستوى,${this.selectedLevel}\nالنقطة,${this.score}\nإجمالي وقت الإجابات الصحيحة,${totalCorrectTime}s\nمتوسط السرعة,${avgTime}s\n`;
+                
                 const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
@@ -413,8 +407,7 @@
                 link.click();
             }
         }
-
-        const instance = new AdditionQuiz();
+        const instance = new SubtractionQuiz();
     </script>
 </body>
 </html>
