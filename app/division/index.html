@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة القسمة الممتعة!</title>
+    <!-- خط طفولي ومرح يدعم العربية والأرقام -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        :root {
+            /* ألوان طفولية زاهية */
+            --bg-page: #e0f2fe; /* أزرق سماوي فاتح */
+            --card-bg: #ffffff;
+            --primary: #0ea5e9;
+            --primary-shadow: #0284c7;
+            --secondary: #f59e0b; /* برتقالي مرح */
+            --secondary-shadow: #d97706;
+            --success: #22c55e;
+            --success-shadow: #16a34a;
+            --error: #ef4444;
+            --error-shadow: #dc2626;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --radius: 24px; /* حواف دائرية جداً */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Baloo Bhaijaan 2', cursive, sans-serif;
+            background-color: var(--bg-page);
+            background-image: radial-gradient(#bae6fd 2px, transparent 2px);
+            background-size: 30px 30px; /* خلفية منقطة مرحة */
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* تم التعديل لتجنب قص الشاشة من الأعلى عند التمرير */
+            min-height: 100vh;
+            padding: 40px 15px; /* تم إضافة مساحة من الأعلى والأسفل */
+        }
+
+        .quiz-container {
+            background-color: var(--card-bg);
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 8px 0px #cbd5e1; /* ظل كرتوني */
+            border: 4px solid #fff;
+            width: 100%;
+            max-width: 700px;
+            min-height: 480px;
+            margin: auto; /* للحفاظ على التوسيط إذا كانت الشاشة قصيرة */
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .welcome-screen {
+            background-color: #f0f9ff;
+            background-image: url('bg.webp');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .welcome-form-container {
+            width: 100%;
+            max-width: 320px;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+            border: 2px solid #fff;
+        }
+
+        .welcome-screen h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 2px 2px 0px #fff, 0px 4px 0px #bae6fd;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .welcome-screen select, .welcome-screen input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 16px;
+            border: 3px solid #e2e8f0;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-family: inherit;
+            background-color: #fff;
+            outline: none;
+            color: var(--text-main);
+            font-weight: 600;
+            transition: border-color 0.2s;
+        }
+
+        .welcome-screen select:focus, .welcome-screen input:focus {
+            border-color: var(--primary);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* --- الهيدر (شريط المعلومات) --- */
+        .header {
+            padding: 15px 25px;
+            border-bottom: 3px dashed #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            position: relative;
+        }
+
+        .header-player-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .header-photo { 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid var(--secondary); 
+            background: #fff;
+            box-shadow: 0 4px 0 var(--secondary-shadow);
+        }
+        
+        .player-info h1 { font-size: 1.3rem; color: var(--primary); margin: 0; font-weight: 800; line-height: 1; }
+        .player-name { font-size: 1rem; color: var(--text-light); font-weight: 600;}
+
+        /* النجمة والنقاط */
+        .score-badge {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 0 var(--secondary-shadow);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .level-header {
+            text-align: center;
+            margin-top: -15px;
+            background: #fff;
+            display: inline-block;
+            padding: 2px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            border: 2px solid #e2e8f0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 0 #e2e8f0;
+        }
+        .level-header span { color: var(--primary); }
+
+        .quiz-content { padding: 35px 25px 25px; }
+
+        /* --- العداد الزمني --- */
+        .timer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+        #time-txt { 
+            color: var(--error); 
+            font-size: 1.3rem; 
+            font-weight: 800;
+            background: #fee2e2;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        .progress-container { 
+            height: 14px; 
+            background-color: #e2e8f0; 
+            border-radius: 20px; 
+            margin-bottom: 30px; 
+            overflow: hidden; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .progress-bar { 
+            height: 100%; 
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9); 
+            width: 100%; 
+            transition: width 1s linear; 
+            border-radius: 20px;
+        }
+        .progress-bar.warning { background: linear-gradient(90deg, #f87171, #ef4444); }
+
+        /* --- صندوق السؤال --- */
+        .question-box { text-align: center; margin-bottom: 30px; }
+        .question-text {
+            font-size: 3.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+            direction: ltr;
+            display: inline-block;
+            text-shadow: 2px 4px 0px #e2e8f0;
+            line-height: 1;
+        }
+
+        /* --- أزرار الإجابات (المكعبات) --- */
+        .options-area { position: relative; min-height: 180px; display: flex; flex-direction: column; justify-content: center; }
+        .waiting-msg { 
+            color: var(--secondary); 
+            font-size: 1.3rem; 
+            font-weight: 700;
+            position: absolute; 
+            width: 100%; 
+            text-align: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1;}
+            50% { transform: scale(1.05); opacity: 0.8;}
+        }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: opacity 0.3s ease; }
+        .invisible { opacity: 0; pointer-events: none; }
+        .hidden { display: none !important; }
+
+        .option-btn { 
+            background-color: #fff; 
+            border: 3px solid #e2e8f0; 
+            border-radius: 20px; 
+            padding: 20px; 
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            color: var(--primary);
+            cursor: pointer; 
+            transition: all 0.1s; 
+            font-family: inherit;
+            box-shadow: 0 6px 0 #cbd5e1;
+        }
+        
+        /* تأثير الضغط على الزر */
+        .option-btn:hover:not(:disabled) { 
+            background: #f0f9ff; 
+            border-color: #bae6fd;
+        }
+        .option-btn:active:not(:disabled) {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #cbd5e1;
+        }
+
+        /* الألوان عند الإجابة */
+        .option-btn.correct { 
+            background-color: var(--success) !important; 
+            color: white; 
+            border-color: var(--success); 
+            box-shadow: 0 6px 0 var(--success-shadow);
+            animation: bounce 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+        .option-btn.incorrect { 
+            background-color: var(--error) !important; 
+            color: white; 
+            border-color: var(--error); 
+            box-shadow: 0 6px 0 var(--error-shadow);
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        /* حركات الإجابة */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
+
+        /* --- شاشة النهاية --- */
+        .screen { padding: 40px 20px; text-align: center; }
+        
+        .btn-main { 
+            background-color: var(--secondary); 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 20px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            width: 100%; 
+            font-family: inherit;
+            box-shadow: 0 6px 0 var(--secondary-shadow);
+            transition: all 0.1s;
+        }
+        .btn-main:active:not(:disabled) {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 transparent;
+        }
+        .btn-main:disabled { background-color: #cbd5e1; box-shadow: 0 6px 0 #94a3b8; cursor: not-allowed; }
+
+        .final-score { 
+            font-size: 4.5rem; 
+            color: var(--primary); 
+            font-weight: 800; 
+            margin: 10px 0; 
+            text-shadow: 2px 3px 0px #bae6fd;
+        }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .stat-card { 
+            background: #fff; 
+            padding: 15px; 
+            border-radius: 20px; 
+            border: 3px solid #e2e8f0; 
+            box-shadow: 0 4px 0 #f1f5f9;
+        }
+        .stat-val { font-size: 1.5rem; font-weight: 800; color: var(--secondary); display: block; margin-bottom: 2px; }
+        .stat-label { font-size: 0.9rem; font-weight: 600; color: var(--text-light); display: block; }
+
+        /* تم إزالة الطول الثابت ليسمح للصفحة بالتمرير */
+        .review-list { 
+            text-align: right; 
+            margin-top: 20px; 
+            border-top: 3px dashed #e2e8f0; 
+            padding-top: 15px;
+            direction: rtl;
+        }
+        
+        .review-item { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 12px; 
+            border-bottom: 2px solid #f1f5f9; 
+            font-size: 1.1rem; 
+            font-weight: 600;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+        .math-ltr { direction: ltr; display: inline-block; font-weight: 800; font-size: 1.2rem;}
+
+        #userPhotoPreview { 
+            width: 90px; 
+            height: 90px; 
+            border-radius: 50%; 
+            margin: 0 auto 15px; 
+            display: none; 
+            border: 4px solid var(--primary); 
+            box-shadow: 0 4px 0 var(--primary-shadow);
+            object-fit: cover; 
+            background-color: white; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container" id="quizApp"></div>
+
+    <script>
+        // مصفوفة القسمة كما طلبتها بالضبط
+        const LEVELS_DATA = {
+            "مبتدئ": [[12,3], [15,3], [18,3], [0,8], [9,1], [6,2], [8,2], [10,2], [12,2], [14,2], [6,3], [8,4], [10,5], [2,2], [10,1], [20,10], [30,10], [40,10], [50,10], [100,10]],
+            "متوسط": [[18,6], [24,6], [30,6], [21,3], [24,3], [12,4], [16,4], [20,4], [24,4], [28,4], [15,5], [20,5], [25,5], [30,5], [35,5], [40,5], [45,5], [27,3], [32,4], [36,4]],
+            "متقدم": [[48,6], [54,6], [21,7], [28,7], [35,7], [42,7], [49,7], [56,7], [63,7], [32,8], [40,8], [48,8], [56,8], [64,8], [36,6], [42,6], [54,9], [63,9], [72,9], [81,9]]
+        };
+
+        class DivisionQuiz {
+            constructor() {
+                this.users = [
+                    { name: "ندى", photo: "girl.jpg" },
+                    { name: "مجد", photo: "boy.jpg" },
+                    { name: "اسمك هنا", photo: "person.jpg" }
+                ];
+                this.quizApp = document.getElementById('quizApp');
+                this.renderWelcome();
+            }
+
+            shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            renderWelcome() {
+                this.quizApp.innerHTML = `
+                    <div class="welcome-screen">
+                        <div class="welcome-form-container">
+                            <h1>🎮 تحدي الرياضيات (القسمة)</h1>
+                            <img id="userPhotoPreview" src="" alt="">
+                            <select id="userSelect">
+                                <option value="" disabled selected>👇 اختر بطلك من هنا</option>
+                                ${this.users.map(u => `<option value="${u.name}">${u.name}</option>`).join('')}
+                            </select>
+                            <input type="text" id="customNameInput" class="hidden" placeholder="اكتب اسمك ✍️">
+                            <select id="levelSelect">
+                                <option value="" disabled selected>🌟 اختر المستوى</option>
+                                <option value="مبتدئ">🟢 مبتدئ</option>
+                                <option value="متوسط">🟡 متوسط</option>
+                                <option value="متقدم">🔴 متقدم</option>
+                            </select>
+                            <button id="startBtn" class="btn-main" disabled>🚀 ابدأ اللعب!</button>
+                        </div>
+                    </div>
+                `;
+
+                const sel = document.getElementById('userSelect');
+                const lvl = document.getElementById('levelSelect');
+                const btn = document.getElementById('startBtn');
+                const img = document.getElementById('userPhotoPreview');
+                const customInp = document.getElementById('customNameInput');
+
+                const checkReady = () => {
+                    const nameOk = (sel.value === "اسمك هنا") ? customInp.value.trim() !== "" : sel.value !== "";
+                    btn.disabled = !(nameOk && lvl.value !== "");
+                };
+
+                sel.addEventListener('change', () => {
+                    const user = this.users.find(u => u.name === sel.value);
+                    img.src = user.photo;
+                    img.style.display = 'block';
+                    customInp.classList.toggle('hidden', sel.value !== "اسمك هنا");
+                    checkReady();
+                });
+
+                lvl.addEventListener('change', checkReady);
+                customInp.addEventListener('input', checkReady);
+                btn.addEventListener('click', () => {
+                    this.playerName = (sel.value === "اسمك هنا") ? customInp.value.trim() : sel.value;
+                    // نستخرج اسم المستوى بدون الإيموجي
+                    this.selectedLevel = lvl.options[lvl.selectedIndex].text.split(' ')[1]; 
+                    this.selectedPhoto = img.src;
+                    this.startQuiz();
+                });
+            }
+
+            startQuiz() {
+                this.score = 0;
+                this.currentIndex = 0;
+                this.questions = LEVELS_DATA[this.selectedLevel].map(pair => {
+                    
+                    // في عملية القسمة نأخذ الأرقام كما هي بالترتيب من المصفوفة
+                    // لضمان عدم ظهور كسور للأطفال
+                    const n1 = pair[0];
+                    const n2 = pair[1];
+                    const res = n1 / n2; 
+                    
+                    let opts = new Set([res]);
+                    while(opts.size < 4) {
+                        let alt = res + (Math.floor(Math.random() * 7) - 3);
+                        // نمنع الخيارات السالبة
+                        if(alt >= 0 && alt !== res) opts.add(alt);
+                    }
+                    return {
+                        text: `${n1} ÷ ${n2} = `, // رمز القسمة
+                        correct: res.toString(),
+                        options: this.shuffle(Array.from(opts).map(String))
+                    };
+                });
+                this.shuffle(this.questions);
+                this.renderQuestion();
+            }
+
+            renderQuestion() {
+                const q = this.questions[this.currentIndex];
+                this.quizApp.innerHTML = `
+                  <div class="header">
+                        <div class="header-player-box">
+                            <img src="${this.selectedPhoto}" class="header-photo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><circle cx=\\'50\\' cy=\\'50\\' r=\\'50\\' fill=\\'%23ccc\\'/></svg>'">
+                            <div class="player-info">
+                                <h1>السؤال ${this.currentIndex + 1}</h1>
+                                <span class="player-name">${this.playerName}</span>
+                            </div>
+                        </div>
+                        <div class="score-badge">⭐ ${this.score}</div>
+                    </div>
+                        <div class="level-header">المستوى: <span>${this.selectedLevel}</span></div>
+                    <div class="quiz-content">
+                        <div class="timer-wrapper">
+                            <span>⏳ الوقت:</span>
+                            <span id="time-txt">10s</span>
+                        </div>
+                        <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+                        <div class="question-box"><span class="question-text">${q.text} ?</span></div>
+                        <div class="options-area">
+                            <div id="waitMsg" class="waiting-msg">🤔 فكّر جيداً...</div>
+                            <div id="optionsBox" class="options-grid invisible">
+                                ${q.options.map(o => `<button class="option-btn" onclick="instance.check('${o}', this)">${o}</button>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                this.runTimer();
+            }
+
+            runTimer() {
+                let left = 10;
+                const bar = document.getElementById('bar');
+                const txt = document.getElementById('time-txt');
+                const msg = document.getElementById('waitMsg');
+                const box = document.getElementById('optionsBox');
+                this.startTs = Date.now();
+                clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    left--;
+                    txt.innerText = left + 's';
+                    bar.style.width = (left * 10) + '%';
+                    if (left <= 3) {
+                        bar.classList.add('warning');
+                        txt.style.background = '#fef2f2';
+                    }
+                    if (left <= 7) { msg.classList.add('hidden'); box.classList.remove('invisible'); }
+                    if (left <= 0) { clearInterval(this.timer); this.check(null, null); }
+                }, 1000);
+            }
+
+            check(ans, btn) {
+                clearInterval(this.timer);
+                const q = this.questions[this.currentIndex];
+                q.timeSpent = ((Date.now() - this.startTs) / 1000).toFixed(1);
+                q.userAnswer = ans || "انتهى الوقت";
+                const btns = document.querySelectorAll('.option-btn');
+                btns.forEach(b => b.disabled = true);
+                document.getElementById('waitMsg').classList.add('hidden');
+                document.getElementById('optionsBox').classList.remove('invisible');
+                if (ans === q.correct) {
+                    if (btn) btn.classList.add('correct');
+                    this.score++;
+                    q.result = "صحيح";
+                } else {
+                    if (btn) btn.classList.add('incorrect');
+                    btns.forEach(b => { 
+                        if (b.innerText === q.correct) {
+                            b.classList.add('correct'); 
+                            b.style.animation = 'none'; // نلغي القفز للزر الصحيح إذا أخطأ اللاعب
+                        }
+                    });
+                    q.result = "خطأ";
+                }
+                setTimeout(() => {
+                    this.currentIndex++;
+                    if (this.currentIndex < 20) this.renderQuestion();
+                    else this.showResults();
+                }, 1500);
+            }
+
+            showResults() {
+                const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
+                const percentage = (this.score / 20 * 100).toFixed(0);
+                
+                let titleMsg = this.score >= 18 ? "🏆 بطل حقيقي!" : this.score >= 15 ? "👏 عمل رائع!" : "💪 حاول مرة أخرى!";
+
+                this.quizApp.innerHTML = `
+                    <div class="screen">
+                        <h2 style="font-size: 2rem; color: var(--secondary); margin-bottom:10px">${titleMsg}</h2>
+                        <img src="${this.selectedPhoto}" class="header-photo" style="width:110px; height:110px; margin-bottom:15px; border-width: 5px;" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><circle cx=\\'50\\' cy=\\'50\\' r=\\'50\\' fill=\\'%23ccc\\'/></svg>'">
+                        <h2 style="margin-bottom:5px; color: var(--primary); font-size: 1.8rem;">${this.playerName}</h2>
+                        <div class="final-score">⭐ ${this.score}/20</div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card"><span class="stat-val">${totalCorrectTime}s</span><span class="stat-label">إجمالي وقت الإجابات الصحيحة ⏳</span></div>
+                            <div class="stat-card"><span class="stat-val">${this.selectedLevel}</span><span class="stat-label">مستوى الصعوبة 🎯</span></div>
+                        </div>
+                        
+                        <div class="review-list">
+                            ${this.questions.map((q, i) => `
+                                <div class="review-item" style="border-right: 5px solid ${q.result === 'صحيح' ? 'var(--success)' : 'var(--error)'}; color:${q.result === 'صحيح' ? '#16a34a' : '#dc2626'}">
+                                    <span>${i+1}) <span class="math-ltr">${q.text}${q.correct}</span></span>
+                                    <span>${q.userAnswer === "انتهى الوقت" ? "⏰ انتهى الوقت" : "إجابتك: " + q.userAnswer}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div style="margin-top:25px; display:flex; gap:15px;">
+                            <button class="btn-main" onclick="location.reload()" style="flex:2">🔄 العب مرة أخرى!</button>
+                            <button class="btn-main" onclick="instance.download()" style="background:#0ea5e9; box-shadow: 0 6px 0 #0284c7; flex:1" title="تحميل النتيجة">📥</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            download() {
+                const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
+                const BOM = '\uFEFF';
+                let csv = 'رقم,السؤال,الصحيح,الإجابة,المدة,النتيجة\n';
+                this.questions.forEach((q, i) => {
+                    csv += `${i+1},="${q.text.replace('=','').trim()}",${q.correct},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
+                });
+                csv += `\nالاسم,${this.playerName}\nالمستوى,${this.selectedLevel}\nالنقطة,${this.score}\nإجمالي وقت الإجابات الصحيحة,${totalCorrectTime}s\nمتوسط السرعة,${avgTime}s\n`;
+                const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `نتيجة_${this.playerName}.csv`;
+                link.click();
+            }
+        }
+
+        const instance = new DivisionQuiz();
+    </script>
+</body>
+</html>
