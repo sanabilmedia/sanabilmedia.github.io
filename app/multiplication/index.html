@@ -3,259 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplication Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>لعبة الضرب الممتعة!</title>
+    <!-- خط طفولي ومرح يدعم العربية والأرقام -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         :root {
-            --primary: #1a73e8;
-            --primary-dark: #1557b0;
-            --success: #22c55e;
-            --error: #ef4444;
-            --warning: #f59e0b;
-            --bg-page: #f0f2f5;
+            /* ألوان طفولية زاهية */
+            --bg-page: #e0f2fe; /* أزرق سماوي فاتح */
             --card-bg: #ffffff;
-            --text-main: #202124;
-            --text-light: #5f6368;
-            --radius: 12px;
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --primary: #0ea5e9;
+            --primary-shadow: #0284c7;
+            --secondary: #f59e0b; /* برتقالي مرح */
+            --secondary-shadow: #d97706;
+            --success: #22c55e;
+            --success-shadow: #16a34a;
+            --error: #ef4444;
+            --error-shadow: #dc2626;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --radius: 24px; /* حواف دائرية جداً */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Baloo Bhaijaan 2', cursive, sans-serif;
             background-color: var(--bg-page);
+            background-image: radial-gradient(#bae6fd 2px, transparent 2px);
+            background-size: 30px 30px; /* خلفية منقطة مرحة */
             color: var(--text-main);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* تم التعديل لتجنب قص الشاشة من الأعلى عند التمرير */
             min-height: 100vh;
-            padding: 15px;
+            padding: 40px 15px; /* تم إضافة مساحة من الأعلى والأسفل */
         }
 
         .quiz-container {
             background-color: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 8px 0px #cbd5e1; /* ظل كرتوني */
+            border: 4px solid #fff;
             width: 100%;
-            max-width: 650px; /* جعل الحاوية أعرض قليلاً لتناسب صورة الخلفية */
-            min-height: 400px;
+            max-width: 700px;
+            min-height: 480px;
+            margin: auto; /* للحفاظ على التوسيط إذا كانت الشاشة قصيرة */
             overflow: hidden;
-            animation: slideUp 0.5s ease-out;
+            animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
         }
 
-        /* --- تنسيق شاشة الترحيب مع الخلفية --- */
         .welcome-screen {
+            background-color: #f0f9ff;
             background-image: url('bg.webp');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             width: 100%;
             height: 100%;
-            min-height: 400px;
+            min-height: 480px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            text-align: center;
-        }
-
-        .welcome-screen h1 {
-            margin-bottom: 15px;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #333;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         .welcome-form-container {
             width: 100%;
-            max-width: 300px; /* لتوسيط المدخلات بين صور الأطفال */
+            max-width: 320px;
             z-index: 2;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+            border: 2px solid #fff;
+        }
+
+        .welcome-screen h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 2px 2px 0px #fff, 0px 4px 0px #bae6fd;
+            text-align: center;
+            line-height: 1.2;
         }
 
         .welcome-screen select, .welcome-screen input {
             width: 100%;
             padding: 12px 15px;
-            border-radius: var(--radius);
-            border: 2px solid #ddd;
-            font-size: 1rem;
-            margin-bottom: 10px;
-            font-family: 'Tajawal';
-            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            border: 3px solid #e2e8f0;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-family: inherit;
+            background-color: #fff;
+            outline: none;
+            color: var(--text-main);
+            font-weight: 600;
+            transition: border-color 0.2s;
         }
-        /* --- نهاية تنسيق شاشة الترحيب --- */
+
+        .welcome-screen select:focus, .welcome-screen input:focus {
+            border-color: var(--primary);
+        }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(40px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
+        /* --- الهيدر (شريط المعلومات) --- */
         .header {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
+            padding: 15px 25px;
+            border-bottom: 3px dashed #e2e8f0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to right, #ffffff, #f8faff);
+            background: #fff;
+            position: relative;
         }
 
-        .header-left { display: flex; align-items: center; gap: 12px; }
+        .header-player-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .header-photo { 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid var(--secondary); 
+            background: #fff;
+            box-shadow: 0 4px 0 var(--secondary-shadow);
+        }
+        
+        .player-info h1 { font-size: 1.3rem; color: var(--primary); margin: 0; font-weight: 800; line-height: 1; }
+        .player-name { font-size: 1rem; color: var(--text-light); font-weight: 600;}
 
-        .header-photo {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary);
-            padding: 2px;
+        /* النجمة والنقاط */
+        .score-badge {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 0 var(--secondary-shadow);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .player-info h1 { font-size: 1.1rem; color: var(--primary); }
-        .player-name { font-size: 0.85rem; color: var(--text-light); }
+        .level-header {
+            text-align: center;
+            margin-top: -15px;
+            background: #fff;
+            display: inline-block;
+            padding: 2px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            border: 2px solid #e2e8f0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 0 #e2e8f0;
+        }
+        .level-header span { color: var(--primary); }
 
-        .quiz-content { padding: 30px 24px; }
+        .quiz-content { padding: 35px 25px 25px; }
 
+        /* --- العداد الزمني --- */
         .timer-wrapper {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+        #time-txt { 
+            color: var(--error); 
+            font-size: 1.3rem; 
+            font-weight: 800;
+            background: #fee2e2;
+            padding: 2px 10px;
+            border-radius: 12px;
         }
 
-        #time { font-weight: bold; font-family: 'Roboto'; font-size: 1.1rem; }
-
-        .progress-container {
-            height: 8px;
-            background-color: #e8f0fe;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            overflow: hidden;
+        .progress-container { 
+            height: 14px; 
+            background-color: #e2e8f0; 
+            border-radius: 20px; 
+            margin-bottom: 30px; 
+            overflow: hidden; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary), #4285f4);
-            width: 100%;
-            transition: width 1s linear;
+        .progress-bar { 
+            height: 100%; 
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9); 
+            width: 100%; 
+            transition: width 1s linear; 
+            border-radius: 20px;
         }
+        .progress-bar.warning { background: linear-gradient(90deg, #f87171, #ef4444); }
 
-        .progress-bar.warning { background: var(--error); }
-
-        .question-box { text-align: center; margin-bottom: 20px; }
-
+        /* --- صندوق السؤال --- */
+        .question-box { text-align: center; margin-bottom: 30px; }
         .question-text {
-            font-size: 3rem;
+            font-size: 3.8rem;
             font-weight: 800;
             color: var(--text-main);
-            font-family: 'Roboto', sans-serif;
+            direction: ltr;
             display: inline-block;
-            direction: ltr !important; 
-            unicode-bidi: isolate;
+            text-shadow: 2px 4px 0px #e2e8f0;
+            line-height: 1;
         }
 
-        .options-area {
-            position: relative;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        /* --- أزرار الإجابات (المكعبات) --- */
+        .options-area { position: relative; min-height: 180px; display: flex; flex-direction: column; justify-content: center; }
+        .waiting-msg { 
+            color: var(--secondary); 
+            font-size: 1.3rem; 
+            font-weight: 700;
+            position: absolute; 
+            width: 100%; 
+            text-align: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            animation: pulse 1s infinite;
         }
 
-        .waiting-msg {
-            color: var(--warning);
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            position: absolute;
-            width: 100%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1;}
+            50% { transform: scale(1.05); opacity: 0.8;}
         }
 
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            transition: opacity 0.3s ease;
-        }
-
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: opacity 0.3s ease; }
         .invisible { opacity: 0; pointer-events: none; }
+        .hidden { display: none !important; }
 
-        .option-btn {
-            background-color: #fff;
-            border: 2px solid #e0e0e0;
-            border-radius: var(--radius);
-            padding: 18px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Roboto';
+        .option-btn { 
+            background-color: #fff; 
+            border: 3px solid #e2e8f0; 
+            border-radius: 20px; 
+            padding: 20px; 
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            color: var(--primary);
+            cursor: pointer; 
+            transition: all 0.1s; 
+            font-family: inherit;
+            box-shadow: 0 6px 0 #cbd5e1;
+        }
+        
+        /* تأثير الضغط على الزر */
+        .option-btn:hover:not(:disabled) { 
+            background: #f0f9ff; 
+            border-color: #bae6fd;
+        }
+        .option-btn:active:not(:disabled) {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #cbd5e1;
         }
 
-        .option-btn:hover:not(:disabled) {
-            border-color: var(--primary);
-            background-color: #f8faff;
-            transform: translateY(-2px);
+        /* الألوان عند الإجابة */
+        .option-btn.correct { 
+            background-color: var(--success) !important; 
+            color: white; 
+            border-color: var(--success); 
+            box-shadow: 0 6px 0 var(--success-shadow);
+            animation: bounce 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+        .option-btn.incorrect { 
+            background-color: var(--error) !important; 
+            color: white; 
+            border-color: var(--error); 
+            box-shadow: 0 6px 0 var(--error-shadow);
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
         }
 
-        .option-btn.correct { background-color: var(--success) !important; border-color: var(--success) !important; color: white; }
-        .option-btn.incorrect { background-color: var(--error) !important; border-color: var(--error) !important; color: white; }
+        /* حركات الإجابة */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
 
+        /* --- شاشة النهاية --- */
         .screen { padding: 40px 20px; text-align: center; }
         
-        .btn-main {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: var(--radius);
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: block;
-            width: 100%;
+        .btn-main { 
+            background-color: var(--secondary); 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 20px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            width: 100%; 
+            font-family: inherit;
+            box-shadow: 0 6px 0 var(--secondary-shadow);
+            transition: all 0.1s;
         }
+        .btn-main:active:not(:disabled) {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 transparent;
+        }
+        .btn-main:disabled { background-color: #cbd5e1; box-shadow: 0 6px 0 #94a3b8; cursor: not-allowed; }
 
-        .btn-main:disabled { background-color: #ccc; color: #888; cursor: not-allowed; }
+        .final-score { 
+            font-size: 4.5rem; 
+            color: var(--primary); 
+            font-weight: 800; 
+            margin: 10px 0; 
+            text-shadow: 2px 3px 0px #bae6fd;
+        }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .stat-card { 
+            background: #fff; 
+            padding: 15px; 
+            border-radius: 20px; 
+            border: 3px solid #e2e8f0; 
+            box-shadow: 0 4px 0 #f1f5f9;
+        }
+        .stat-val { font-size: 1.5rem; font-weight: 800; color: var(--secondary); display: block; margin-bottom: 2px; }
+        .stat-label { font-size: 0.9rem; font-weight: 600; color: var(--text-light); display: block; }
 
-        .final-score { font-size: 3.5rem; color: var(--error); font-weight: 800; font-family: 'Roboto'; }
-
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .stat-card { background: #f8f9fa; padding: 15px; border-radius: var(--radius); border: 1px solid #eee; }
-        .stat-val { font-size: 1.2rem; font-weight: bold; color: var(--primary); font-family: 'Roboto'; }
-        .stat-label { font-size: 0.8rem; color: var(--text-light); }
-
-        .review-list { margin-top: 30px; text-align: right; max-height: 250px; overflow-y: auto; padding-left: 10px; }
+        /* تم إزالة الطول الثابت ليسمح للصفحة بالتمرير */
+        .review-list { 
+            text-align: right; 
+            margin-top: 20px; 
+            border-top: 3px dashed #e2e8f0; 
+            padding-top: 15px;
+            direction: rtl;
+        }
+        
         .review-item { 
             display: flex; 
             justify-content: space-between; 
-            padding: 12px 8px; 
-            border-bottom: 1px solid #f0f0f0; 
-            font-size: 0.95rem; 
+            padding: 12px; 
+            border-bottom: 2px solid #f1f5f9; 
+            font-size: 1.1rem; 
+            font-weight: 600;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 8px;
         }
+        .math-ltr { direction: ltr; display: inline-block; font-weight: 800; font-size: 1.2rem;}
 
-        .math-review { direction: ltr !important; display: inline-block; font-family: 'Roboto'; font-weight: bold; }
-
-        .hidden { display: none !important; }
-
-        #userPhotoPreview {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: none;
-            border: 3px solid var(--primary);
-            object-fit: cover;
-            background-color: white;
+        #userPhotoPreview { 
+            width: 90px; 
+            height: 90px; 
+            border-radius: 50%; 
+            margin: 0 auto 15px; 
+            display: none; 
+            border: 4px solid var(--primary); 
+            box-shadow: 0 4px 0 var(--primary-shadow);
+            object-fit: cover; 
+            background-color: white; 
         }
     </style>
 </head>
@@ -264,48 +387,42 @@
     <div class="quiz-container" id="quizApp"></div>
 
     <script>
-        const QUIZ_QUESTIONS = [
-            { question: "9 x 2 = ", options: ["81", "18", "24", "21"], correctAnswer: "18" },
-            { question: "6 x 7 = ", options: ["27", "36", "42", "49"], correctAnswer: "42" },
-            { question: "9 x 9 = ", options: ["63", "54", "72", "81"], correctAnswer: "81" },
-            { question: "7 x 3 = ", options: ["21", "25", "24", "28"], correctAnswer: "21" },
-            { question: "6 x 9 = ", options: ["56", "54", "63", "72"], correctAnswer: "54" },
-            { question: "5 x 5 = ", options: ["20", "35", "25", "45"], correctAnswer: "25" },
-            { question: "8 x 7 = ", options: ["56", "42", "36", "48"], correctAnswer: "56" },
-            { question: "9 x 7 = ", options: ["72", "49", "63", "56"], correctAnswer: "63" },
-            { question: "6 x 3 = ", options: ["24", "18", "21", "81"], correctAnswer: "18" },
-            { question: "8 x 3 = ", options: ["42", "28", "27", "24"], correctAnswer: "24" },
-            { question: "9 x 4 = ", options: ["32", "36", "63", "18"], correctAnswer: "36" },
-            { question: "8 x 6 = ", options: ["64", "54", "48", "40"], correctAnswer: "48" },
-            { question: "7 x 4 = ", options: ["28", "27", "21", "24"], correctAnswer: "28" },
-            { question: "6 x 6 = ", options: ["32", "42", "36", "25"], correctAnswer: "36" },
-            { question: "8 x 9 = ", options: ["63", "72", "64", "81"], correctAnswer: "72" },
-            { question: "9 x 3 = ", options: ["21", "25", "24", "27"], correctAnswer: "27" },
-            { question: "8 x 8 = ", options: ["72", "64", "54", "81"], correctAnswer: "64" },
-            { question: "6 x 4 = ", options: ["24", "21", "32", "36"], correctAnswer: "24" },
-            { question: "8 x 4 = ", options: ["24", "27", "36", "32"], correctAnswer: "32" },
-            { question: "7 x 7 = ", options: ["48", "42", "49", "56"], correctAnswer: "49" }
-        ];
-
-        const PHOTO_PATH = "";
+        // مصفوفة الضرب: مبتدئ ومتوسط مصفوفات عادية، بينما متقدم كائنات بأسئلة مخصصة
+        const LEVELS_DATA = {
+            "مبتدئ": [[2,1],[2,2],[2,3],[2,4],[2,5],[3,1],[4,1],[5,1],[6,1],[7,1],[8,1],[9,1],[1,10],[2,10],[3,10],[4,10],[5,10],[6,10],[9,0],[0,1]],
+            "متوسط": [[3,3],[3,4],[3,5],[4,3],[4,4],[4,5],[5,3],[5,4],[5,5],[6,3],[6,2],[7,2],[8,2],[9,2],[10,10],[10,11],[10,12],[7,10],[8,10],[9,10]],
+            "متقدم": [
+                { question: "9 x 2 = ", options: ["81", "18", "24", "21"], correctAnswer: "18" },
+                { question: "6 x 7 = ", options: ["27", "36", "42", "49"], correctAnswer: "42" },
+                { question: "9 x 9 = ", options: ["63", "54", "72", "81"], correctAnswer: "81" },
+                { question: "7 x 3 = ", options: ["21", "25", "24", "28"], correctAnswer: "21" },
+                { question: "6 x 9 = ", options: ["56", "54", "63", "72"], correctAnswer: "54" },
+                { question: "5 x 6 = ", options: ["25", "35", "30", "45"], correctAnswer: "25" },
+                { question: "8 x 7 = ", options: ["56", "42", "36", "48"], correctAnswer: "56" },
+                { question: "9 x 7 = ", options: ["72", "49", "63", "56"], correctAnswer: "63" },
+                { question: "6 x 3 = ", options: ["24", "18", "21", "81"], correctAnswer: "18" },
+                { question: "8 x 3 = ", options: ["42", "28", "27", "24"], correctAnswer: "24" },
+                { question: "9 x 4 = ", options: ["32", "36", "63", "18"], correctAnswer: "36" },
+                { question: "8 x 6 = ", options: ["64", "54", "48", "40"], correctAnswer: "48" },
+                { question: "7 x 4 = ", options: ["28", "27", "21", "24"], correctAnswer: "28" },
+                { question: "6 x 6 = ", options: ["32", "42", "36", "25"], correctAnswer: "36" },
+                { question: "8 x 9 = ", options: ["63", "72", "64", "81"], correctAnswer: "72" },
+                { question: "9 x 3 = ", options: ["21", "25", "24", "27"], correctAnswer: "27" },
+                { question: "8 x 8 = ", options: ["72", "64", "54", "81"], correctAnswer: "64" },
+                { question: "6 x 4 = ", options: ["24", "21", "32", "36"], correctAnswer: "24" },
+                { question: "8 x 4 = ", options: ["24", "27", "36", "32"], correctAnswer: "32" },
+                { question: "7 x 7 = ", options: ["48", "42", "49", "56"], correctAnswer: "49" }
+            ]
+        };
 
         class MultiplicationQuiz {
             constructor() {
-                this.questions = [...QUIZ_QUESTIONS];
-                this.currentIndex = 0;
-                this.score = 0;
-                this.timeLimit = 10;
-                this.timer = null;
-                this.playerName = '';
-                this.selectedUserData = null;
-                this.quizApp = document.getElementById('quizApp');
-                
                 this.users = [
                     { name: "ندى", photo: "girl.jpg" },
                     { name: "مجد", photo: "boy.jpg" },
                     { name: "اسمك هنا", photo: "person.jpg" }
                 ];
-                
+                this.quizApp = document.getElementById('quizApp');
                 this.renderWelcome();
             }
 
@@ -320,90 +437,118 @@
             renderWelcome() {
                 this.quizApp.innerHTML = `
                     <div class="welcome-screen">
-                        <h1>اختبار جدول الضرب</h1>
                         <div class="welcome-form-container">
+                            <h1>🎮 تحدي الرياضيات (الضرب)</h1>
                             <img id="userPhotoPreview" src="" alt="">
                             <select id="userSelect">
-                                <option value="" disabled selected>اختر اسمك من القائمة</option>
+                                <option value="" disabled selected>👇 اختر بطلك من هنا</option>
                                 ${this.users.map(u => `<option value="${u.name}">${u.name}</option>`).join('')}
                             </select>
-                            <div id="customNameContainer" class="hidden">
-                                <input type="text" id="customNameInput" placeholder="اكتب اسمك هنا">
-                            </div>
-                            <button id="startBtn" class="btn-main" disabled>ابدأ الاختبار</button>
+                            <input type="text" id="customNameInput" class="hidden" placeholder="اكتب اسمك ✍️">
+                            <select id="levelSelect">
+                                <option value="" disabled selected>🌟 اختر المستوى</option>
+                                <option value="مبتدئ">🟢 مبتدئ</option>
+                                <option value="متوسط">🟡 متوسط</option>
+                                <option value="متقدم">🔴 متقدم</option>
+                            </select>
+                            <button id="startBtn" class="btn-main" disabled>🚀 ابدأ اللعب!</button>
                         </div>
                     </div>
                 `;
+
                 const sel = document.getElementById('userSelect');
+                const lvl = document.getElementById('levelSelect');
                 const btn = document.getElementById('startBtn');
                 const img = document.getElementById('userPhotoPreview');
                 const customInp = document.getElementById('customNameInput');
-                const customCont = document.getElementById('customNameContainer');
+
+                const checkReady = () => {
+                    const nameOk = (sel.value === "اسمك هنا") ? customInp.value.trim() !== "" : sel.value !== "";
+                    btn.disabled = !(nameOk && lvl.value !== "");
+                };
 
                 sel.addEventListener('change', () => {
-                    this.selectedUserData = this.users.find(u => u.name === sel.value);
-                    img.src = PHOTO_PATH + this.selectedUserData.photo;
+                    const user = this.users.find(u => u.name === sel.value);
+                    img.src = user.photo;
                     img.style.display = 'block';
-
-                    if (sel.value === "اسمك هنا") {
-                        customCont.classList.remove('hidden');
-                        this.playerName = customInp.value.trim();
-                        btn.disabled = this.playerName === "";
-                    } else {
-                        customCont.classList.add('hidden');
-                        this.playerName = this.selectedUserData.name;
-                        btn.disabled = false;
-                    }
+                    customInp.classList.toggle('hidden', sel.value !== "اسمك هنا");
+                    checkReady();
                 });
 
-                customInp.addEventListener('input', () => {
-                    this.playerName = customInp.value.trim();
-                    btn.disabled = this.playerName === "";
+                lvl.addEventListener('change', checkReady);
+                customInp.addEventListener('input', checkReady);
+                btn.addEventListener('click', () => {
+                    this.playerName = (sel.value === "اسمك هنا") ? customInp.value.trim() : sel.value;
+                    // نستخرج اسم المستوى بدون الإيموجي
+                    this.selectedLevel = lvl.options[lvl.selectedIndex].text.split(' ')[1]; 
+                    this.selectedPhoto = img.src;
+                    this.startQuiz();
                 });
-
-                btn.addEventListener('click', () => this.startQuiz());
             }
 
             startQuiz() {
-                this.currentIndex = 0;
                 this.score = 0;
+                this.currentIndex = 0;
+                
+                this.questions = LEVELS_DATA[this.selectedLevel].map(item => {
+                    // إذا كان العنصر عبارة عن مصفوفة عادية (مبتدئ ومتوسط)
+                    if (Array.isArray(item)) {
+                        const swap = Math.random() > 0.5;
+                        const n1 = swap ? item[1] : item[0];
+                        const n2 = swap ? item[0] : item[1];
+                        const res = n1 * n2;
+                        
+                        let opts = new Set([res]);
+                        while(opts.size < 4) {
+                            let alt = res + (Math.floor(Math.random() * 7) - 3);
+                            if(alt >= 0 && alt !== res) opts.add(alt);
+                        }
+                        return {
+                            text: `${n1} × ${n2} = `,
+                            correct: res.toString(),
+                            options: this.shuffle(Array.from(opts).map(String))
+                        };
+                    } 
+                    // إذا كان العنصر كائن مخصص (مستوى متقدم)
+                    else {
+                        return {
+                            // تغيير حرف x إلى علامة الضرب للظهور بشكل أفضل
+                            text: item.question.replace('x', '×'), 
+                            correct: item.correctAnswer.toString(),
+                            options: this.shuffle([...item.options])
+                        };
+                    }
+                });
+
                 this.shuffle(this.questions);
                 this.renderQuestion();
             }
 
             renderQuestion() {
                 const q = this.questions[this.currentIndex];
-                const photo = this.selectedUserData ? PHOTO_PATH + this.selectedUserData.photo : '';
-                const shuffledOptions = this.shuffle([...q.options]);
-
                 this.quizApp.innerHTML = `
-                    <div class="header">
-                        <div class="header-left">
-                            <img src="${photo}" class="header-photo">
+                  <div class="header">
+                        <div class="header-player-box">
+                            <img src="${this.selectedPhoto}" class="header-photo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><circle cx=\\'50\\' cy=\\'50\\' r=\\'50\\' fill=\\'%23ccc\\'/></svg>'">
                             <div class="player-info">
                                 <h1>السؤال ${this.currentIndex + 1}</h1>
                                 <span class="player-name">${this.playerName}</span>
                             </div>
                         </div>
-                        <div class="score-badge">النقاط: ${this.score}</div>
+                        <div class="score-badge">⭐ ${this.score}</div>
                     </div>
+                        <div class="level-header">المستوى: <span>${this.selectedLevel}</span></div>
                     <div class="quiz-content">
                         <div class="timer-wrapper">
-                            <span>الوقت المتبقي</span>
-                            <span id="time">${this.timeLimit}s</span>
+                            <span>⏳ الوقت:</span>
+                            <span id="time-txt">10s</span>
                         </div>
                         <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
-                        <div class="question-box">
-                            <span class="question-text">${q.question}</span>
-                        </div>
-                        
+                        <div class="question-box"><span class="question-text">${q.text} ?</span></div>
                         <div class="options-area">
-                            <div id="waitMsg" class="waiting-msg">
-                                <i class="material-icons">hourglass_empty</i> 
-                                انتظر ظهور الخيارات...
-                            </div>
+                            <div id="waitMsg" class="waiting-msg">🤔 فكّر جيداً...</div>
                             <div id="optionsBox" class="options-grid invisible">
-                                ${shuffledOptions.map(opt => `<button class="option-btn" onclick="instance.check('${opt}', this)">${opt}</button>`).join('')}
+                                ${q.options.map(o => `<button class="option-btn" onclick="instance.check('${o}', this)">${o}</button>`).join('')}
                             </div>
                         </div>
                     </div>
@@ -412,28 +557,23 @@
             }
 
             runTimer() {
-                let left = this.timeLimit;
+                let left = 10;
                 const bar = document.getElementById('bar');
-                const txt = document.getElementById('time');
+                const txt = document.getElementById('time-txt');
                 const msg = document.getElementById('waitMsg');
                 const box = document.getElementById('optionsBox');
                 this.startTs = Date.now();
                 clearInterval(this.timer);
-                
                 this.timer = setInterval(() => {
                     left--;
                     txt.innerText = left + 's';
-                    bar.style.width = (left / this.timeLimit * 100) + '%';
-                    if (left <= 3) bar.classList.add('warning');
-                    
-                    if (left <= 7) { 
-                        msg.classList.add('hidden'); 
-                        box.classList.remove('invisible'); 
+                    bar.style.width = (left * 10) + '%';
+                    if (left <= 3) {
+                        bar.classList.add('warning');
+                        txt.style.background = '#fef2f2';
                     }
-                    if (left <= 0) { 
-                        clearInterval(this.timer); 
-                        this.check(null, null); 
-                    }
+                    if (left <= 7) { msg.classList.add('hidden'); box.classList.remove('invisible'); }
+                    if (left <= 0) { clearInterval(this.timer); this.check(null, null); }
                 }, 1000);
             }
 
@@ -442,59 +582,61 @@
                 const q = this.questions[this.currentIndex];
                 q.timeSpent = ((Date.now() - this.startTs) / 1000).toFixed(1);
                 q.userAnswer = ans || "انتهى الوقت";
-                
                 const btns = document.querySelectorAll('.option-btn');
                 btns.forEach(b => b.disabled = true);
-                
                 document.getElementById('waitMsg').classList.add('hidden');
                 document.getElementById('optionsBox').classList.remove('invisible');
-                
-                if (ans === q.correctAnswer) {
+                if (ans === q.correct) {
                     if (btn) btn.classList.add('correct');
                     this.score++;
                     q.result = "صحيح";
                 } else {
                     if (btn) btn.classList.add('incorrect');
-                    btns.forEach(b => { if (b.innerText === q.correctAnswer) b.classList.add('correct'); });
+                    btns.forEach(b => { 
+                        if (b.innerText === q.correct) {
+                            b.classList.add('correct'); 
+                            b.style.animation = 'none'; // نلغي القفز للزر الصحيح إذا أخطأ اللاعب
+                        }
+                    });
                     q.result = "خطأ";
                 }
-                
                 setTimeout(() => {
                     this.currentIndex++;
-                    if (this.currentIndex < this.questions.length) this.renderQuestion();
+                    if (this.currentIndex < 20) this.renderQuestion();
                     else this.showResults();
                 }, 1500);
             }
 
             showResults() {
                 const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
-                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / this.questions.length).toFixed(1);
-                const percentage = (this.score / this.questions.length * 100).toFixed(0);
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
+                const percentage = (this.score / 20 * 100).toFixed(0);
                 
+                let titleMsg = this.score >= 18 ? "🏆 بطل حقيقي!" : this.score >= 15 ? "👏 عمل رائع!" : "💪 حاول مرة أخرى!";
+
                 this.quizApp.innerHTML = `
                     <div class="screen">
-                        <img src="${PHOTO_PATH + this.selectedUserData.photo}" class="header-photo" style="width:80px;height:80px;margin-bottom:10px">
-                        <h2>${this.playerName}</h2>
-                        <div class="final-score">${this.score}/${this.questions.length}</div>
+                        <h2 style="font-size: 2rem; color: var(--secondary); margin-bottom:10px">${titleMsg}</h2>
+                        <img src="${this.selectedPhoto}" class="header-photo" style="width:110px; height:110px; margin-bottom:15px; border-width: 5px;" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><circle cx=\\'50\\' cy=\\'50\\' r=\\'50\\' fill=\\'%23ccc\\'/></svg>'">
+                        <h2 style="margin-bottom:5px; color: var(--primary); font-size: 1.8rem;">${this.playerName}</h2>
+                        <div class="final-score">⭐ ${this.score}/20</div>
+                        
                         <div class="stats-grid">
-                            <div class="stat-card"><span class="stat-val">${percentage}%</span><br><span class="stat-label">نسبة النجاح</span></div>
-                            <div class="stat-card"><span class="stat-val">${totalCorrectTime}s</span><br><span class="stat-label">إجمالي وقت الإجابات الصحيحة</span></div>
-                            <div class="stat-card"><span class="stat-val">${avgTime}s</span><br><span class="stat-label">متوسط السرعة</span></div>
-                            <div class="stat-card"><span class="stat-val">${this.questions.length}</span><br><span class="stat-label">إجمالي الأسئلة</span></div>
+                            <div class="stat-card"><span class="stat-val">${totalCorrectTime}s</span><span class="stat-label">إجمالي وقت الإجابات الصحيحة ⏳</span></div>
+                            <div class="stat-card"><span class="stat-val">${this.selectedLevel}</span><span class="stat-label">مستوى الصعوبة 🎯</span></div>
                         </div>
+                        
                         <div class="review-list">
-                            ${this.questions.map((q, i) => {
-                                const userAnsText = q.userAnswer === "انتهى الوقت" ? q.userAnswer : `إجابتك: ${q.userAnswer}`;
-                                return `
-                                <div class="review-item" style="color:${q.result === 'صحيح' ? 'green' : 'red'}">
-                                    <span>${i+1}) <span class="math-review">${q.question}${q.correctAnswer}</span></span>
-                                    <span>${userAnsText} (${q.timeSpent}s)</span>
+                            ${this.questions.map((q, i) => `
+                                <div class="review-item" style="border-right: 5px solid ${q.result === 'صحيح' ? 'var(--success)' : 'var(--error)'}; color:${q.result === 'صحيح' ? '#16a34a' : '#dc2626'}">
+                                    <span>${i+1}) <span class="math-ltr">${q.text}${q.correct}</span></span>
+                                    <span>${q.userAnswer === "انتهى الوقت" ? "⏰ انتهى الوقت" : "إجابتك: " + q.userAnswer}</span>
                                 </div>
-                            `}).join('')}
+                            `).join('')}
                         </div>
-                        <div style="margin-top:25px; display:flex; gap:10px; justify-content: center;">
-                            <button class="btn-main" onclick="location.reload()">اختبار جديد</button>
-                            <button class="btn-main" style="background-color: #4b5563;" onclick="instance.download()">تحميل الإجابات</button>
+                        <div style="margin-top:25px; display:flex; gap:15px;">
+                            <button class="btn-main" onclick="location.reload()" style="flex:2">🔄 العب مرة أخرى!</button>
+                            <button class="btn-main" onclick="instance.download()" style="background:#0ea5e9; box-shadow: 0 6px 0 #0284c7; flex:1" title="تحميل النتيجة">📥</button>
                         </div>
                     </div>
                 `;
@@ -502,24 +644,21 @@
 
             download() {
                 const totalCorrectTime = this.questions.filter(q => q.result === "صحيح").reduce((s, q) => s + parseFloat(q.timeSpent), 0).toFixed(1);
-                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / this.questions.length).toFixed(1);
-                
+                const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
                 const BOM = '\uFEFF';
-                let csv = 'رقم,السؤال,الصحيح,الاجابة,المدة,النتيجة\n';
+                let csv = 'رقم,السؤال,الصحيح,الإجابة,المدة,النتيجة\n';
                 this.questions.forEach((q, i) => {
-                    csv += `${i+1},"${q.question.replace('=','')}",${q.correctAnswer},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
+                    csv += `${i+1},="${q.text.replace('=','').trim()}",${q.correct},"${q.userAnswer}",${q.timeSpent}s,${q.result}\n`;
                 });
-                
-                csv += `\nالاسم,${this.playerName}\nالنقطة,${this.score}\nاجمالي وقت الاجابات الصحيحة,${totalCorrectTime}s\n`;
-                csv += `متوسط السرعة,${avgTime}s\n`;
-                
+                csv += `\nالاسم,${this.playerName}\nالمستوى,${this.selectedLevel}\nالنقطة,${this.score}\nإجمالي وقت الإجابات الصحيحة,${totalCorrectTime}s\nمتوسط السرعة,${avgTime}s\n`;
                 const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = `${this.playerName.replace(/[\\/:*?"<>|]/g, '_')}_results.csv`;
+                link.download = `نتيجة_${this.playerName}.csv`;
                 link.click();
             }
         }
+
         const instance = new MultiplicationQuiz();
     </script>
 </body>
