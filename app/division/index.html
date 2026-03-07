@@ -291,6 +291,13 @@
             box-shadow: 0 6px 0 var(--error-shadow);
             animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
         }
+        /* اللون الأزرق عند انتهاء الوقت للإجابة الصحيحة */
+        .option-btn.timeout-correct {
+            background-color: var(--primary) !important; 
+            color: white; 
+            border-color: var(--primary); 
+            box-shadow: 0 6px 0 var(--primary-shadow);
+        }
 
         /* حركات الإجابة */
         @keyframes bounce {
@@ -505,7 +512,7 @@
                         </div>
                         <div class="score-badge">⭐ ${this.score}</div>
                     </div>
-                        <div class="level-header">المستوى: <span>${this.selectedLevel}</span></div>
+                        <div class="level-header">المستوى: <span>${this.selectedLevel}</span></div><br>
                     <div class="quiz-content">
                         <div class="timer-wrapper">
                             <span>⏳ الوقت:</span>
@@ -554,18 +561,30 @@
                 btns.forEach(b => b.disabled = true);
                 document.getElementById('waitMsg').classList.add('hidden');
                 document.getElementById('optionsBox').classList.remove('invisible');
+                
                 if (ans === q.correct) {
-                    if (btn) btn.classList.add('correct');
+                    if (btn) btn.classList.add('correct'); // الإجابة الصحيحة في الوقت تظهر خضراء
                     this.score++;
                     q.result = "صحيح";
                 } else {
-                    if (btn) btn.classList.add('incorrect');
-                    btns.forEach(b => { 
-                        if (b.innerText === q.correct) {
-                            b.classList.add('correct'); 
-                            b.style.animation = 'none'; // نلغي القفز للزر الصحيح إذا أخطأ اللاعب
-                        }
-                    });
+                    if (btn) {
+                        // المستخدم اختار إجابة خاطئة
+                        btn.classList.add('incorrect'); // إجابته تظهر حمراء
+                        btns.forEach(b => { 
+                            if (b.innerText === q.correct) {
+                                b.classList.add('correct'); // الإجابة الصحيحة تظهر خضراء كالمعتاد
+                                b.style.animation = 'none'; 
+                            }
+                        });
+                    } else {
+                        // المستخدم لم يضغط وانتهى الوقت
+                        btns.forEach(b => { 
+                            if (b.innerText === q.correct) {
+                                b.classList.add('timeout-correct'); // الإجابة الصحيحة تظهر باللون الأزرق
+                                b.style.animation = 'none'; 
+                            }
+                        });
+                    }
                     q.result = "خطأ";
                 }
                 setTimeout(() => {
@@ -580,7 +599,17 @@
                 const avgTime = (this.questions.reduce((s, q) => s + parseFloat(q.timeSpent), 0) / 20).toFixed(1);
                 const percentage = (this.score / 20 * 100).toFixed(0);
                 
-                let titleMsg = this.score >= 18 ? "🏆 بطل حقيقي!" : this.score >= 15 ? "👏 عمل رائع!" : "💪 حاول مرة أخرى!";
+                let titleMsg = "";
+                let playAgainBtnText = "";
+
+                // فحص الاسم لتخصيص النص حسب الجنس
+                if (this.playerName === "ندى") {
+                    titleMsg = this.score >= 18 ? "🏆 بطلة حقيقية!" : this.score >= 15 ? "👏 عمل رائع!" : "💪 حاولي مرة أخرى!";
+                    playAgainBtnText = "🔄 العبي مرة أخرى!";
+                } else {
+                    titleMsg = this.score >= 18 ? "🏆 بطل حقيقي!" : this.score >= 15 ? "👏 عمل رائع!" : "💪 حاول مرة أخرى!";
+                    playAgainBtnText = "🔄 العب مرة أخرى!";
+                }
 
                 this.quizApp.innerHTML = `
                     <div class="screen">
@@ -603,7 +632,7 @@
                             `).join('')}
                         </div>
                         <div style="margin-top:25px; display:flex; gap:15px;">
-                            <button class="btn-main" onclick="location.reload()" style="flex:2">🔄 العب مرة أخرى!</button>
+                            <button class="btn-main" onclick="location.reload()" style="flex:2">${playAgainBtnText}</button>
                             <button class="btn-main" onclick="instance.download()" style="background:#0ea5e9; box-shadow: 0 6px 0 #0284c7; flex:1" title="تحميل النتيجة">📥</button>
                         </div>
                     </div>
