@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي الرياضيات - الواجهة الرئيسية</title>
+    <!-- الخط الطفولي -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #e0f2fe; 
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Baloo Bhaijaan 2', cursive, sans-serif;
+            background-color: var(--bg-page);
+            background-image: radial-gradient(#bae6fd 2px, transparent 2px);
+            background-size: 30px 30px; 
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* --- شاشة البداية (Splash Screen) --- */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f9ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        #splashScreen img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.98); }
+            100% { transform: scale(1.02); }
+        }
+
+        /* --- الحاوية الرئيسية --- */
+        .main-container {
+            background-color: var(--card-bg);
+            /* دمج الصورة bg.webp كخلفية للحاوية */
+            background-image: url('bg.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 10px 0px #cbd5e1;
+            border: 4px solid #fff;
+            width: 100%;
+            max-width: 900px; /* تم توسيع الحاوية لتظهر شخصيات الخلفية بوضوح */
+            min-height: 550px;
+            padding: 40px 20px 50px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(40px) scale(0.9);
+            display: none; /* مخفية في البداية */
+            position: relative;
+        }
+
+        .main-container.show {
+            display: block;
+            animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* حاوية النصوص */
+        .header-text {
+            position: relative;
+            z-index: 5;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #0ea5e9; /* لون أزرق مطابق للصورة */
+            text-shadow: 2px 2px 0px #fff, 0px 4px 0px #bae6fd;
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        p.subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* --- شبكة الألعاب --- */
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* عمودين */
+            gap: 15px;
+            width: 100%;
+            max-width: 480px; /* تحديد العرض لتبقى الأزرار في المنتصف بين الشخصيات */
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        .game-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 25px 15px;
+            border-radius: 24px;
+            color: white;
+            border: 3px solid rgba(255,255,255,0.3);
+            transition: all 0.15s;
+        }
+
+        .game-card:active {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 transparent !important;
+        }
+
+        .game-card .icon {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 5px;
+            font-family: sans-serif;
+            text-shadow: 2px 3px 0px rgba(0,0,0,0.15);
+        }
+
+        .game-card h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0;
+            text-shadow: 1px 2px 0px rgba(0,0,0,0.15);
+        }
+
+        /* تخصيص الألوان حسب الصورة المرفقة */
+        
+        /* 1. الطرح (أحمر) - أعلى اليمين */
+        .card-sub { background: #ef4444; box-shadow: 0 8px 0 #dc2626; }
+        .card-sub:hover { background: #f87171; border-color: #fecaca;}
+
+        /* 2. الجمع (أخضر) - أعلى اليسار */
+        .card-add { background: #22c55e; box-shadow: 0 8px 0 #16a34a; }
+        .card-add:hover { background: #4ade80; border-color: #bbf7d0;}
+
+        /* 3. القسمة (أزرق) - أسفل اليمين */
+        .card-div { background: #0ea5e9; box-shadow: 0 8px 0 #0284c7; }
+        .card-div:hover { background: #38bdf8; border-color: #bae6fd;}
+
+        /* 4. الضرب (بنفسجي) - أسفل اليسار */
+        .card-mul { background: #a855f7; box-shadow: 0 8px 0 #9333ea; }
+        .card-mul:hover { background: #c084fc; border-color: #e9d5ff;}
+
+        /* 5. المختلط (برتقالي) - يمتد على العمودين بالأسفل */
+        .card-mix { 
+            background: #f59e0b; 
+            box-shadow: 0 8px 0 #d97706; 
+            grid-column: 1 / -1; /* يأخذ العرض بالكامل */
+            flex-direction: row; /* النص والأيقونة بجانب بعض */
+            gap: 15px;
+            padding: 20px;
+        }
+        .card-mix:hover { background: #fbbf24; border-color: #fef3c7;}
+        .card-mix .icon { margin-bottom: 0; font-size: 3.5rem; }
+
+        /* التجاوب مع شاشات الهواتف الصغيرة جداً */
+        @media (max-width: 480px) {
+            .games-grid { gap: 10px; max-width: 100%; padding: 0 10px; }
+            .game-card { padding: 15px 10px; }
+            .game-card .icon { font-size: 3rem; }
+            .game-card h2 { font-size: 1.2rem; }
+            h1 { font-size: 2.5rem; }
+            .card-mix .icon { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة البداية (تظهر لمدة 3 ثواني) -->
+    <div id="splashScreen">
+        <!-- تأكد من وجود صورة splash.webp في نفس المجلد -->
+        <img src="splash.webp" alt="مرحباً بكم في تحدي الرياضيات">
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div id="mainContent" class="main-container">
+        
+        <div class="header-text">
+            <h1>تحدي الرياضيات</h1>
+            <p class="subtitle">اختر التحدي الذي تريد أن تلعبه اليوم!</p>
+        </div>
+        
+        <!-- شبكة الأزرار -->
+        <div class="games-grid">
+            
+            <!-- الصف الأول -->
+            <!-- 1. تحدي الطرح (أحمر يمين) -->
+            <a href="https://sanabilmedia.com/app/soustraction" class="game-card card-sub">
+                <div class="icon">-</div>
+                <h2>تحدي الطرح</h2>
+            </a>
+
+            <!-- 2. تحدي الجمع (أخضر يسار) -->
+            <a href="https://sanabilmedia.com/app/addition" class="game-card card-add">
+                <div class="icon">+</div>
+                <h2>تحدي الجمع</h2>
+            </a>
+
+            <!-- الصف الثاني -->
+            <!-- 3. تحدي القسمة (أزرق يمين) -->
+            <a href="https://sanabilmedia.com/app/division" class="game-card card-div">
+                <div class="icon">÷</div>
+                <h2>تحدي القسمة</h2>
+            </a>
+
+            <!-- 4. تحدي الضرب (بنفسجي يسار) -->
+            <a href="https://sanabilmedia.com/app/multiplication" class="game-card card-mul">
+                <div class="icon">×</div>
+                <h2>تحدي الضرب</h2>
+            </a>
+
+            <!-- الصف الثالث (يمتد بالكامل) -->
+            <!-- 5. التحدي المختلط (برتقالي) -->
+            <a href="https://sanabilmedia.com/app/mix" class="game-card card-mix">
+                <h2>التحدي المختلط (النهائي)</h2>
+                <div class="icon">🎲</div>
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        // إعداد مؤقت شاشة البداية
+        window.addEventListener('load', () => {
+            const splashScreen = document.getElementById('splashScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            // الانتظار لمدة 3 ثوانٍ (3000 ملي ثانية)
+            setTimeout(() => {
+                // إضافة تأثير التلاشي
+                splashScreen.style.opacity = '0';
+                splashScreen.style.visibility = 'hidden';
+                
+                // بعد انتهاء التلاشي نعرض المحتوى الرئيسي
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                    mainContent.classList.add('show');
+                }, 500); 
+
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
